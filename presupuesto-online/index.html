@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto Online | Eventos Tres.Cero</title>
+    <meta name="description" content="Calculá el presupuesto para tu evento con personal incluido en tiempo real.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .btn-zona.active, .btn-servicio.active {
+            border-color: #ef4444; /* red-500 */
+            background-color: #fef2f2; /* red-50 */
+            color: #b91c1c; /* red-700 */
+        }
+        .check-adicional:checked + div span:first-child {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <!-- Navegación Simplificada -->
+    <nav class="w-full bg-white shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <a href="../" class="flex items-center gap-2">
+                <span class="text-2xl font-black italic tracking-tighter text-red-600">E3.0</span>
+                <span class="font-bold text-lg uppercase tracking-widest hidden sm:block text-slate-800">Eventos Tres.Cero</span>
+            </a>
+            <a href="../" class="text-slate-500 hover:text-red-600 font-bold text-sm uppercase transition">
+                ← Volver al inicio
+            </a>
+        </div>
+    </nav>
+
+    <!-- SECCIÓN: COTIZADOR INTERACTIVO -->
+    <section class="py-12 md:py-20 px-4">
+        <div class="max-w-5xl mx-auto">
+
+            <div class="text-center mb-12">
+                <h1 class="text-xs font-black text-red-600 uppercase tracking-[0.5em] mb-4">Servicio con Personal</h1>
+                <p class="text-4xl md:text-5xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">Presupuesto en 1 Minuto</p>
+                <p class="mt-6 text-slate-500 font-medium max-w-2xl mx-auto italic">Seleccioná tu menú, adicionales y zona para obtener un valor estimado al instante.</p>
+            </div>
+
+            <div class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
+                <div class="p-8 md:p-12">
+
+                    <!-- PASO 1: DATOS BÁSICOS -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 pb-12 border-b border-slate-100 text-center md:text-left">
+                        <div class="space-y-2">
+                            <label class="text-xs font-black uppercase text-slate-400 tracking-widest">¿Cuántos invitados son?</label>
+                            <input id="cantidad-personas" type="number" min="10" value="30" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-black text-3xl text-center md:text-left focus:border-red-600 outline-none transition text-red-600">
+                            <p class="text-[10px] text-slate-400 font-bold uppercase italic">* Mínimo 10 personas</p>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-black uppercase text-slate-400 tracking-widest">Fecha estimada del evento</label>
+                            <input id="fecha-evento" type="date" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- PASO 2: ZONAS -->
+                    <div class="mb-12">
+                        <label class="text-xs font-black uppercase text-red-600 tracking-widest block mb-6 text-center">Paso 1: ¿Dónde realizás tu fiesta?</label>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                            <button type="button" class="btn-zona active p-4 rounded-xl border-2 border-slate-100 font-bold text-sm hover:bg-slate-50 transition" data-envio="15500" data-name="Zona Sur (Bernal, Quilmes, Avellaneda, Lanús)">Zona Sur</button>
+                            <button type="button" class="btn-zona p-4 rounded-xl border-2 border-slate-100 font-bold text-sm hover:bg-slate-50 transition" data-envio="35500" data-name="CABA">CABA</button>
+                            <button type="button" class="btn-zona p-4 rounded-xl border-2 border-slate-100 font-bold text-sm hover:bg-slate-50 transition" data-envio="45500" data-name="Zona Norte">Zona Norte</button>
+                            <button type="button" class="btn-zona p-4 rounded-xl border-2 border-slate-100 font-bold text-sm hover:bg-slate-50 transition" data-envio="55500" data-name="Zona Oeste">Zona Oeste</button>
+                            <button type="button" class="btn-zona p-4 rounded-xl border-2 border-slate-100 font-bold text-sm hover:bg-slate-50 transition" data-envio="65500" data-name="La Plata y alrededores">La Plata</button>
+                        </div>
+                    </div>
+
+                    <!-- PASO 3: SERVICIO BASE -->
+                    <div class="mb-12">
+                        <label class="text-xs font-black uppercase text-red-600 tracking-widest block mb-6 text-center">Paso 2: Elegí tu Menú Principal</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <button type="button" class="btn-servicio active p-6 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition" data-price="7800" data-name="Pizza Party" data-desc="Bruschettas + Empanadas + 10 variedades de pizza libre">
+                                <span class="block text-3xl mb-2">🍕</span>
+                                <span class="block font-black uppercase italic text-lg leading-tight">Pizza Party</span>
+                            </button>
+                            <button type="button" class="btn-servicio p-6 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition" data-price="8500" data-name="Tacos Party" data-desc="Bruschettas Gourmet + Pernil + Tacos Libres">
+                                <span class="block text-3xl mb-2">🌮</span>
+                                <span class="block font-black uppercase italic text-lg leading-tight">Tacos Party</span>
+                            </button>
+                            <button type="button" class="btn-servicio p-6 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition" data-price="9200" data-name="Pernil Party Full" data-desc="Tabla de fiambres + Pernil de cerdo y Res de carne">
+                                <span class="block text-3xl mb-2">🍖</span>
+                                <span class="block font-black uppercase italic text-lg leading-tight">Pernil Party</span>
+                            </button>
+                            <button type="button" class="btn-servicio p-6 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition" data-price="9900" data-name="Disco Party" data-desc="Empanadas + Pollo al disco tradicional">
+                                <span class="block text-3xl mb-2">🔥</span>
+                                <span class="block font-black uppercase italic text-lg leading-tight">Disco Party</span>
+                            </button>
+                        </div>
+                        <div id="menu-descripcion-caja" class="mt-6 p-5 bg-slate-50 rounded-2xl text-sm font-medium text-slate-600 border-l-4 border-red-600 italic">
+                            <strong>Incluye:</strong> Bruschettas + Empanadas + 10 variedades de pizza libre. Vajilla descartable premium incluida.
+                        </div>
+                    </div>
+
+                    <!-- PASO 4: ADICIONALES -->
+                    <div class="mb-12 text-center md:text-left">
+                        <label class="text-xs font-black uppercase text-red-600 tracking-widest block mb-6 text-center">Paso 3: ¿Querés sumar Adicionales Premium?</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <label class="flex items-center gap-4 p-5 rounded-2xl border-2 border-slate-100 cursor-pointer hover:bg-slate-50 transition">
+                                <input type="checkbox" class="check-adicional w-6 h-6 accent-red-600" data-price="2200" data-name="Tabla de Fiambres Completa">
+                                <div class="text-left">
+                                    <span class="block font-black uppercase text-xs">Tabla de Fiambres</span>
+                                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight leading-none">Quesos y embutidos</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-4 p-5 rounded-2xl border-2 border-slate-100 cursor-pointer hover:bg-slate-50 transition">
+                                <input type="checkbox" class="check-adicional w-6 h-6 accent-red-600" data-price="2800" data-name="Pernil Extra de Cerdo">
+                                <div class="text-left">
+                                    <span class="block font-black uppercase text-xs">Pernil de Cerdo</span>
+                                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight leading-none">Con salsas y figazzitas</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-4 p-5 rounded-2xl border-2 border-slate-100 cursor-pointer hover:bg-slate-50 transition">
+                                <input type="checkbox" class="check-adicional w-6 h-6 accent-red-600" data-price="1900" data-name="Sándwiches de Miga">
+                                <div class="text-left">
+                                    <span class="block font-black uppercase text-xs">Sándwiches Miga</span>
+                                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight leading-none">Triples surtidos premium</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- RESULTADO FINAL -->
+                    <div class="bg-slate-900 rounded-[3rem] p-8 md:p-12 text-white shadow-2xl shadow-red-900/40 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-red-600 opacity-5 rounded-full -mr-32 -mt-32"></div>
+
+                        <div class="text-center mb-10 relative z-10">
+                            <p class="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 mb-2">Presupuesto Final Estimado</p>
+                            <div id="precio-estimado" class="text-6xl md:text-8xl font-black italic tracking-tighter leading-none">$0</div>
+                        </div>
+
+                        <div class="bg-white/5 rounded-3xl p-6 md:p-10 text-sm space-y-5 mb-10 relative z-10 border border-white/5">
+                            <div id="resumen-base" class="flex flex-col md:flex-row justify-between border-b border-white/10 pb-3 gap-1"><span>Menú Seleccionado:</span> <strong class="text-red-400 uppercase italic text-lg">-</strong></div>
+                            <div id="resumen-adicionales" class="flex flex-col md:flex-row justify-between border-b border-white/10 pb-3 gap-1"><span>Adicionales sumados:</span> <strong class="text-red-400 text-xs">-</strong></div>
+                            <div id="zona-mostrada" class="flex flex-col md:flex-row justify-between border-b border-white/10 pb-3 gap-1"><span>Lugar de Cobertura:</span> <strong>-</strong></div>
+                            <div id="staff-mostrado" class="flex flex-col md:flex-row justify-between border-b border-white/10 pb-3 gap-1"><span>Personal asignado:</span> <strong>-</strong></div>
+                            <div id="pago-mostrado" class="pt-6 text-center space-y-3">
+                                <!-- Desglose automático de seña -->
+                            </div>
+                        </div>
+
+                        <div class="text-center mb-10 relative z-10">
+                            <p class="text-xs font-bold uppercase text-slate-400 leading-relaxed italic max-w-lg mx-auto">
+                                ✨ ¡Congelamos el precio de tu fecha! Recibí ahora la propuesta formal en PDF con fotos reales del servicio.
+                            </p>
+                        </div>
+
+                        <a id="btn-whatsapp-principal" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-6 rounded-[2rem] text-center uppercase tracking-[0.2em] transition flex items-center justify-center gap-4 shadow-xl shadow-red-900/50 group relative z-10">
+                            <span class="text-2xl">💬</span>
+                            <span>Solicitar PDF por WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="mt-12 text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest italic">
+                © 2026 Eventos Tres.Cero • Catering Premium Móvil
+            </footer>
+        </div>
+    </section>
+
+    <script>
+        var phone = "5491132664036";
+        var servicioActivo = { price: 7800, name: "Pizza Party", desc: "Bruschettas + Empanadas + 10 variedades de pizza libre" };
+        var zonaActiva = { envio: 15500, name: "Zona Sur (Bernal, Quilmes, Avellaneda, Lanús)" };
+
+        document.querySelectorAll(".btn-zona").forEach(function(btn) {
+            btn.addEventListener("click", function(e) {
+                e.preventDefault();
+                document.querySelectorAll(".btn-zona").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                zonaActiva.envio = parseInt(btn.dataset.envio);
+                zonaActiva.name = btn.dataset.name;
+                calcularPrecio();
+            });
+        });
+
+        document.querySelectorAll(".btn-servicio").forEach(function(btn) {
+            btn.addEventListener("click", function(e) {
+                e.preventDefault();
+                document.querySelectorAll(".btn-servicio").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                servicioActivo.price = parseInt(btn.dataset.price);
+                servicioActivo.name = btn.dataset.name;
+                servicioActivo.desc = btn.dataset.desc;
+                document.getElementById("menu-descripcion-caja").innerHTML = "<strong>Incluye:</strong> " + servicioActivo.desc + ". Vajilla descartable premium incluida.";
+                calcularPrecio();
+            });
+        });
+
+        function calcularPrecio(){
+            var personas = parseInt(document.getElementById("cantidad-personas").value) || 0;
+            var subtotalPorPersona = servicioActivo.price;
+            var adicionalesElegidos = [];
+
+            document.querySelectorAll(".check-adicional:checked").forEach(function(check) {
+                subtotalPorPersona += parseInt(check.dataset.price);
+                adicionalesElegidos.push(check.dataset.name);
+            });
+
+            var costCocinero = (personas < 30) ? 25000 : 0;
+            var mozos = 1;
+            if (personas > 30 && personas <= 55) { mozos = 2; }
+            else if (personas > 55 && personas <= 80) { mozos = 3; }
+            else if (personas > 80) { mozos = Math.ceil(personas / 25); }
+            var costMozos = mozos * 25000;
+            var totalFinal = (personas * subtotalPorPersona) + zonaActiva.envio + costCocinero + costMozos;
+
+            var seña = Math.round(totalFinal / 2);
+            var saldo = totalFinal - seña;
+
+            document.getElementById("precio-estimado").innerText = "$" + Math.round(totalFinal).toLocaleString();
+            document.getElementById("resumen-base").innerHTML = "<span>Menú Base:</span> <strong class='text-red-400 uppercase italic'>" + servicioActivo.name + " (" + personas + " pers.)</strong>";
+            document.getElementById("resumen-adicionales").innerHTML = "<span>Adicionales:</span> <strong class='text-red-400'>" + (adicionalesElegidos.length > 0 ? adicionalesElegidos.join(", ") : "Ninguno") + "</strong>";
+            document.getElementById("zona-mostrada").innerHTML = "<span>Ubicación:</span> <strong>" + zonaActiva.name + "</strong>";
+            document.getElementById("staff-mostrado").innerHTML = "<span>Personal incluido:</span> <strong>1 Cocinero y " + mozos + " Mozo" + (mozos > 1 ? "s" : "") + "</strong>";
+            document.getElementById("pago-mostrado").innerHTML = "<div class='bg-white/10 p-4 rounded-2xl italic'><p class='text-xs text-slate-400 uppercase mb-1'>Seña para congelar valor:</p><p class='text-2xl font-black text-red-500'>$" + seña.toLocaleString() + "</p></div><p class='text-[10px] text-slate-500 uppercase tracking-widest'>Saldo el día del evento: $" + saldo.toLocaleString() + "</p>";
+        }
+
+        document.getElementById("cantidad-personas").addEventListener("input", calcularPrecio);
+        document.querySelectorAll(".check-adicional").forEach(check => check.addEventListener("change", calcularPrecio));
+        window.addEventListener('DOMContentLoaded', calcularPrecio);
+
+        document.getElementById("btn-whatsapp-principal").addEventListener("click", function(e){
+            e.preventDefault();
+            var personas = document.getElementById("cantidad-personas").value;
+            var fecha = document.getElementById("fecha-evento").value || "A confirmar";
+            var precio = document.getElementById("precio-estimado").innerText;
+            var seña = Math.round(parseInt(precio.replace(/[^0-9.-]+/g,"")) / 2);
+
+            var adicionalesElegidos = [];
+            document.querySelectorAll(".check-adicional:checked").forEach(function(check) { adicionalesElegidos.push("- " + check.dataset.name); });
+            var stringAdicionales = adicionalesElegidos.length > 0 ? "\n➕ *Adicionales:* \n" + adicionalesElegidos.join("\n") : "\n*Adicionales:* Ninguno";
+
+            var msg = "¡Hola Eventos Tres Punto Cero! 👋 Armé mi presupuesto web:\n\n" +
+                      "🍔 *Menú:* " + servicioActivo.name + " (" + personas + " pers.)" +
+                      stringAdicionales + "\n\n" +
+                      "📍 *Detalles:*\n" +
+                      "- Fecha: " + fecha + "\n" +
+                      "- Ubicación: " + zonaActiva.name + "\n\n" +
+                      "💰 *Precio Total:* " + precio + "\n" +
+                      "📌 *Seña Reserva:* $" + seña.toLocaleString() + "\n\n" +
+                      "Quiero el PDF detallado con fotos para confirmar. ¡Gracias!";
+
+            window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg));
+        });
+    </script>
+</body>
+</html>
