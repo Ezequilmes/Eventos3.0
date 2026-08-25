@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18009767847"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18009767847');
+    </script>
+
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.open(url, '_blank');
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-18009767847/qTjuCM_a7-ccEKf_3ItD',
+          'event_callback': callback
+      });
+      return false;
+    }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perniles de Cerdo | Eventos Tres.Cero</title>
@@ -88,7 +111,7 @@
                         <p class="text-[9px] text-slate-400 mt-2 font-bold uppercase italic leading-none">Seña 50% para congelar valor. Saldo contra entrega.</p>
                     </div>
 
-                    <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20encargar%20el%20*Pernil%20Chico*%20($63.700)%20para%20mi%20evento." target="_blank" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg shadow-red-900/20">
+                    <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20encargar%20el%20*Pernil%20Chico*%20($63.700)%20para%20mi%20evento." onclick="return gtag_report_conversion('https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20encargar%20el%20*Pernil%20Chico*%20($63.700)%20para%20mi%20evento.')" target="_blank" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg shadow-red-900/20">
                         🛒 Comprar Ahora
                     </a>
                 </div>
@@ -126,7 +149,7 @@
                         <p class="text-[9px] text-slate-500 mt-2 font-bold uppercase italic text-center">Seña 50% por transferencia para reservar fecha.</p>
                     </div>
 
-                    <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Me%20interesa%20el%20*Pernil%20Mediano*%20($73.500).%20%C2%BFTienen%20disponibilidad?" target="_blank" class="w-full bg-slate-900 hover:bg-black text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg">
+                    <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Me%20interesa%20el%20*Pernil%20Mediano*%20($73.500).%20%C2%BFTienen%20disponibilidad?" onclick="return gtag_report_conversion('https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Me%20interesa%20el%20*Pernil%20Mediano*%20($73.500).%20%C2%BFTienen%20disponibilidad?')" target="_blank" class="w-full bg-slate-900 hover:bg-black text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg">
                         🛒 Comprar Ahora
                     </a>
                 </div>
@@ -163,7 +186,7 @@
                         <p class="text-[9px] text-red-600 mt-2 font-bold uppercase italic">Tarjeta de crédito +10% de recargo.</p>
                     </div>
 
-                    <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20consultar%20por%20el%20*Pernil%20Gigante*%20de%2015kg%20para%20un%20evento%20grande." target="_blank" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg shadow-red-900/20">
+                    <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20consultar%20por%20el%20*Pernil%20Gigante*%20de%2015kg%20para%20un%20evento%20grande." onclick="return gtag_report_conversion('https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20consultar%20por%20el%20*Pernil%20Gigante*%20de%2015kg%20para%20un%20evento%20grande.')" target="_blank" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg shadow-red-900/20">
                         🛒 Comprar Ahora
                     </a>
                 </div>
@@ -213,10 +236,10 @@
                         <span>📍</span> Oficinas: Monteverde 112, Fcio. Varela | Cnel. de Pinedo 2160, Quilmes
                     </p>
                     <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
-                        <span>✉️</span> Info@eventostrespuntocero.com.ar
+                        <span>✉️</span> <a href="mailto:Info@eventostrespuntocero.com.ar" onclick="return gtag_report_conversion('mailto:Info@eventostrespuntocero.com.ar')" class="hover:text-red-400 transition">Info@eventostrespuntocero.com.ar</a>
                     </p>
                     <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
-                        <span>📞</span> +54 9 11 3266-4036
+                        <span>📞</span> <a href="https://wa.me/5491132664036" onclick="return gtag_report_conversion('https://wa.me/5491132664036')" class="hover:text-red-400 transition">+54 9 11 3266-4036</a>
                     </p>
                 </div>
             </div>

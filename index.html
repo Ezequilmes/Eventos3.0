@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18009767847"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18009767847');
+    </script>
+
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.open(url, '_blank');
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-18009767847/qTjuCM_a7-ccEKf_3ItD',
+          'event_callback': callback
+      });
+      return false;
+    }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eventos Tres.Cero | Catering Móvil & Experiencias Premium</title>
@@ -34,7 +57,7 @@
                 <a href="./arma-tu-combo/" class="hover:text-red-600 transition">Combos</a>
             </div>
 
-            <a href="https://wa.me/5491132664036" target="_blank" class="bg-green-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-black text-[10px] md:text-xs uppercase tracking-widest shadow-lg hover:bg-green-600 transition flex-shrink-0">
+            <a href="https://wa.me/5491132664036" onclick="return gtag_report_conversion('https://wa.me/5491132664036')" target="_blank" class="bg-green-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-black text-[10px] md:text-xs uppercase tracking-widest shadow-lg hover:bg-green-600 transition flex-shrink-0">
                 WhatsApp
             </a>
         </div>
@@ -164,10 +187,10 @@
                         <span>📍</span> Oficinas: Monteverde 112, Fcio. Varela | Cnel. de Pinedo 2160, Quilmes
                     </p>
                     <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
-                        <span>✉️</span> Info@eventostrespuntocero.com.ar
+                        <span>✉️</span> <a href="mailto:Info@eventostrespuntocero.com.ar" onclick="return gtag_report_conversion('mailto:Info@eventostrespuntocero.com.ar')" class="hover:text-red-400 transition">Info@eventostrespuntocero.com.ar</a>
                     </p>
                     <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
-                        <span>📞</span> +54 9 11 3266-4036
+                        <span>📞</span> <a href="https://wa.me/5491132664036" onclick="return gtag_report_conversion('https://wa.me/5491132664036')" class="hover:text-red-400 transition">+54 9 11 3266-4036</a>
                     </p>
                 </div>
             </div>
