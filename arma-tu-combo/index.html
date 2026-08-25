@@ -48,7 +48,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 border-b border-slate-100 pb-10">
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">Fecha planeada *</label>
-                            <input type="date" id="ev_fecha" onchange="validarCampos()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none transition">
+                            <input type="date" id="ev_fecha" onchange="validarCampos(); calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none transition">
                         </div>
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">Localidad / Barrio del evento *</label>
@@ -276,13 +276,26 @@
             let detalleWA = "";
             let tieneItems = false;
 
+            // Lógica de aumento oculto por inflación (2% mensual acumulativo)
+            const hoy = new Date();
+            const fechaInput = document.getElementById('ev_fecha').value;
+            let multiplicador = 1;
+
+            if (fechaInput) {
+                const fechaEv = new Date(fechaInput + 'T00:00:00');
+                let mesesDiff = (fechaEv.getFullYear() - hoy.getFullYear()) * 12 + (fechaEv.getMonth() - hoy.getMonth());
+                if (mesesDiff > 0) {
+                    multiplicador = Math.pow(1.02, mesesDiff);
+                }
+            }
+
             // 1. Tabla de Fiambres
             let tablaPax = parseInt(document.getElementById('sp_tabla_pax').value) || 0;
             if (tablaPax > 0) {
                 tieneItems = true;
                 let tablasCount = Math.ceil(tablaPax / 10);
                 let factor = (tablaPax >= 30) ? 0.85 : (tablaPax >= 20 ? 0.90 : 1);
-                let sub = Math.round((tablasCount * 75000) * factor);
+                let sub = Math.round(((tablasCount * 75000) * multiplicador) * factor);
                 let badge = factor < 1 ? " <span class='text-red-500'>(DTO)</span>" : "";
                 htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-2"><span>Tabla Fiambres (${tablaPax} pers)${badge}</span><span>${formatArg(sub)}</span></div>`;
                 detalleWA += `- Tabla Fiambres ${tablaPax} pers. (${tablasCount} tablas): ${formatArg(sub)}\n`;
@@ -293,8 +306,9 @@
             let miga = parseInt(document.getElementById('sp_miga_unid').value) || 0;
             if (miga > 0) {
                 tieneItems = true;
-                let price = (miga >= 30) ? 1250 : (miga >= 20 ? 1350 : 1450);
-                let sub = miga * price;
+                let basePrice = 1450 * multiplicador;
+                let price = (miga >= 30) ? (basePrice * (1250/1450)) : (miga >= 20 ? (basePrice * (1350/1450)) : basePrice);
+                let sub = Math.round(miga * price);
                 htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-2"><span>Miga Triples (${miga} u.)</span><span>${formatArg(sub)}</span></div>`;
                 detalleWA += `- Sándwiches Miga: ${miga} u. (${formatArg(sub)})\n`;
                 total += sub;
@@ -305,10 +319,11 @@
                 let qty = parseInt(input.value) || 0;
                 if (qty > 0) {
                     tieneItems = true;
-                    let p = parseInt(input.dataset.precio);
-                    if (input.dataset.precio100 && qty >= 100) p = parseInt(input.dataset.precio100);
-                    else if (input.dataset.precio50 && qty >= 50) p = parseInt(input.dataset.precio50);
-                    let sub = qty * p;
+                    let pBase = parseInt(input.dataset.precio) * multiplicador;
+                    let pFinal = pBase;
+                    if (input.dataset.precio100 && qty >= 100) pFinal = (parseInt(input.dataset.precio100) / parseInt(input.dataset.precio)) * pBase;
+                    else if (input.dataset.precio50 && qty >= 50) pFinal = (parseInt(input.dataset.precio50) / parseInt(input.dataset.precio)) * pBase;
+                    let sub = Math.round(qty * pFinal);
                     htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-2"><span>${input.dataset.nombre} (${qty} u.)</span><span>${formatArg(sub)}</span></div>`;
                     detalleWA += `- ${input.dataset.nombre}: ${qty} u. (${formatArg(sub)})\n`;
                     total += sub;
@@ -318,12 +333,12 @@
             // Tacos
             let totalTacos = 0;
             document.querySelectorAll('.sp-taco').forEach(i => totalTacos += (parseInt(i.value) || 0));
-            let priceTaco = (totalTacos >= 25) ? 1500 : 1700;
+            let tacoBase = 1700 * multiplicador;
+            let priceTaco = (totalTacos >= 25) ? (tacoBase * (1500/1700)) : tacoBase;
             document.querySelectorAll('.sp-taco').forEach(input => {
                 let qty = parseInt(input.value) || 0;
                 if (qty > 0) {
-                    tieneItems = true;
-                    let sub = qty * priceTaco;
+                    let sub = Math.round(qty * priceTaco);
                     htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-2"><span>${input.dataset.nombre} (${qty} u.)</span><span>${formatArg(sub)}</span></div>`;
                     detalleWA += `- ${input.dataset.nombre}: ${qty} u. (${formatArg(sub)})\n`;
                     total += sub;
@@ -336,7 +351,7 @@
             let pQty = parseInt(document.getElementById('sp_pernil_qty').value) || 1;
             if (pPrice > 0) {
                 tieneItems = true;
-                let sub = pPrice * pQty;
+                let sub = Math.round((pPrice * multiplicador) * pQty);
                 let name = pSelect.options[pSelect.selectedIndex].dataset.nombre;
                 htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-2"><span>${name} (${pQty} u.)</span><span>${formatArg(sub)}</span></div>`;
                 detalleWA += `- ${name}: ${pQty} u. (${formatArg(sub)})\n`;

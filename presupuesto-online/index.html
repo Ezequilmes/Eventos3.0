@@ -63,7 +63,7 @@
                         </div>
                         <div class="space-y-2 text-center md:text-left">
                             <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">2. Fecha del Evento</label>
-                            <input id="fecha-evento" type="date" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-center outline-none focus:border-red-200 transition">
+                            <input id="fecha-evento" type="date" onchange="calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-center outline-none focus:border-red-200 transition">
                         </div>
                     </div>
 
@@ -199,7 +199,7 @@
                 </div>
             </div>
 
-            <p class="text-[9px] uppercase tracking-[0.4em] text-slate-500 font-bold italic">
+            <p class="text-[9px] uppercase tracking-[0.4em] text-slate-500 font-bold italic text-center">
                 © 2026 Eventos Tres.Cero • Catering Móvil Premium • Buenos Aires
             </p>
         </div>
@@ -241,22 +241,35 @@
         function calcularPrecio(){
             const personas = parseInt(document.getElementById("cantidad-personas").value) || 0;
 
-            let subtotalPorPersona = servicioActivo.price;
+            // Lógica de aumento oculto por inflación (2% mensual acumulativo)
+            const hoy = new Date();
+            const fechaInput = document.getElementById('fecha-evento').value;
+            let multiplicador = 1;
+
+            if (fechaInput) {
+                const fechaEv = new Date(fechaInput + 'T00:00:00');
+                let mesesDiff = (fechaEv.getFullYear() - hoy.getFullYear()) * 12 + (fechaEv.getMonth() - hoy.getMonth());
+                if (mesesDiff > 0) {
+                    multiplicador = Math.pow(1.02, mesesDiff);
+                }
+            }
+
+            let subtotalPorPersona = servicioActivo.price * multiplicador;
             let adicionalesElegidos = [];
             document.querySelectorAll(".check-adicional:checked").forEach(check => {
-                subtotalPorPersona += parseInt(check.dataset.price);
+                subtotalPorPersona += (parseInt(check.dataset.price) * multiplicador);
                 adicionalesElegidos.push(check.dataset.name);
             });
 
-            // Lógica Staff
-            const costCocinero = (personas < 30) ? 25000 : 0;
+            // Lógica Staff (Precios de personal suelen aumentar también, aplicamos multiplicador)
+            const costCocinero = (personas < 30) ? (25000 * multiplicador) : 0;
             let mozos = 1;
             if (personas > 30 && personas <= 55) { mozos = 2; }
             else if (personas > 55 && personas <= 80) { mozos = 3; }
             else if (personas > 80) { mozos = Math.ceil(personas / 25); }
-            const totalStaffCost = costCocinero + (mozos * 25000);
+            const totalStaffCost = costCocinero + (mozos * 25000 * multiplicador);
 
-            const totalFinal = (personas * subtotalPorPersona) + zonaActiva.envio + totalStaffCost;
+            const totalFinal = (personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost;
             const seña = Math.round(totalFinal / 2);
             const saldo = totalFinal - seña;
 
