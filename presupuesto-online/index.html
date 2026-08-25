@@ -194,24 +194,33 @@
 
     <!-- Footer -->
     <footer class="bg-slate-900 py-16 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 text-center">
+        <div class="max-w-7xl mx-auto px-4">
             <!-- Contenedor Fiscal y QR -->
-            <div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-10">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 mb-10">
                 <!-- QR -->
-                <div class="bg-white p-1 rounded-lg shadow-lg">
-                    <img src="../img/qr.jpg" alt="QR Fiscal" class="w-20 h-20 md:w-24 md:h-24 object-contain">
+                <div class="bg-white p-1 rounded-xl shadow-2xl flex-shrink-0">
+                    <img src="../img/qr.jpg" alt="QR Fiscal" class="w-24 h-24 object-contain">
                 </div>
 
                 <!-- Datos Fiscales -->
-                <div class="text-center md:text-left space-y-1">
-                    <p class="text-white font-black uppercase italic tracking-wider text-sm leading-tight">Eventos Tres.Cero</p>
-                    <p class="text-slate-400 text-xs font-medium">CUIT: 20343393564</p>
-                    <p class="text-slate-400 text-xs font-medium leading-tight">Dirección Comercial 1: Monteverde 112, Florencio Varela</p>
-                    <p class="text-slate-400 text-xs font-medium leading-tight">Dirección Comercial 2: Coronel de Pinedo 2160, Quilmes</p>
+                <div class="text-center md:text-left space-y-1.5">
+                    <p class="text-slate-100 font-black uppercase italic tracking-widest text-base mb-2">Eventos Tres.Cero</p>
+                    <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
+                        <span>📄</span> CUIT: 20343393564
+                    </p>
+                    <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2 text-balance">
+                        <span>📍</span> Oficinas: Monteverde 112, Fcio. Varela | Cnel. de Pinedo 2160, Quilmes
+                    </p>
+                    <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
+                        <span>✉️</span> Info@eventostrespuntocero.com.ar
+                    </p>
+                    <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
+                        <span>📞</span> +54 9 11 3266-4036
+                    </p>
                 </div>
             </div>
 
-            <p class="text-[9px] uppercase tracking-[0.4em] text-slate-500 font-bold italic text-center">
+            <p class="text-[9px] uppercase tracking-[0.4em] text-slate-600 font-bold italic text-center border-t border-white/5 pt-10">
                 © 2026 Eventos Tres.Cero • Catering Móvil Premium • Buenos Aires
             </p>
         </div>
