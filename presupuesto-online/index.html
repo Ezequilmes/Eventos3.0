@@ -358,7 +358,7 @@
             if (personas > 30 && personas <= 55) { mozos = 2; }
             else if (personas > 55 && personas <= 80) { mozos = 3; }
             else if (personas > 80) { mozos = Math.ceil(personas / 25); }
-            const totalStaffCost = costCocinero + (mozos * 25000 * multiplicador);
+            const totalStaffCost = costCocinero + (mozos * 25000);
 
             const totalFinal = (personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost;
             const seña = Math.round(totalFinal / 2);

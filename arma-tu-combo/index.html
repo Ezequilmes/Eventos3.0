@@ -137,6 +137,14 @@
                             </div>
                             <p class="text-[9px] text-slate-400 mt-2 font-medium">* Precio especial superando las 20 y 30 unidades.</p>
                         </div>
+                        <!-- Sándwich de Miga Especial -->
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100 md:col-span-2">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Sándwich de Miga Especial (Roquefort o Jamón Crudo)</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.900 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_miga_especial" data-nombre="Miga Especial" data-precio="1900" value="0" min="0" oninput="calcular()">
+                        </div>
                     </div>
 
                     <!-- 3. FINGER FOOD -->
@@ -169,14 +177,102 @@
                         <!-- Canastitas -->
                         <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
                             <div class="flex-1">
-                                <p class="font-black text-sm text-slate-800 uppercase italic">Canastitas Verdura y Queso</p>
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Canastitas Verdura, Humita, Caprese</p>
                                 <p class="text-[9px] text-slate-400 font-bold uppercase">Promo x50 $1.200 | Mayorista $1.050</p>
                             </div>
-                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_canas_verdura" data-nombre="Canastitas Verdura" data-precio="1400" data-precio-50="1200" data-precio-100="1050" value="0" min="0" step="10" oninput="calcular()">
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_canas_verdura" data-nombre="Canastitas Mix" data-precio="1400" data-precio-50="1200" data-precio-100="1050" value="0" min="0" step="10" oninput="calcular()">
                         </div>
                     </div>
 
-                    <!-- TACOS -->
+                    <!-- 3. ESPECIALIDADES, CHIPS Y FIGAZITAS -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">3. Especialidades, Chips y Figazitas</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Chips de Jamón y Queso</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.350 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_chips_jq" data-nombre="Chips Jamón y Queso" data-precio="1350" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Chips de Pollo al Verdeo</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.350 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_chips_pollo" data-nombre="Chips Pollo" data-precio="1350" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Medialunas con Jamón y Queso</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.650 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_medialunas_jq" data-nombre="Medialunas J&Q" data-precio="1650" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Figazitas de Pollo al Verdeo</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.350 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_figa_pollo" data-nombre="Figazitas Pollo" data-precio="1350" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Figazitas Rúcula y Jamón Crudo</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.650 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_figa_rucula" data-nombre="Figazitas Rúcula" data-precio="1650" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Figazitas de Carne a la Portuguesa</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.650 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_figa_carne" data-nombre="Figazitas Carne" data-precio="1650" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Figazitas de Pernil</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.450 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_figa_pernil" data-nombre="Figazitas Pernil" data-precio="1450" value="0" min="0" oninput="calcular()">
+                        </div>
+                    </div>
+
+                    <!-- 4. PINCHOS Y ARROLLADITOS PREMIUM -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">4. Pinchos y Arrolladitos Premium</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Mini Pinchos Caprese (10u)</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$6.500 (Pack x10)</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_pinchos_caprese" data-nombre="Pinchos Caprese" data-precio="650" value="0" min="0" step="10" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Mini Pinchos de Carne (10u)</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$9.500 (Pack x10)</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_pinchos_carne" data-nombre="Pinchos Carne" data-precio="950" value="0" min="0" step="10" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Arrolladito de Jamón y Quesos (20cm)</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$13.500 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_arrolladito_jq" data-nombre="Arrolladito J&Q" data-precio="13500" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Arrolladito Roquefort, Nuez y Quesos</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$19.700 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_arrolladito_roq" data-nombre="Arrolladito Roquefort" data-precio="19700" value="0" min="0" oninput="calcular()">
+                        </div>
+                    </div>
+
+                    <!-- 5. TACOS PARTY (OPCIONAL) -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">5. Tacos Party (Opcional)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
                         <div class="p-4 bg-red-50 rounded-2xl border border-red-100 text-center">
                             <label class="font-black text-[10px] uppercase block mb-2 italic">Tacos Cerdo</label>
@@ -191,10 +287,13 @@
                             <input type="number" class="sp-taco w-full p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_tacos_verdura" data-nombre="Tacos Verdura" value="0" min="0" oninput="calcular()">
                         </div>
                         <p class="md:col-span-3 text-[9px] text-slate-400 text-center font-bold uppercase italic">* Promo $1.500 superando las 24 unidades combinadas.</p>
+                        <p class="md:col-span-3 text-[10px] text-green-600 text-center font-black uppercase italic mt-2">
+                            🎉 ¡PROMO ESPECIAL! 10% OFF EN TODO EL COMBO SUPERANDO LAS 20 UNIDADES TOTALES
+                        </p>
                     </div>
 
-                    <!-- 4. PERNILES -->
-                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">3. Perniles Horneados (Con panes y 3 salsas artesanales)</h3>
+                    <!-- 6. PERNILES -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">6. Perniles Horneados (Con panes y 3 salsas artesanales)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 items-end">
                         <div class="md:col-span-2 space-y-2">
                             <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Seleccioná el tamaño deseado</label>
@@ -212,7 +311,7 @@
                     </div>
 
                     <!-- 5. PLATOS CALIENTES -->
-                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">4. Sumale un Plato Principal Caliente (Opcional)</h3>
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">7. Sumale un Plato Principal Caliente (Opcional)</h3>
                     <div class="mb-12">
                         <select id="sp_menu_caliente" onchange="calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none appearance-none cursor-pointer">
                             <option value="none">No agregar plato principal caliente</option>
@@ -225,7 +324,7 @@
                     </div>
 
                     <!-- 6. PERSONAL Y LOGISTICA -->
-                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">5. Servicio con Personal y Logística</h3>
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">8. Servicio con Personal y Logística</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                         <div class="space-y-4">
                             <label class="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 cursor-pointer hover:border-red-200 transition">
@@ -386,6 +485,7 @@
 
         function calcular() {
             let total = 0;
+            let totalUnits = 0;
             let htmlResumen = "";
             let detalleWA = "";
             let tieneItems = false;
@@ -407,6 +507,7 @@
             let tablaPax = parseInt(document.getElementById('sp_tabla_pax').value) || 0;
             if (tablaPax > 0) {
                 tieneItems = true;
+                totalUnits += (tablaPax / 10);
                 let tablasCount = Math.ceil(tablaPax / 10);
                 let factor = (tablaPax >= 30) ? 0.85 : (tablaPax >= 20 ? 0.90 : 1);
                 let sub = Math.round(((tablasCount * 75000) * multiplicador) * factor);
@@ -420,6 +521,7 @@
             let miga = parseInt(document.getElementById('sp_miga_unid').value) || 0;
             if (miga > 0) {
                 tieneItems = true;
+                totalUnits += miga;
                 let basePrice = 1450 * multiplicador;
                 let price = (miga >= 30) ? (basePrice * (1250/1450)) : (miga >= 20 ? (basePrice * (1350/1450)) : basePrice);
                 let sub = Math.round(miga * price);
@@ -428,11 +530,12 @@
                 total += sub;
             }
 
-            // 3. Finger Food
+            // 3. Finger Food y Otros (Inputs con sp-input)
             document.querySelectorAll('.sp-input').forEach(input => {
                 let qty = parseInt(input.value) || 0;
                 if (qty > 0) {
                     tieneItems = true;
+                    totalUnits += qty;
                     let pBase = parseInt(input.dataset.precio) * multiplicador;
                     let pFinal = pBase;
                     if (input.dataset.precio100 && qty >= 100) pFinal = (parseInt(input.dataset.precio100) / parseInt(input.dataset.precio)) * pBase;
@@ -452,6 +555,7 @@
             document.querySelectorAll('.sp-taco').forEach(input => {
                 let qty = parseInt(input.value) || 0;
                 if (qty > 0) {
+                    totalUnits += qty;
                     let sub = Math.round(qty * priceTaco);
                     htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-2"><span>${input.dataset.nombre} (${qty} u.)</span><span>${formatArg(sub)}</span></div>`;
                     detalleWA += `- ${input.dataset.nombre}: ${qty} u. (${formatArg(sub)})\n`;
@@ -465,11 +569,20 @@
             let pQty = parseInt(document.getElementById('sp_pernil_qty').value) || 1;
             if (pPrice > 0) {
                 tieneItems = true;
+                totalUnits += pQty;
                 let sub = Math.round((pPrice * multiplicador) * pQty);
                 let name = pSelect.options[pSelect.selectedIndex].dataset.nombre;
                 htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-2"><span>${name} (${pQty} u.)</span><span>${formatArg(sub)}</span></div>`;
                 detalleWA += `- ${name}: ${pQty} u. (${formatArg(sub)})\n`;
                 total += sub;
+            }
+
+            // Descuento por volumen (+20 unidades totales)
+            if (totalUnits > 20) {
+                let descuento = Math.round(total * 0.10);
+                total -= descuento;
+                htmlResumen += `<div class="flex justify-between text-green-500 font-black mt-2 pt-2 border-t border-white/10 uppercase italic"><span>🎁 DTO. COMBO (+20 U.)</span><span>-10%</span></div>`;
+                detalleWA += `\n🎁 DESCUENTO ESPECIAL COMBO (+20 unid.): -10%\n`;
             }
 
             // Opcionales
