@@ -34,9 +34,17 @@
     <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
     <style>
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .hero-gradient {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover; background-position: center;
+
+        /* Animación Crossfade Slideshow */
+        @keyframes crossfade {
+            0% { opacity: 0; transform: scale(1); }
+            5% { opacity: 1; }
+            25% { opacity: 1; }
+            30% { opacity: 0; transform: scale(1.1); }
+            100% { opacity: 0; }
+        }
+        .animate-crossfade {
+            animation: crossfade 20s infinite;
         }
     </style>
 </head>
@@ -64,8 +72,21 @@
     </nav>
 
     <!-- Hero -->
-    <header id="inicio" class="hero-gradient min-h-screen flex items-center justify-center text-center text-white px-4 py-32 md:py-0">
-        <div class="max-w-5xl">
+    <header id="inicio" class="relative min-h-screen flex items-center justify-center text-center text-white px-4 py-32 md:py-0 overflow-hidden">
+
+        <!-- Capa de Imágenes (Fondo Animado) -->
+        <div class="absolute inset-0 z-0">
+            <img src="./img/pizza-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 0s;" alt="Pizza Party">
+            <img src="./img/tacos-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 5s;" alt="Tacos Party">
+            <img src="./img/pernil-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 10s;" alt="Pernil Party">
+            <img src="./img/disco-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 15s;" alt="Disco Party">
+        </div>
+
+        <!-- Capa Oscura (Overlay) -->
+        <div class="absolute inset-0 bg-black/60 z-10"></div>
+
+        <!-- Contenido Frontal -->
+        <div class="max-w-5xl relative z-20">
             <h1 class="text-4xl sm:text-6xl md:text-8xl font-black uppercase italic tracking-tighter mb-4 leading-[0.8] md:leading-none text-balance">
                 Tu evento merece <br>
                 <span class="text-red-600 text-3xl sm:text-5xl md:text-8xl block mt-1 md:mt-0 italic">más que un catering</span>
