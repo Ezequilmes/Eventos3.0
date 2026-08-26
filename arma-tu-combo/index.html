@@ -50,7 +50,10 @@
         .animate-marquee {
             display: flex;
             width: max-content;
-            animation: marquee 30s linear infinite;
+            animation: marquee 60s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
         }
         @keyframes pulse-green {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
@@ -290,25 +293,46 @@
             </div>
 
             <!-- MARQUEE INFINITO DE FOTOS -->
-            <section class="mt-24 mb-12 overflow-hidden">
+            <section class="mt-24 mb-12">
                 <div class="text-center mb-10">
-                    <h3 class="text-[10px] font-black uppercase text-slate-400 tracking-[0.6em] italic">Eventos Tres.Cero</h3>
+                    <h3 class="text-[10px] font-black uppercase text-slate-400 tracking-[0.6em] italic">Galería de Eventos</h3>
                 </div>
-                <div class="relative flex">
-                    <div class="animate-marquee whitespace-nowrap flex gap-6">
-                        <img src="../img/pizza-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Pizza Party">
-                        <img src="../img/tacos-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Tacos Party">
-                        <img src="../img/pernil-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Pernil 1">
-                        <img src="../img/disco-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Disco Party">
-                        <img src="../img/pernil-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Pernil 2">
-                        <img src="../img/pernil-60.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Pernil 60">
-                        <!-- Duplicado para efecto infinito -->
-                        <img src="../img/pizza-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Pizza Party">
-                        <img src="../img/tacos-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Tacos Party">
-                        <img src="../img/pernil-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Pernil 1">
-                        <img src="../img/disco-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Disco Party">
-                        <img src="../img/pernil-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Pernil 2">
-                        <img src="../img/pernil-60.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-lg" alt="Pernil 60">
+
+                <div class="relative overflow-hidden w-full bg-white py-10">
+                    <!-- Degradados laterales para suavizar la entrada/salida -->
+                    <div class="absolute top-0 left-0 w-20 md:w-40 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
+                    <div class="absolute top-0 right-0 w-20 md:w-40 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
+
+                    <div class="flex animate-marquee hover:[animation-play-state:paused]">
+                        <div class="flex gap-6 pr-6">
+                            <img src="../img/pizza-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pizza Party 1">
+                            <img src="../img/tacos-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Tacos Party 1">
+                            <img src="../img/pernil-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 1">
+                            <img src="../img/disco-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Disco Party 1">
+                            <img src="../img/pizza-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pizza Party 2">
+                            <img src="../img/tacos-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Tacos Party 2">
+                            <img src="../img/evento-1.png" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Evento 1">
+                            <img src="../img/pernil-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 2">
+                            <img src="../img/disco-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Disco Party 2">
+                            <img src="../img/evento-2.png" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Evento 2">
+                            <img src="../img/pernil-5.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 5">
+                            <img src="../img/pernil-3.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 3">
+                        </div>
+                        <!-- Duplicado idéntico para el efecto infinito -->
+                        <div class="flex gap-6 pr-6">
+                            <img src="../img/pizza-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pizza Party 1">
+                            <img src="../img/tacos-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Tacos Party 1">
+                            <img src="../img/pernil-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 1">
+                            <img src="../img/disco-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Disco Party 1">
+                            <img src="../img/pizza-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pizza Party 2">
+                            <img src="../img/tacos-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Tacos Party 2">
+                            <img src="../img/evento-1.png" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Evento 1">
+                            <img src="../img/pernil-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 2">
+                            <img src="../img/disco-2.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Disco Party 2">
+                            <img src="../img/evento-2.png" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Evento 2">
+                            <img src="../img/pernil-5.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 5">
+                            <img src="../img/pernil-3.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 3">
+                        </div>
                     </div>
                 </div>
             </section>
