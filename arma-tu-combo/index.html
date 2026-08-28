@@ -769,12 +769,11 @@
                 htmlResumen += `
                 <div class="flex justify-between border-b border-white/10 pb-2 items-center">
                     <div class="flex flex-col">
-                        <span class="text-white font-bold">Tabla de Fiambres (x${tablaPax} pers)</span>
-                        <span class="text-[9px] text-slate-400">Precio Original: ${formatArg(subSinPromo)}</span>
+                        <span class="text-white font-bold italic uppercase tracking-tighter">Tabla de Fiambres</span>
+                        <span class="text-[9px] text-slate-400">Precio por persona: ${formatArg(Math.round(sub / tablaPax))}</span>
                     </div>
                     <div class="text-right">
-                        ${factor < 1 ? '<span class="text-[9px] text-green-500 font-black block uppercase italic">¡Promo Volumen!</span>' : ''}
-                        <span class="text-red-500 font-black text-sm">${formatArg(sub)}</span>
+                        <span class="text-red-500 font-black text-xs uppercase italic">${tablaPax} Personas</span>
                     </div>
                 </div>`;
 
@@ -797,12 +796,11 @@
                 htmlResumen += `
                 <div class="flex justify-between border-b border-white/10 pb-2 items-center">
                     <div class="flex flex-col">
-                        <span class="text-white font-bold">Miga Triples (x${miga} u.)</span>
-                        <span class="text-[9px] text-slate-400">Precio Original: ${formatArg(subSinPromo)}</span>
+                        <span class="text-white font-bold italic uppercase tracking-tighter">Miga Triples</span>
+                        <span class="text-[9px] text-slate-400">Precio por unidad: ${formatArg(Math.round(sub / miga))}</span>
                     </div>
                     <div class="text-right">
-                        ${sub < subSinPromo ? '<span class="text-[9px] text-green-500 font-black block uppercase italic">¡Promo Miga!</span>' : ''}
-                        <span class="text-red-500 font-black text-sm">${formatArg(sub)}</span>
+                        <span class="text-red-500 font-black text-xs uppercase italic">${miga} Unidades</span>
                     </div>
                 </div>`;
 
@@ -828,12 +826,11 @@
                     htmlResumen += `
                     <div class="flex justify-between border-b border-white/10 pb-2 items-center">
                         <div class="flex flex-col">
-                            <span class="text-white font-bold">${input.dataset.nombre} (x${qty} u.)</span>
-                            <span class="text-[9px] text-slate-400">Precio Original: ${formatArg(subSinPromo)}</span>
+                            <span class="text-white font-bold italic uppercase tracking-tighter">${input.dataset.nombre}</span>
+                            <span class="text-[9px] text-slate-400">Precio por unidad: ${formatArg(Math.round(sub / qty))}</span>
                         </div>
                         <div class="text-right">
-                            ${sub < subSinPromo ? '<span class="text-[9px] text-green-500 font-black block uppercase italic">¡Precio Promo!</span>' : ''}
-                            <span class="text-red-500 font-black text-sm">${formatArg(sub)}</span>
+                            <span class="text-red-500 font-black text-xs uppercase italic">${qty} Unidades</span>
                         </div>
                     </div>`;
 
@@ -858,12 +855,11 @@
                     htmlResumen += `
                     <div class="flex justify-between border-b border-white/10 pb-2 items-center">
                         <div class="flex flex-col">
-                            <span class="text-white font-bold">${input.dataset.nombre} (x${qty} u.)</span>
-                            <span class="text-[9px] text-slate-400">Precio Original: ${formatArg(subSinPromo)}</span>
+                            <span class="text-white font-bold italic uppercase tracking-tighter">${input.dataset.nombre}</span>
+                            <span class="text-[9px] text-slate-400">Precio por unidad: ${formatArg(Math.round(sub / qty))}</span>
                         </div>
                         <div class="text-right">
-                            ${sub < subSinPromo ? '<span class="text-[9px] text-green-500 font-black block uppercase italic">¡Promo Tacos!</span>' : ''}
-                            <span class="text-red-500 font-black text-sm">${formatArg(sub)}</span>
+                            <span class="text-red-500 font-black text-xs uppercase italic">${qty} Unidades</span>
                         </div>
                     </div>`;
 
@@ -886,11 +882,11 @@
                 htmlResumen += `
                 <div class="flex justify-between border-b border-white/10 pb-2 items-center">
                     <div class="flex flex-col">
-                        <span class="text-white font-bold">${name} (x${pQty} u.)</span>
-                        <span class="text-[9px] text-slate-400 italic">Especialidad de la casa</span>
+                        <span class="text-white font-bold italic uppercase tracking-tighter">${name}</span>
+                        <span class="text-[9px] text-slate-400">Precio por unidad: ${formatArg(Math.round(sub / pQty))}</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-red-500 font-black text-sm">${formatArg(sub)}</span>
+                        <span class="text-red-500 font-black text-xs uppercase italic">${pQty} Unidades</span>
                     </div>
                 </div>`;
 
