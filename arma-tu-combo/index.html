@@ -126,11 +126,121 @@
             height: 20px;
         }
 
+        .app-bottom-bar {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.85); /* Glassmorphism */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            z-index: 9999;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom); /* Soporte para iPhone con Notch */
+        }
+
+        .app-bottom-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-decoration: none;
+            color: #64748b; /* slate-500 */
+            transition: all 0.2s ease;
+        }
+
+        .app-bottom-item:active {
+            transform: scale(0.9);
+            background: rgba(0,0,0,0.03);
+        }
+
+        .app-bottom-item span {
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .app-bottom-icon {
+            width: 20px;
+            height: 20px;
+        }
+
         /* Ocultar barra en computadoras */
         @media (min-width: 769px) {
             .app-bottom-bar {
                 display: none;
             }
+        }
+
+        /* --- Paso 2: FAQ SEO & UI/UX --- */
+
+        .faq-master {
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+
+        .faq-master-trigger {
+            list-style: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: #f8fafc; /* slate-50 */
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 1.25rem;
+            color: #22c55e; /* verde whatsapp */
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .faq-master-trigger::-webkit-details-marker { display: none; }
+
+        .faq-master-trigger:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .faq-content-wrapper {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1rem;
+        }
+
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #1e293b; /* slate-800 */
+            position: relative;
+        }
+
+        .faq-item summary::-webkit-details-marker { display: none; }
+
+        .faq-answer {
+            padding: 0 1rem 1rem 1rem;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            color: #64748b; /* slate-500 */
         }
     </style>
 </head>
@@ -152,7 +262,7 @@
             </div>
 
             <a href="https://wa.me/5491132664036" target="_blank" class="bg-green-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-black text-[10px] md:text-xs uppercase tracking-widest shadow-lg hover:bg-green-600 transition flex-shrink-0">
-                WhatsApp
+                Consultar Disponibilidad por WhatsApp
             </a>
         </div>
     </nav>
@@ -494,7 +604,7 @@
 
                     <div class="flex animate-marquee hover:[animation-play-state:paused]">
                         <div class="flex gap-6 pr-6">
-                            <img src="../img/pizza-3.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pizza Party 1">
+                            <img src="../img/pizza-3.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Servicio de Pizza Party a domicilio en Quilmes">
                             <img src="../img/tacos-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Tacos Party 1">
                             <img src="../img/pernil-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 1">
                             <img src="../img/disco-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Disco Party 1">
@@ -509,7 +619,7 @@
                         </div>
                         <!-- Duplicado idéntico para el efecto infinito -->
                         <div class="flex gap-6 pr-6">
-                            <img src="../img/pizza-3.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pizza Party 1">
+                            <img src="../img/pizza-3.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Servicio de Pizza Party a domicilio en Quilmes">
                             <img src="../img/tacos-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Tacos Party 1">
                             <img src="../img/pernil-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Pernil 1">
                             <img src="../img/disco-1.jpg" class="w-64 h-48 md:w-80 md:h-60 object-cover rounded-[2.5rem] shadow-xl border border-slate-100" alt="Disco Party 1">
@@ -781,6 +891,53 @@
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.353-.883-.788-1.48-1.766-1.653-2.063-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.214 1.36.183 1.872.109.57-.083 1.758-.718 2.008-1.413.25-.694.25-1.289.175-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.87 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
     </a>
+
+    <!-- Sección de FAQ Optimizada para SEO -->
+    <div class="faq-contenedor-principal max-w-4xl mx-auto my-12 px-4">
+        <details class="faq-master group">
+            <summary class="faq-master-trigger">
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Ver Preguntas Frecuentes
+                </span>
+                <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+
+            <div class="faq-content-wrapper">
+                <!-- Pregunta 1: Pernil -->
+                <details class="faq-item">
+                    <summary>¿Con cuánta anticipación debo encargar un pernil de cerdo?</summary>
+                    <div class="faq-answer">
+                        Recomendamos reservar tu <strong>pernil de cerdo</strong> con al menos 48 a 72 horas de anticipación para garantizar la frescura y el tiempo de horneado lento de 12 horas.
+                    </div>
+                </details>
+
+                <!-- Pregunta 2: Pizza Party -->
+                <details class="faq-item">
+                    <summary>¿Qué incluye el servicio de Pizza Party a domicilio?</summary>
+                    <div class="faq-answer">
+                        Nuestro servicio de <strong>Pizza Party en Buenos Aires</strong> incluye recepción con bruschettas y empanadas, seguido de 10 variedades de pizzas artesanales libres cocinadas en el momento.
+                    </div>
+                </details>
+
+                <!-- Pregunta 3: Lunch -->
+                <details class="faq-item">
+                    <summary>¿Hacen envíos de catering y lunch a domicilio?</summary>
+                    <div class="faq-answer">
+                        Sí, enviamos nuestros <strong>combos de catering móvil</strong> listos para calentar a toda la Zona Sur (Quilmes, Bernal, Berazategui) y CABA. También ofrecemos la opción de retiro por nuestra producción en Bernal Oeste.
+                    </div>
+                </details>
+
+                <!-- Pregunta 4: Cobertura -->
+                <details class="faq-item">
+                    <summary>¿A qué zonas llega el servicio de Eventos Tres.Cero?</summary>
+                    <div class="faq-answer">
+                        Brindamos servicio de <strong>catering para eventos</strong> en Quilmes, Bernal, Avellaneda, Lanús, CABA, Zona Norte y La Plata. Consultá por los costos de logística según tu localidad.
+                    </div>
+                </details>
+            </div>
+        </details>
+    </div>
 
     <!-- Barra de Navegación Móvil (Estilo App Nativa) -->
     <nav class="app-bottom-bar">

@@ -115,6 +115,70 @@
                 display: none;
             }
         }
+
+        /* --- Paso 2: FAQ SEO & UI/UX --- */
+
+        .faq-master {
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+
+        .faq-master-trigger {
+            list-style: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: #f8fafc; /* slate-50 */
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 1.25rem;
+            color: #22c55e; /* verde whatsapp */
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .faq-master-trigger::-webkit-details-marker { display: none; }
+
+        .faq-master-trigger:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .faq-content-wrapper {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1rem;
+        }
+
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #1e293b; /* slate-800 */
+            position: relative;
+        }
+
+        .faq-item summary::-webkit-details-marker { display: none; }
+
+        .faq-answer {
+            padding: 0 1rem 1rem 1rem;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            color: #64748b; /* slate-500 */
+        }
     </style>
 </head>
 <body class="bg-white text-slate-900">
@@ -135,7 +199,7 @@
             </div>
 
             <a href="https://wa.me/5491132664036" onclick="return gtag_report_conversion('https://wa.me/5491132664036')" target="_blank" class="bg-green-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-black text-[10px] md:text-xs uppercase tracking-widest shadow-lg hover:bg-green-600 transition flex-shrink-0">
-                WhatsApp
+                Consultar Disponibilidad por WhatsApp
             </a>
         </div>
     </nav>
@@ -145,10 +209,10 @@
 
         <!-- Capa de Imágenes (Fondo Animado) -->
         <div class="absolute inset-0 z-0">
-            <img src="./img/pizza-3.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 0s;" alt="Pizza Party">
-            <img src="./img/tacos-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 5s;" alt="Tacos Party">
-            <img src="./img/pernil-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 10s;" alt="Pernil Party">
-            <img src="./img/disco-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 15s;" alt="Disco Party">
+            <img src="./img/pizza-3.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 0s;" alt="Servicio de Pizza Party premium a domicilio en Quilmes y Bernal - Eventos Tres Punto Cero">
+            <img src="./img/tacos-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 5s;" alt="Estación de Tacos Show en vivo para eventos sociales y corporativos en Buenos Aires">
+            <img src="./img/pernil-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 10s;" alt="Pernil de cerdo horneado artesanal con figazzitas y salsas para 40 personas">
+            <img src="./img/disco-1.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 animate-crossfade" style="animation-delay: 15s;" alt="Evento social con servicio de catering integral de Eventos Tres Punto Cero">
         </div>
 
         <!-- Capa Oscura (Overlay) -->
@@ -164,8 +228,8 @@
                 <p class="text-[10px] sm:text-xs md:text-xl font-black uppercase tracking-[0.2em] md:tracking-[0.5em] text-white">Pizza Party • Tacos • Perniles</p>
             </div>
             <div class="flex flex-col md:flex-row gap-4 justify-center items-center max-w-xs mx-auto md:max-w-none">
-                <a href="./presupuesto-online/" class="w-full md:w-auto bg-red-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-2xl font-black uppercase tracking-widest text-[10px] md:text-xs hover:bg-red-700 transition shadow-xl shadow-red-900/40">Presupuesto Staff</a>
-                <a href="./arma-tu-combo/" class="w-full md:w-auto bg-white text-slate-900 px-8 py-4 md:px-10 md:py-5 rounded-2xl font-black uppercase tracking-widest text-[10px] md:text-xs hover:bg-slate-100 transition shadow-xl border border-slate-200">Armar mi Combo</a>
+                <a href="./presupuesto-online/" class="w-full md:w-auto bg-red-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-2xl font-black uppercase tracking-widest text-[10px] md:text-xs hover:bg-red-700 transition shadow-xl shadow-red-900/40">Cotizar Catering con Personal</a>
+                <a href="./arma-tu-combo/" class="w-full md:w-auto bg-white text-slate-900 px-8 py-4 md:px-10 md:py-5 rounded-2xl font-black uppercase tracking-widest text-[10px] md:text-xs hover:bg-slate-100 transition shadow-xl border border-slate-200">Ver Servicio de Lunch</a>
             </div>
 
             <!-- Trust Seal Hero -->
@@ -211,27 +275,27 @@
             <div class="space-y-12 mb-24">
                 <!-- Pizza Party -->
                 <div class="max-w-5xl mx-auto bg-white rounded-[2.5rem] shadow-xl overflow-hidden flex flex-col md:flex-row border border-slate-100 group">
-                    <div class="md:w-1/2 overflow-hidden"><img src="./img/pizza-3.jpg" alt="Pizza Party" class="h-full w-full object-cover group-hover:scale-105 transition duration-700"></div>
+                    <div class="md:w-1/2 overflow-hidden"><img src="./img/pizza-3.jpg" alt="Servicio de Pizza Party premium a domicilio en Quilmes y Bernal" class="h-full w-full object-cover group-hover:scale-105 transition duration-700"></div>
                     <div class="md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
                         <h3 class="text-3xl font-black uppercase italic mb-6 text-slate-900 border-l-8 border-red-600 pl-6 leading-none">Pizza Party</h3>
                         <p class="text-slate-500 mb-8 font-medium leading-relaxed italic text-balance">Servicio estrella con recepción gourmet, 10 variedades de pizzas libres a la piedra y atención personalizada.</p>
-                        <a href="./presupuesto-online/" class="bg-red-600 text-white font-black py-4 px-8 rounded-2xl text-center uppercase tracking-widest text-xs transition shadow-lg hover:shadow-red-900/30">📋 Cotizar con Personal</a>
+                        <a href="./presupuesto-online/" class="bg-red-600 text-white font-black py-4 px-8 rounded-2xl text-center uppercase tracking-widest text-xs transition shadow-lg hover:shadow-red-900/30">📋 Cotizar Catering con Personal</a>
                     </div>
                 </div>
 
                 <!-- Tacos Party -->
                 <div class="max-w-5xl mx-auto bg-white rounded-[2.5rem] shadow-xl overflow-hidden flex flex-col md:flex-row-reverse border border-slate-100 group">
-                    <div class="md:w-1/2 overflow-hidden"><img src="./img/tacos-1.jpg" alt="Tacos Party" class="h-full w-full object-cover group-hover:scale-105 transition duration-700"></div>
+                    <div class="md:w-1/2 overflow-hidden"><img src="./img/tacos-1.jpg" alt="Estación de Tacos Show en vivo para eventos" class="h-full w-full object-cover group-hover:scale-105 transition duration-700"></div>
                     <div class="md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
                         <h3 class="text-3xl font-black uppercase italic mb-6 text-slate-900 border-l-8 border-slate-900 pl-6 leading-none">Tacos Party</h3>
                         <p class="text-slate-500 mb-8 font-medium leading-relaxed italic text-balance">Estación de tacos libres en vivo. Sabores mexicanos auténticos y una puesta en escena única para tu evento.</p>
-                        <a href="./presupuesto-online/" class="bg-slate-900 text-white font-black py-4 px-8 rounded-2xl text-center uppercase tracking-widest text-xs transition shadow-lg">📋 Cotizar con Personal</a>
+                        <a href="./presupuesto-online/" class="bg-slate-900 text-white font-black py-4 px-8 rounded-2xl text-center uppercase tracking-widest text-xs transition shadow-lg">📋 Cotizar Catering con Personal</a>
                     </div>
                 </div>
 
                 <!-- Perniles -->
                 <div class="max-w-5xl mx-auto bg-white rounded-[2.5rem] shadow-xl overflow-hidden flex flex-col md:flex-row border border-slate-100 group">
-                    <div class="md:w-1/2 overflow-hidden"><img src="./img/pernil-60.jpg" alt="Pernil Party" class="h-full w-full object-cover group-hover:scale-105 transition duration-700"></div>
+                    <div class="md:w-1/2 overflow-hidden"><img src="./img/pernil-60.jpg" alt="Pernil de cerdo horneado artesanal para fiestas" class="h-full w-full object-cover group-hover:scale-105 transition duration-700"></div>
                     <div class="md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
                         <h3 class="text-3xl font-black uppercase italic mb-6 text-slate-900 border-l-8 border-red-600 pl-6 leading-none">Pernil Party Full</h3>
                         <div class="space-y-4 mb-8">
@@ -239,7 +303,7 @@
                             <p class="text-slate-600 text-sm font-medium italic"><strong class="text-red-600 uppercase text-xs block not-italic mb-1">Entrada Caliente</strong> Empanadas caseras + Pizzetas con muzzarella.</p>
                             <p class="text-slate-600 text-sm font-medium italic"><strong class="text-red-600 uppercase text-xs block not-italic mb-1">Plato Principal</strong> Pernil de cerdo y Res vacuna desmechada con figazitas y salsas.</p>
                         </div>
-                        <a href="./perniles/" class="border-2 border-red-600 text-red-600 font-black py-4 px-8 rounded-2xl text-center uppercase tracking-widest text-xs transition hover:bg-red-600 hover:text-white">🍖 Ver Tamaños y Precios</a>
+                        <a href="./perniles/" class="border-2 border-red-600 text-red-600 font-black py-4 px-8 rounded-2xl text-center uppercase tracking-widest text-xs transition hover:bg-red-600 hover:text-white">🍖 Precios de Pernil para Fiestas</a>
                     </div>
                 </div>
             </div>
@@ -252,7 +316,7 @@
                     <h3 class="text-3xl md:text-5xl font-black mb-6 tracking-tighter uppercase italic leading-none text-white">Perniles Premium</h3>
                     <p class="text-red-100 text-lg mb-12 max-w-xl mx-auto font-medium italic text-balance">¿Buscás solo el pernil? Tenemos opciones desde 20 hasta 60 personas con salsas y figazzitas incluidas.</p>
                     <a href="./perniles/" class="bg-white text-red-600 hover:bg-slate-100 font-black py-5 px-12 rounded-[2rem] uppercase tracking-[0.2em] transition shadow-xl inline-block text-xs">
-                        🍖 Ver Tamaños y Precios Perniles
+                        Precios de Pernil para Fiestas
                     </a>
                 </div>
             </div>
@@ -263,7 +327,7 @@
                 <h3 class="text-3xl md:text-5xl font-black mb-6 tracking-tighter uppercase italic leading-none">¿Preferís cocinar vos mismo?</h3>
                 <p class="text-slate-400 text-lg mb-12 max-w-xl mx-auto font-medium italic">Llevate nuestra calidad en formato "Pre-Armado". Pizzas listas, empanadas y kits de tacos para tu casa.</p>
                 <a href="./arma-tu-combo/" class="bg-red-600 hover:bg-red-700 text-white font-black py-5 px-12 rounded-[2rem] uppercase tracking-[0.2em] transition shadow-xl shadow-red-900/50 inline-block text-xs">
-                    🛒 Armar mi Combo Online
+                    🛒 Ver Servicio de Lunch
                 </a>
             </div>
         </div>
@@ -361,6 +425,53 @@
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.353-.883-.788-1.48-1.766-1.653-2.063-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.214 1.36.183 1.872.109.57-.083 1.758-.718 2.008-1.413.25-.694.25-1.289.175-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
     </a>
+
+    <!-- Sección de FAQ Optimizada para SEO -->
+    <div class="faq-contenedor-principal max-w-4xl mx-auto my-12 px-4">
+        <details class="faq-master group">
+            <summary class="faq-master-trigger">
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Ver Preguntas Frecuentes
+                </span>
+                <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+
+            <div class="faq-content-wrapper">
+                <!-- Pregunta 1: Pernil -->
+                <details class="faq-item">
+                    <summary>¿Con cuánta anticipación debo encargar un pernil de cerdo?</summary>
+                    <div class="faq-answer">
+                        Recomendamos reservar tu <strong>pernil de cerdo</strong> con al menos 48 a 72 horas de anticipación para garantizar la frescura y el tiempo de horneado lento de 12 horas.
+                    </div>
+                </details>
+
+                <!-- Pregunta 2: Pizza Party -->
+                <details class="faq-item">
+                    <summary>¿Qué incluye el servicio de Pizza Party a domicilio?</summary>
+                    <div class="faq-answer">
+                        Nuestro servicio de <strong>Pizza Party en Buenos Aires</strong> incluye recepción con bruschettas y empanadas, seguido de 10 variedades de pizzas artesanales libres cocinadas en el momento.
+                    </div>
+                </details>
+
+                <!-- Pregunta 3: Lunch -->
+                <details class="faq-item">
+                    <summary>¿Hacen envíos de catering y lunch a domicilio?</summary>
+                    <div class="faq-answer">
+                        Sí, enviamos nuestros <strong>combos de catering móvil</strong> listos para calentar a toda la Zona Sur (Quilmes, Bernal, Berazategui) y CABA. También ofrecemos la opción de retiro por nuestra producción en Bernal Oeste.
+                    </div>
+                </details>
+
+                <!-- Pregunta 4: Cobertura -->
+                <details class="faq-item">
+                    <summary>¿A qué zonas llega el servicio de Eventos Tres.Cero?</summary>
+                    <div class="faq-answer">
+                        Brindamos servicio de <strong>catering para eventos</strong> en Quilmes, Bernal, Avellaneda, Lanús, CABA, Zona Norte y La Plata. Consultá por los costos de logística según tu localidad.
+                    </div>
+                </details>
+            </div>
+        </details>
+    </div>
 
     <!-- Barra de Navegación Móvil (Estilo App Nativa) -->
     <nav class="app-bottom-bar">

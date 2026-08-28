@@ -101,11 +101,121 @@
             height: 20px;
         }
 
+        .app-bottom-bar {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.85); /* Glassmorphism */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            z-index: 9999;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom); /* Soporte para iPhone con Notch */
+        }
+
+        .app-bottom-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-decoration: none;
+            color: #64748b; /* slate-500 */
+            transition: all 0.2s ease;
+        }
+
+        .app-bottom-item:active {
+            transform: scale(0.9);
+            background: rgba(0,0,0,0.03);
+        }
+
+        .app-bottom-item span {
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .app-bottom-icon {
+            width: 20px;
+            height: 20px;
+        }
+
         /* Ocultar barra en computadoras */
         @media (min-width: 769px) {
             .app-bottom-bar {
                 display: none;
             }
+        }
+
+        /* --- Paso 2: FAQ SEO & UI/UX --- */
+
+        .faq-master {
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+
+        .faq-master-trigger {
+            list-style: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: #f8fafc; /* slate-50 */
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 1.25rem;
+            color: #22c55e; /* verde whatsapp */
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .faq-master-trigger::-webkit-details-marker { display: none; }
+
+        .faq-master-trigger:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .faq-content-wrapper {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1rem;
+        }
+
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #1e293b; /* slate-800 */
+            position: relative;
+        }
+
+        .faq-item summary::-webkit-details-marker { display: none; }
+
+        .faq-answer {
+            padding: 0 1rem 1rem 1rem;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            color: #64748b; /* slate-500 */
         }
     </style>
 </head>
@@ -127,7 +237,7 @@
             </div>
 
             <a href="https://wa.me/5491132664036" target="_blank" class="bg-green-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-black text-[10px] md:text-xs uppercase tracking-widest shadow-lg hover:bg-green-600 transition flex-shrink-0">
-                WhatsApp
+                Consultar Disponibilidad por WhatsApp
             </a>
         </div>
     </nav>
@@ -137,7 +247,7 @@
 
     <!-- HEADER SECCIÓN -->
     <header class="py-16 bg-slate-900 text-white text-center px-4 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('../img/pernil-1.jpg')] bg-cover bg-center"></div>
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('../img/pernil-1.jpg')] bg-cover bg-center" aria-label="Pernil de cerdo horneado artesanal"></div>
         <div class="relative z-10">
             <h1 class="text-xs font-black text-red-500 uppercase tracking-[0.5em] mb-4 text-balance">Especialidad de la Casa</h1>
             <p class="text-4xl md:text-6xl font-black italic tracking-tighter uppercase leading-none">Perniles Horneados</p>
@@ -152,7 +262,7 @@
             <!-- PERNIL CHICO -->
             <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
                 <div class="h-64 overflow-hidden relative group">
-                    <img src="../img/pernil-3.jpg" alt="Pernil Chico" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="../img/pernil-3.jpg" alt="Pernil de cerdo chico para 20 personas con salsas y panes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute top-4 right-4 bg-red-600 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase shadow-lg">Ideal 20 Pers.</div>
                 </div>
                 <div class="p-8 flex-1 flex flex-col">
@@ -181,7 +291,7 @@
                     </div>
 
                     <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20encargar%20el%20*Pernil%20Chico*%20($63.700)%20para%20mi%20evento." onclick="return gtag_report_conversion('https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20encargar%20el%20*Pernil%20Chico*%20($63.700)%20para%20mi%20evento.')" target="_blank" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg shadow-red-900/20">
-                        🛒 Comprar Ahora
+                        🛒 Encargar Pernil
                     </a>
                 </div>
             </div>
@@ -190,7 +300,7 @@
             <div class="bg-white rounded-[2.5rem] shadow-xl border-2 border-red-600 overflow-hidden flex flex-col relative transform scale-105 z-10">
                 <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] font-black px-6 py-2 rounded-full uppercase shadow-xl tracking-widest">MÁS SOLICITADO</div>
                 <div class="h-64 overflow-hidden relative group">
-                    <img src="../img/pernil-para-40.jpg" alt="Pernil Mediano" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="../img/pernil-para-40.jpg" alt="Pernil de cerdo artesanal para 40 invitados" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute top-4 right-4 bg-slate-900 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase">Para 40 Pers.</div>
                 </div>
                 <div class="p-8 flex-1 flex flex-col">
@@ -219,7 +329,7 @@
                     </div>
 
                     <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Me%20interesa%20el%20*Pernil%20Mediano*%20($73.500).%20%C2%BFTienen%20disponibilidad?" onclick="return gtag_report_conversion('https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Me%20interesa%20el%20*Pernil%20Mediano*%20($73.500).%20%C2%BFTienen%20disponibilidad?')" target="_blank" class="w-full bg-slate-900 hover:bg-black text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg">
-                        🛒 Comprar Ahora
+                        🛒 Encargar Pernil
                     </a>
                 </div>
             </div>
@@ -227,7 +337,7 @@
             <!-- PERNIL GRANDE -->
             <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
                 <div class="h-64 overflow-hidden relative group">
-                    <img src="../img/pernil-60.jpg" alt="Pernil Gigante" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="../img/pernil-60.jpg" alt="Pernil gigante para eventos de más de 60 personas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute top-4 right-4 bg-red-600 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase shadow-lg">+60 Pers.</div>
                 </div>
                 <div class="p-8 flex-1 flex flex-col">
@@ -256,7 +366,7 @@
                     </div>
 
                     <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20consultar%20por%20el%20*Pernil%20Gigante*%20de%2015kg%20para%20un%20evento%20grande." onclick="return gtag_report_conversion('https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20consultar%20por%20el%20*Pernil%20Gigante*%20de%2015kg%20para%20un%20evento%20grande.')" target="_blank" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg shadow-red-900/20">
-                        🛒 Comprar Ahora
+                        🛒 Encargar Pernil
                     </a>
                 </div>
             </div>
@@ -318,6 +428,53 @@
             </p>
         </div>
     </footer>
+
+    <!-- Sección de FAQ Optimizada para SEO -->
+    <div class="faq-contenedor-principal max-w-4xl mx-auto my-12 px-4">
+        <details class="faq-master group">
+            <summary class="faq-master-trigger">
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Ver Preguntas Frecuentes
+                </span>
+                <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+
+            <div class="faq-content-wrapper">
+                <!-- Pregunta 1: Pernil -->
+                <details class="faq-item">
+                    <summary>¿Con cuánta anticipación debo encargar un pernil de cerdo?</summary>
+                    <div class="faq-answer">
+                        Recomendamos reservar tu <strong>pernil de cerdo</strong> con al menos 48 a 72 horas de anticipación para garantizar la frescura y el tiempo de horneado lento de 12 horas.
+                    </div>
+                </details>
+
+                <!-- Pregunta 2: Pizza Party -->
+                <details class="faq-item">
+                    <summary>¿Qué incluye el servicio de Pizza Party a domicilio?</summary>
+                    <div class="faq-answer">
+                        Nuestro servicio de <strong>Pizza Party en Buenos Aires</strong> incluye recepción con bruschettas y empanadas, seguido de 10 variedades de pizzas artesanales libres cocinadas en el momento.
+                    </div>
+                </details>
+
+                <!-- Pregunta 3: Lunch -->
+                <details class="faq-item">
+                    <summary>¿Hacen envíos de catering y lunch a domicilio?</summary>
+                    <div class="faq-answer">
+                        Sí, enviamos nuestros <strong>combos de catering móvil</strong> listos para calentar a toda la Zona Sur (Quilmes, Bernal, Berazategui) y CABA. También ofrecemos la opción de retiro por nuestra producción en Bernal Oeste.
+                    </div>
+                </details>
+
+                <!-- Pregunta 4: Cobertura -->
+                <details class="faq-item">
+                    <summary>¿A qué zonas llega el servicio de Eventos Tres.Cero?</summary>
+                    <div class="faq-answer">
+                        Brindamos servicio de <strong>catering para eventos</strong> en Quilmes, Bernal, Avellaneda, Lanús, CABA, Zona Norte y La Plata. Consultá por los costos de logística según tu localidad.
+                    </div>
+                </details>
+            </div>
+        </details>
+    </div>
 
     <!-- Barra de Navegación Móvil (Estilo App Nativa) -->
     <nav class="app-bottom-bar">
