@@ -46,6 +46,75 @@
         .animate-crossfade {
             animation: crossfade 20s infinite;
         }
+
+        /* --- Paso 2 & 3: Navegación Móvil UI/UX --- */
+
+        @media (max-width: 768px) {
+            /* Ocultamos los enlaces de texto superiores y el botón WhatsApp original en el header */
+            nav .hidden.lg\:flex,
+            nav a.bg-green-500 {
+                display: none !important;
+            }
+
+            /* Padding inferior al body para que la barra no tape el contenido del footer */
+            body {
+                padding-bottom: 75px;
+            }
+        }
+
+        /* Estilos exclusivos de la Barra Inferior (App-Style) */
+        .app-bottom-bar {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.85); /* Glassmorphism */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            z-index: 9999;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom); /* Soporte para iPhone con Notch */
+        }
+
+        .app-bottom-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-decoration: none;
+            color: #64748b; /* slate-500 */
+            transition: all 0.2s ease;
+        }
+
+        .app-bottom-item:active {
+            transform: scale(0.9);
+            background: rgba(0,0,0,0.03);
+        }
+
+        .app-bottom-item span {
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .app-bottom-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Ocultar barra en computadoras */
+        @media (min-width: 769px) {
+            .app-bottom-bar {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-white text-slate-900">
@@ -59,9 +128,9 @@
 
             <div class="hidden lg:flex space-x-8 font-black text-xs uppercase tracking-widest">
                 <a href="#inicio" class="hover:text-red-600 transition">Inicio</a>
-                <a href="#servicios" class="hover:text-red-600 transition">Menús</a>
+                <a href="#servicios" class="hover:text-red-600 transition">Catering</a>
                 <a href="./perniles/" class="hover:text-red-600 transition">Perniles</a>
-                <a href="./presupuesto-online/" class="hover:text-red-600 transition text-red-600">Staff</a>
+                <a href="./presupuesto-online/" class="hover:text-red-600 transition text-red-600">Presupuesto</a>
                 <a href="./arma-tu-combo/" class="hover:text-red-600 transition">Combos</a>
             </div>
 
@@ -283,5 +352,39 @@
         </div>
     </footer>
 
+    <!-- Barra de Navegación Móvil (Estilo App Nativa) -->
+    <nav class="app-bottom-bar">
+        <!-- Botón Inicio -->
+        <a href="#inicio" class="app-bottom-item">
+            <svg class="app-bottom-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            <span>Inicio</span>
+        </a>
+
+        <!-- Botón Catering -->
+        <a href="#servicios" class="app-bottom-item">
+            <svg class="app-bottom-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            <span>Catering</span>
+        </a>
+
+        <!-- Botón Presupuesto -->
+        <a href="./presupuesto-online/" class="app-bottom-item">
+            <svg class="app-bottom-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+            </svg>
+            <span>Presupuesto</span>
+        </a>
+
+        <!-- Botón WhatsApp (Destacado) -->
+        <a href="https://wa.me/5491132664036" target="_blank" class="app-bottom-item">
+            <svg class="app-bottom-icon text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.353-.883-.788-1.48-1.766-1.653-2.063-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.214 1.36.183 1.872.109.57-.083 1.758-.718 2.008-1.413.25-.694.25-1.289.175-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            <span class="text-green-600">WhatsApp</span>
+        </a>
+    </nav>
 </body>
 </html>
