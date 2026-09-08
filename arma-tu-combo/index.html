@@ -288,7 +288,7 @@
                         <span class="w-2 h-2 rounded-full bg-[#00a650]"></span>
                         <span class="w-2 h-2 rounded-full bg-[#00a650]"></span>
                     </span>
-                    <span class="text-[9px] font-black uppercase text-slate-400 tracking-tighter italic">Vendedor Líder Platinum • 100% Calificaciones Positivas</span>
+                    <span class="text-[9px] font-black uppercase text-slate-400 tracking-tighter italic">Vendedor Líder Platinum • Descuentos Especiales (+45 unid.)</span>
                 </div>
             </div>
 
@@ -479,7 +479,7 @@
                         </div>
                         <p class="md:col-span-3 text-[9px] text-slate-400 text-center font-bold uppercase italic">* Promo $1.500 superando las 24 unidades combinadas.</p>
                         <p class="md:col-span-3 text-[10px] text-green-600 text-center font-black uppercase italic mt-2">
-                            🎉 ¡PROMO ESPECIAL! 10% OFF EN TODO EL COMBO SUPERANDO LAS 20 UNIDADES TOTALES
+                            🎉 ¡PROMO ESPECIAL! 10% OFF EN TODO EL COMBO SUPERANDO LAS 45 UNIDADES TOTALES
                         </p>
                     </div>
 
@@ -490,7 +490,7 @@
                             <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Seleccioná el tamaño deseado</label>
                             <select id="sp_pernil_tipo" onchange="calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none appearance-none cursor-pointer">
                                 <option value="0">No agregar pernil</option>
-                                <option value="65000" data-nombre="Pernil CHICO">Pernil CHICO - $65.000 (Rinde ~10-15 pers. / 50 figazas)</option>
+                                <option value="75000" data-nombre="Pernil CHICO">Pernil CHICO - $75.000 (Rinde ~10-15 pers. / 50 figazas)</option>
                                 <option value="95000" data-nombre="Pernil MEDIANO">Pernil MEDIANO - $95.000 (Rinde ~20-25 pers. / 100 figazas)</option>
                                 <option value="130000" data-nombre="Pernil GRANDE">Pernil GRANDE - $130.000 (Rinde ~30-35 pers. / 150 figazas)</option>
                             </select>
@@ -903,12 +903,12 @@
                 </div>`;
             }
 
-            // Descuento por volumen (+20 unidades totales)
-            if (totalUnits > 20) {
+            // Descuento por volumen (+45 unidades totales)
+            if (totalUnits > 45) {
                 let descuento = Math.round(total * 0.10);
                 total -= descuento;
-                htmlResumen += `<div class="flex justify-between text-green-500 font-black mt-2 pt-2 border-t border-white/10 uppercase italic"><span>🎁 DTO. COMBO (+20 U.)</span><span>-10%</span></div>`;
-                detalleWA += `\n🎁 DESCUENTO ESPECIAL COMBO (+20 unid.): -10%\n`;
+                htmlResumen += `<div class="flex justify-between text-green-500 font-black mt-2 pt-2 border-t border-white/10 uppercase italic"><span>🎁 DTO. COMBO (+45 U.)</span><span>-10%</span></div>`;
+                detalleWA += `\n🎁 DESCUENTO ESPECIAL COMBO (+45 unid.): -10%\n`;
             }
 
             // Resumen de Ahorro para atraer al cliente
