@@ -532,10 +532,10 @@
                 }
             }
 
-            let subtotalPorPersona = servicioActivo.price * multiplicador;
+            let subtotalPorPersona = (servicioActivo.price * multiplicador) * 1.1; // Aumento del 10% base
             let adicionalesElegidos = [];
             document.querySelectorAll(".check-adicional:checked").forEach(check => {
-                subtotalPorPersona += (parseInt(check.dataset.price) * multiplicador);
+                subtotalPorPersona += ((parseInt(check.dataset.price) * multiplicador) * 1.1); // Aumento del 10% adicionales
                 adicionalesElegidos.push(check.dataset.name);
             });
 
