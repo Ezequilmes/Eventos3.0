@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18009767847"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-18009767847');
-    </script>
+
 
     <script>
     function gtag_report_conversion(url) {
@@ -17,10 +10,14 @@
           window.open(url, '_blank');
         }
       };
-      gtag('event', 'conversion', {
-          'send_to': 'AW-18009767847/qTjuCM_a7-ccEKf_3ItD',
-          'event_callback': callback
-      });
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'conversion', {
+            'send_to': 'AW-18009767847/qTjuCM_a7-ccEKf_3ItD',
+            'event_callback': callback
+        });
+      } else {
+        callback();
+      }
       return false;
     }
     </script>
