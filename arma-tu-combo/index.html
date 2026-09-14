@@ -318,20 +318,20 @@
                         </div>
                         <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100">
                             <label class="font-black text-sm text-slate-800 mb-1 block uppercase italic">Sándwiches de Miga Triples</label>
-                            <p class="text-[10px] text-slate-400 font-bold mb-4 uppercase italic">Surtidos Premium - $1.600 c/u</p>
+                            <p class="text-[10px] text-slate-400 font-bold mb-4 uppercase italic">Surtidos Premium - $1.850 c/u</p>
                             <div class="flex items-center gap-4">
-                                <input type="number" id="sp_miga_unid" value="0" min="0" oninput="calcular()" class="flex-1 p-3 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none focus:border-red-200 shadow-sm">
+                                <input type="number" id="sp_miga_unid" value="0" min="0" step="6" oninput="calcular()" class="flex-1 p-3 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none focus:border-red-200 shadow-sm">
                                 <span class="text-[10px] font-bold text-slate-400 uppercase italic">Unid.</span>
                             </div>
-                            <p class="text-[9px] text-slate-400 mt-2 font-medium">* Precio especial superando las 20 y 30 unidades.</p>
+                            <p class="text-[9px] text-slate-400 mt-2 font-medium">* Mínimo 6 unidades y múltiplos de 6.</p>
                         </div>
                         <!-- Sándwich de Miga Especial -->
                         <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100 md:col-span-2">
                             <div class="flex-1">
                                 <p class="font-black text-sm text-slate-800 uppercase italic">Sándwich de Miga Especial (Roquefort o Jamón Crudo)</p>
-                                <p class="text-[9px] text-slate-400 font-bold uppercase">$2.100 c/u</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$2.300 c/u</p>
                             </div>
-                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_miga_especial" data-nombre="Miga Especial" data-precio="2100" value="0" min="0" oninput="calcular()">
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_miga_especial" data-nombre="Miga Especial" data-precio="2300" value="0" min="0" step="6" oninput="calcular()">
                         </div>
                     </div>
 
@@ -783,11 +783,12 @@
             if (miga > 0) {
                 tieneItems = true;
                 totalUnits += miga;
-                let basePrice = 1450 * multiplicador;
+                let basePrice = 1850 * multiplicador;
                 let subSinPromo = Math.round(miga * basePrice);
                 totalSinPromos += subSinPromo;
 
-                let price = (miga >= 30) ? (basePrice * (1250/1450)) : (miga >= 20 ? (basePrice * (1350/1450)) : basePrice);
+                // Mantenemos ratios de descuento proporcionales (aprox 10% y 15%)
+                let price = (miga >= 30) ? (basePrice * 0.85) : (miga >= 20 ? (basePrice * 0.90) : basePrice);
                 let sub = Math.round(miga * price);
 
                 htmlResumen += `
