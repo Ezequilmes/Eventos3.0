@@ -261,6 +261,10 @@
                 </div>
 
                 <p class="mt-6 text-slate-500 font-medium italic">Obtené un valor estimado real para tu fiesta en segundos.</p>
+                <div class="mt-4 flex flex-wrap justify-center gap-4">
+                    <span class="bg-red-50 text-red-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-red-100 shadow-sm">⏱️ 4 Horas de Servicio</span>
+                    <span class="bg-slate-50 text-slate-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-slate-100 shadow-sm">🚐 Llevamos todo lo necesario</span>
+                </div>
             </div>
 
             <div class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
@@ -316,7 +320,7 @@
                                 </div>
                                 <p class="text-[10px] text-slate-500 font-medium leading-tight">Tabla de fiambres + Pizzetas y empanadas + Perniles.</p>
                             </button>
-                            <button type="button" class="btn-servicio p-5 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="9900" data-name="Disco Party" data-desc="Empanadas + Pollo al disco tradicional">
+                            <button type="button" class="btn-servicio p-5 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="12500" data-name="Disco Party" data-desc="Empanadas + Pollo al disco tradicional">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-black uppercase italic text-lg group-hover:text-red-600 transition">Disco Party</span>
                                     <span class="text-xl">🔥</span>
@@ -325,7 +329,7 @@
                             </button>
                         </div>
                         <div id="menu-descripcion-caja" class="mt-6 p-4 bg-slate-50 rounded-2xl text-[11px] font-medium text-slate-600 border-l-4 border-red-600 italic">
-                            <strong>Incluye de Base:</strong> Bruschettas + Empanadas + 10 variedades de pizza libre. Vajilla descartable premium incluida.
+                            <strong>Incluye de Base:</strong> Bruschettas + Empanadas + 10 variedades de pizza libre. Llevamos hornos, bandejas y vajilla descartable premium. 4 horas de servicio incluidas.
                         </div>
                     </div>
 
@@ -537,12 +541,12 @@
             });
 
             // Lógica Staff (Precios de personal suelen aumentar también, aplicamos multiplicador)
-            const costCocinero = (personas < 30) ? (25000 * multiplicador) : 0;
+            const costCocinero = (personas < 30) ? (25500 * multiplicador) : 0;
             let mozos = 1;
             if (personas > 30 && personas <= 55) { mozos = 2; }
             else if (personas > 55 && personas <= 80) { mozos = 3; }
             else if (personas > 80) { mozos = Math.ceil(personas / 25); }
-            const totalStaffCost = costCocinero + (mozos * 25000);
+            const totalStaffCost = costCocinero + (mozos * 25500);
 
             const totalFinal = (personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost;
             const seña = Math.round(totalFinal / 2);
@@ -553,9 +557,9 @@
             document.getElementById("resumen-adicionales").innerHTML = "<span>Adicionales:</span> <strong class='text-red-400'>" + (adicionalesElegidos.length > 0 ? adicionalesElegidos.join(", ") : "Ninguno") + "</strong>";
             document.getElementById("zona-mostrada").innerHTML = "<span>Cobertura en:</span> <strong>" + zonaActiva.name + "</strong>";
             document.getElementById("staff-mostrado").innerHTML = "<span>Personal Staff:</span> <strong>1 Cocinero y " + mozos + " Mozo" + (mozos > 1 ? "s" : "") + " (Incluidos)</strong>";
-
             document.getElementById("pago-mostrado").innerHTML = `
                 <div class="bg-white/10 p-4 rounded-2xl">
+                    <p class="text-[9px] text-slate-400 uppercase mb-1 italic">✨ El servicio dura 4 horas y llevamos todo lo necesario</p>
                     <p class="text-[10px] text-slate-400 uppercase mb-1">💳 Seña para congelar valor hoy:</p>
                     <p class="text-3xl font-black text-red-500 leading-none">$${seña.toLocaleString('es-AR')}</p>
                 </div>
