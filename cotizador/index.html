@@ -105,6 +105,14 @@
             const [mensajePago, setMensajePago] = useState('');
             const [copiadoAlias, setCopiadoAlias] = useState(false);
             const [copiadoCvu, setCopiadoCvu] = useState(false);
+            const [pagoExitoso, setPagoExitoso] = useState(false);
+
+            useEffect(() => {
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('pago') === 'exito') {
+                    setPagoExitoso(true);
+                }
+            }, []);
 
             const aplicaBonificacionCocinera = data.personas > 30;
 
@@ -183,7 +191,8 @@
                             monto: monto,
                             concepto: conceptoServicios,
                             tipo_pago: tipoPago,
-                            reserva_id: `RES-${Date.now()}`
+                            reserva_id: `RES-${Date.now()}`,
+                            success_url: window.location.href.split('?')[0] + '?pago=exito'
                         })
                     });
 
@@ -248,6 +257,14 @@
 
             return (
                 <div className="min-h-screen p-3 md:p-8">
+                    {pagoExitoso && (
+                        <div className="max-w-6xl mx-auto bg-green-600 text-white rounded-3xl p-6 sm:p-8 mb-8 shadow-2xl border-4 border-green-400 text-center">
+                            <h3 className="text-2xl sm:text-3xl font-black uppercase italic mb-2">¡Pago Aprobado con Éxito! 🎉</h3>
+                            <p className="text-sm font-bold opacity-90 max-w-3xl mx-auto">
+                                Tu seña ha sido procesada correctamente a través de Mercado Pago. Completá los datos de tu evento abajo (dirección, fecha y entrega) y hacé clic en el botón de WhatsApp para enviarnos el comprobante y agendar tu servicio oficialmente.
+                            </p>
+                        </div>
+                    )}
                     {/* PANEL DE EDICIÓN Y COTIZACIÓN */}
                     <div className="max-w-6xl mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-8 mb-8 print-hidden border-t-8 border-red-600">
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
