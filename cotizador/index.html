@@ -21,13 +21,13 @@
         }
     </style>
 </head>
-<body class="bg-slate-100">
+<body class="bg-slate-100 text-slate-800 antialiased">
     <div id="root"></div>
 
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // Iconos SVG Integrados para máxima compatibilidad
+        // Iconos SVG Integrados
         const Icons = {
             Printer: ({size=18, className=""}) => (
                 <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
@@ -35,29 +35,26 @@
             FileText: ({size=24, className=""}) => (
                 <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
             ),
-            Clock: ({size=14, className=""}) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            ),
             Info: ({size=18, className=""}) => (
                 <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
             ),
-            Gift: ({size=14, className=""}) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+            CreditCard: ({size=20, className=""}) => (
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
             ),
-            MapPin: ({size=12, className=""}) => (
+            WhatsApp: ({size=20, className=""}) => (
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-1.157 4.228 4.228-1.157z"/></svg>
+            ),
+            Copy: ({size=16, className=""}) => (
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            ),
+            Check: ({size=16, className=""}) => (
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="20 6 9 17 4 12"></polyline></svg>
+            ),
+            MapPin: ({size=18, className=""}) => (
                 <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
             ),
-            Plus: ({size=14, className=""}) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            ),
-            Zap: ({size=24, className=""}) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" className={className}><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
-            ),
-            Percent: ({size=12, className=""}) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
-            ),
-            CheckCircle: ({size=20, className=""}) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Calendar: ({size=18, className=""}) => (
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             )
         };
 
@@ -65,9 +62,11 @@
             const [data, setData] = useState({
                 fecha: '',
                 personas: 0,
-                horarioInicio: '',
-                horarioFin: '',
                 cliente: '',
+                telefono: '',
+                direccion: '',
+                entreCalles: '',
+                localidad: '',
                 servicios: [
                     { id: 1, nombre: 'Pizza Party Premium', precio: 0, activo: false, descripcion: 'Bruschettas, Empanadas y 10 variedades de pizza libre.' },
                     { id: 2, nombre: 'Tacos Party & Show', precio: 0, activo: false, descripcion: 'Bruschettas, Pernil de entrada y Show de tacos libres.' },
@@ -87,17 +86,25 @@
                 ],
                 distanciaKm: 0,
                 costoPorKm: 2500,
-                financiacionPorcentaje: 0,
-                esPagoTotal: false,
+                recargoTarjetaPorcentaje: 8, // 8% de recargo por Seña en Mercado Pago
+                descuentoContadoPorcentaje: 5,
             });
 
             const [calculos, setCalculos] = useState({
                 subtotal: 0,
                 logistica: 0,
-                montoFinanciacion: 0,
-                totalFinal: 0,
-                precioPromo: 0
+                totalBaseTransferencia: 0,
+                sena50Transferencia: 0,
+                sena50MercadoPago: 0,
+                total100TransferenciaPromo: 0,
+                total100MercadoPago: 0
             });
+
+            const [tabMetodoPago, setTabMetodoPago] = useState('transferencia'); // 'transferencia' o 'mercadopago'
+            const [cargandoMP, setCargandoMP] = useState(false);
+            const [mensajePago, setMensajePago] = useState('');
+            const [copiadoAlias, setCopiadoAlias] = useState(false);
+            const [copiadoCvu, setCopiadoCvu] = useState(false);
 
             const aplicaBonificacionCocinera = data.personas > 30;
 
@@ -117,15 +124,27 @@
 
                 const subtotalGeneral = subtotalMenu + subtotalPersonal + subtotalAdicionales;
                 const costoLogistica = Number(data.distanciaKm) * Number(data.costoPorKm);
-                const baseParaFinanciar = subtotalGeneral + costoLogistica;
-                const montoFinan = baseParaFinanciar * (Number(data.financiacionPorcentaje) / 100);
+                const totalBase = subtotalGeneral + costoLogistica; // Precio de lista original sin recargo (Transferencia/Efectivo)
+
+                // 1. Seña 50%
+                const sena50Transf = totalBase * 0.50;
+                // 8% de recargo al señar con Mercado Pago / Link de pago
+                const recargoMult8 = 1 + (Number(data.recargoTarjetaPorcentaje) / 100);
+                const sena50MP = sena50Transf * recargoMult8;
+
+                // 2. Pago Total 100%
+                const descContadoMult = 1 - (Number(data.descuentoContadoPorcentaje) / 100);
+                const total100Transf = totalBase * descContadoMult;
+                const total100MP = totalBase * recargoMult8;
 
                 setCalculos({
                     subtotal: subtotalGeneral,
                     logistica: costoLogistica,
-                    montoFinanciacion: montoFinan,
-                    totalFinal: data.esPagoTotal ? baseParaFinanciar : baseParaFinanciar + montoFinan,
-                    precioPromo: baseParaFinanciar
+                    totalBaseTransferencia: totalBase,
+                    sena50Transferencia: sena50Transf,
+                    sena50MercadoPago: sena50MP,
+                    total100TransferenciaPromo: total100Transf,
+                    total100MercadoPago: total100MP
                 });
             }, [data, aplicaBonificacionCocinera]);
 
@@ -137,249 +156,464 @@
                 setData(newData);
             };
 
+            const copiarTexto = (texto, tipo) => {
+                navigator.clipboard.writeText(texto);
+                if (tipo === 'alias') {
+                    setCopiadoAlias(true);
+                    setTimeout(() => setCopiadoAlias(false), 2500);
+                } else {
+                    setCopiadoCvu(true);
+                    setTimeout(() => setCopiadoCvu(false), 2500);
+                }
+            };
+
+            const procesarPagoMercadoPago = async (tipoPago) => {
+                setCargandoMP(true);
+                setMensajePago('');
+                try {
+                    const monto = tipoPago === 'sena_50' ? calculos.sena50MercadoPago : calculos.total100MercadoPago;
+                    const conceptoServicios = data.servicios.filter(s => s.activo).map(s => s.nombre).join(', ') || 'Servicio Catering';
+
+                    const res = await fetch('/api/pagos/crear-preferencia', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            cliente_nombre: data.cliente || 'Cliente Cotizador',
+                            cliente_telefono: data.telefono || '',
+                            monto: monto,
+                            concepto: conceptoServicios,
+                            tipo_pago: tipoPago,
+                            reserva_id: `RES-${Date.now()}`
+                        })
+                    });
+
+                    const resData = await res.json();
+                    if (resData.init_point) {
+                        window.location.href = resData.init_point;
+                    } else {
+                        setMensajePago('Error en Mercado Pago: ' + (resData.detail || 'No se pudo generar preferencia'));
+                    }
+                } catch (e) {
+                    setMensajePago('Error de conexión al procesar el pago.');
+                } finally {
+                    setCargandoMP(false);
+                }
+            };
+
+            const generarWhatsAppUrl = (medioPago) => {
+                const clienteStr = data.cliente || 'Cliente';
+                const telStr = data.telefono || 'Sin especificar';
+                const fechaStr = data.fecha || 'A confirmar';
+                const direccionStr = data.direccion || 'Pendiente de definir';
+                const entreCallesStr = data.entreCalles || 'Sin especificar';
+                const localidadStr = data.localidad || 'Sin especificar';
+
+                const menuActivos = data.servicios.filter(s => s.activo).map(s => `${s.nombre}`).join(', ');
+                const adicionalesActivos = data.adicionales.filter(a => a.activo && a.cantidad > 0).map(a => `${a.nombre} (x${a.cantidad})`).join(', ');
+
+                let detalleServicios = menuActivos;
+                if (adicionalesActivos) {
+                    detalleServicios += (detalleServicios ? ' + ' : '') + adicionalesActivos;
+                }
+                if (!detalleServicios) {
+                    detalleServicios = 'Combo Pernil / Servicio Eventos Tres.Cero';
+                }
+
+                const montoTotal = calculos.totalBaseTransferencia;
+                const esMP = medioPago === 'mercadopago';
+                const montoSena = esMP ? Math.round(calculos.sena50MercadoPago) : calculos.sena50Transferencia;
+                const recargoTexto = esMP ? ' (Incluye 8% recargo Link de Pago)' : ' (Sin recargo)';
+
+                const texto = `Hola *Eventos Tres.Cero*! 👋🏼\n` +
+                    `Quiero confirmar la reserva / pedido para mi evento.\n\n` +
+                    `📋 *DETALLE DEL PEDIDO*:\n` +
+                    `• *Cliente*: ${clienteStr}\n` +
+                    `• *Teléfono*: ${telStr}\n` +
+                    `• *Servicio/Combo*: ${detalleServicios}\n` +
+                    `• *Invitados*: ${data.personas} personas\n` +
+                    `• *Fecha del Evento*: ${fechaStr}\n\n` +
+                    `📍 *UBICACIÓN Y ENTREGA*:\n` +
+                    `• *Dirección*: ${direccionStr}\n` +
+                    `• *Entre calles*: ${entreCallesStr}\n` +
+                    `• *Localidad*: ${localidadStr}\n\n` +
+                    `💰 *RESUMEN DE SEÑA / PAGO*:\n` +
+                    `• *Inversión Total*: $${montoTotal.toLocaleString()}\n` +
+                    `• *Medio de Pago*: ${esMP ? 'Mercado Pago (Link / Tarjetas)' : 'Transferencia Bancaria'}\n` +
+                    `• *Monto Seña 50%*: $${montoSena.toLocaleString()}${recargoTexto}\n` +
+                    `• *Saldo el día del evento*: $${calculos.sena50Transferencia.toLocaleString()}\n\n` +
+                    `Adjunto comprobante o quedo a la espera de la confirmación. ¡Muchas gracias!`;
+
+                return `https://wa.me/5491132664036?text=${encodeURIComponent(texto)}`;
+            };
+
             return (
-                <div className="min-h-screen p-4 md:p-8">
-                    {/* PANEL DE EDICIÓN */}
-                    <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-6 mb-8 print-hidden border-t-8 border-red-600">
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-2xl font-black text-slate-800 flex items-center gap-2 uppercase italic tracking-tighter">
-                                <Icons.FileText size={24} className="text-red-600" /> Panel Cotización
+                <div className="min-h-screen p-3 md:p-8">
+                    {/* PANEL DE EDICIÓN Y COTIZACIÓN */}
+                    <div className="max-w-6xl mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-8 mb-8 print-hidden border-t-8 border-red-600">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+                            <h2 className="text-xl sm:text-2xl font-black text-slate-800 flex items-center gap-2 uppercase italic tracking-tighter">
+                                <Icons.FileText size={24} className="text-red-600" /> Cotizador Eventos 3.0
                             </h2>
-                            <div className="flex gap-2">
-                                <button onClick={() => window.print()} className="bg-slate-900 text-white px-6 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-black transition">
-                                    <Icons.Printer size={18} /> Imprimir PDF
-                                </button>
-                            </div>
+                            <button onClick={() => window.print()} className="bg-slate-900 text-white px-5 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-black transition text-sm">
+                                <Icons.Printer size={18} /> Imprimir PDF
+                            </button>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                            <div className="md:col-span-2">
+                        {/* DATOS DEL CLIENTE Y FECHA */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            <div>
                                 <label className="text-xs font-black uppercase text-slate-400">Cliente</label>
-                                <input type="text" className="w-full p-3 border-2 rounded-xl mt-1 font-bold focus:border-red-500 outline-none bg-slate-50" value={data.cliente} onChange={e => setData({...data, cliente: e.target.value})} />
+                                <input type="text" className="w-full p-3 border-2 rounded-xl mt-1 font-bold focus:border-red-500 outline-none bg-slate-50 text-sm" value={data.cliente} onChange={e => setData({...data, cliente: e.target.value})} placeholder="Nombre completo" />
+                            </div>
+                            <div>
+                                <label className="text-xs font-black uppercase text-slate-400">WhatsApp / Teléfono</label>
+                                <input type="text" className="w-full p-3 border-2 rounded-xl mt-1 text-center font-bold focus:border-red-500 outline-none bg-slate-50 text-sm" value={data.telefono} onChange={e => setData({...data, telefono: e.target.value})} placeholder="11 3266-4036" />
                             </div>
                             <div>
                                 <label className="text-xs font-black uppercase text-slate-400">Invitados</label>
-                                <input type="number" className="w-full p-3 border-2 rounded-xl mt-1 text-center font-black focus:border-red-500 outline-none bg-slate-50" value={data.personas} onChange={e => setData({...data, personas: Number(e.target.value)})} />
+                                <input type="number" className="w-full p-3 border-2 rounded-xl mt-1 text-center font-black focus:border-red-500 outline-none bg-slate-50 text-sm" value={data.personas} onChange={e => setData({...data, personas: Number(e.target.value)})} placeholder="Pers." />
                             </div>
                             <div>
-                                <label className="text-xs font-black uppercase text-slate-400">Fecha</label>
-                                <input type="date" className="w-full p-3 border-2 rounded-xl mt-1 focus:border-red-500 outline-none bg-slate-50" value={data.fecha} onChange={e => setData({...data, fecha: e.target.value})} />
+                                <label className="text-xs font-black uppercase text-slate-400">Fecha del Evento</label>
+                                <input type="date" className="w-full p-3 border-2 rounded-xl mt-1 focus:border-red-500 outline-none bg-slate-50 text-xs font-bold" value={data.fecha} onChange={e => setData({...data, fecha: e.target.value})} />
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* FORMULARIO DE DOMICILIO DE ENTREGA */}
+                        <div className="bg-slate-50 p-4 sm:p-6 rounded-2xl border-2 border-slate-200 mb-8">
+                            <h3 className="text-xs font-black uppercase tracking-wider text-slate-600 mb-3 flex items-center gap-2">
+                                <Icons.MapPin size={16} className="text-red-600" /> Dirección de Entrega / Evento
+                            </h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label className="text-[10px] font-black uppercase text-slate-400">Dirección Exacta</label>
+                                    <input type="text" className="w-full p-2.5 border rounded-xl mt-1 font-bold text-xs outline-none focus:border-red-500 bg-white" value={data.direccion} onChange={e => setData({...data, direccion: e.target.value})} placeholder="Ej: Av. Corrientes 1234" />
+                                </div>
+                                <div>
+                                    <label className="text-[10px] font-black uppercase text-slate-400">Entre Calles</label>
+                                    <input type="text" className="w-full p-2.5 border rounded-xl mt-1 font-bold text-xs outline-none focus:border-red-500 bg-white" value={data.entreCalles} onChange={e => setData({...data, entreCalles: e.target.value})} placeholder="Ej: Libertad y Talcahuano" />
+                                </div>
+                                <div>
+                                    <label className="text-[10px] font-black uppercase text-slate-400">Localidad</label>
+                                    <input type="text" className="w-full p-2.5 border rounded-xl mt-1 font-bold text-xs outline-none focus:border-red-500 bg-white" value={data.localidad} onChange={e => setData({...data, localidad: e.target.value})} placeholder="Ej: CABA / Lanús" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* MENÚ Y EXTRAS */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div className="space-y-6">
-                                <section className="p-4 border-l-4 border-red-600 bg-red-50/20">
-                                    <h3 className="font-black text-slate-700 mb-4 uppercase text-xs">Menú Principal</h3>
-                                    {data.servicios.map((s, idx) => (
-                                        <div key={s.id} className="flex items-center gap-3 mb-3">
+                                <section className="p-4 border-l-4 border-red-600 bg-red-50/20 rounded-r-2xl">
+                                    <h3 className="font-black text-slate-700 mb-4 uppercase text-xs">Menú Principal / Combos</h3>
+                                    {data.servicios.map((s) => (
+                                        <div key={s.id} className="flex items-center gap-3 mb-3 bg-white p-2.5 rounded-xl border border-slate-100">
                                             <input type="checkbox" checked={s.activo} onChange={e => updateItem('servicios', s.id, 'activo', e.target.checked)} className="w-5 h-5 accent-red-600" />
-                                            <span className="flex-1 text-sm font-bold">{s.nombre}</span>
-                                            <input type="number" className="w-24 p-1 border rounded text-right text-sm" value={s.precio} onChange={e => updateItem('servicios', s.id, 'precio', Number(e.target.value))} />
+                                            <div className="flex-1">
+                                                <span className="text-xs sm:text-sm font-bold block">{s.nombre}</span>
+                                                <span className="text-[10px] text-slate-400 block">{s.descripcion}</span>
+                                            </div>
+                                            <input type="number" className="w-20 p-1 border rounded text-right text-xs font-bold" value={s.precio} onChange={e => updateItem('servicios', s.id, 'precio', Number(e.target.value))} />
                                         </div>
                                     ))}
                                 </section>
 
-                                <section className="p-4 border-l-4 border-slate-700 bg-slate-50">
+                                <section className="p-4 border-l-4 border-slate-700 bg-slate-50 rounded-r-2xl">
                                     <h3 className="font-black text-slate-700 mb-4 uppercase text-xs flex justify-between">
-                                        Personal {aplicaBonificacionCocinera && <span className="text-green-600 font-black">¡Bonificación!</span>}
+                                        Personal {aplicaBonificacionCocinera && <span className="text-green-600 font-black">¡Bonificado!</span>}
                                     </h3>
                                     {data.personal.map(p => (
-                                        <div key={p.id} className="flex items-center gap-4 mb-2">
-                                            <span className="flex-1 text-xs font-bold uppercase text-slate-500">{p.nombre}</span>
-                                            <input type="number" className="w-14 p-1 border rounded text-center text-sm" value={p.cantidad} onChange={e => updateItem('personal', p.id, 'cantidad', Number(e.target.value))} />
-                                            <input type="number" disabled={p.id === 20 && aplicaBonificacionCocinera} className="w-24 p-1 border rounded text-right text-sm" value={p.precio} onChange={e => updateItem('personal', p.id, 'precio', Number(e.target.value))} />
+                                        <div key={p.id} className="flex items-center gap-3 mb-2">
+                                            <span className="flex-1 text-xs font-bold uppercase text-slate-600">{p.nombre}</span>
+                                            <input type="number" className="w-12 p-1 border rounded text-center text-xs" value={p.cantidad} onChange={e => updateItem('personal', p.id, 'cantidad', Number(e.target.value))} />
+                                            <input type="number" disabled={p.id === 20 && aplicaBonificacionCocinera} className="w-20 p-1 border rounded text-right text-xs font-bold" value={p.precio} onChange={e => updateItem('personal', p.id, 'precio', Number(e.target.value))} />
                                         </div>
                                     ))}
                                 </section>
                             </div>
 
                             <div className="space-y-6">
-                                <section className="p-4 border-l-4 border-blue-600 bg-blue-50/20">
-                                    <h3 className="font-black text-slate-700 mb-4 uppercase text-xs">Extras & Logística</h3>
-                                    <div className="grid grid-cols-2 gap-4 mb-4">
+                                <section className="p-4 border-l-4 border-blue-600 bg-blue-50/20 rounded-r-2xl">
+                                    <h3 className="font-black text-slate-700 mb-3 uppercase text-xs">Perniles & Adicionales</h3>
+                                    <div className="grid grid-cols-2 gap-2 mb-3">
                                         <div>
-                                            <label className="text-[10px] font-black text-slate-400">DISTANCIA KM</label>
-                                            <input type="number" className="w-full p-2 border rounded font-bold" value={data.distanciaKm} onChange={e => setData({...data, distanciaKm: Number(e.target.value)})} />
+                                            <label className="text-[9px] font-black text-slate-400 uppercase">DISTANCIA KM</label>
+                                            <input type="number" className="w-full p-2 border rounded-xl font-bold text-xs bg-white" value={data.distanciaKm} onChange={e => setData({...data, distanciaKm: Number(e.target.value)})} />
                                         </div>
                                         <div>
-                                            <label className="text-[10px] font-black text-slate-400">FINANCIACIÓN %</label>
-                                            <input type="number" className="w-full p-2 border rounded font-bold text-blue-700" value={data.financiacionPorcentaje} onChange={e => setData({...data, financiacionPorcentaje: Number(e.target.value)})} />
+                                            <label className="text-[9px] font-black text-slate-400 uppercase">RECARGO LINK MP (%)</label>
+                                            <input type="number" className="w-full p-2 border rounded-xl font-bold text-xs text-blue-700 bg-white" value={data.recargoTarjetaPorcentaje} onChange={e => setData({...data, recargoTarjetaPorcentaje: Number(e.target.value)})} />
                                         </div>
                                     </div>
-                                    <div className="max-h-40 overflow-y-auto space-y-2 pr-2">
+                                    <div className="max-h-48 overflow-y-auto space-y-2 pr-1">
                                         {data.adicionales.map(a => (
-                                            <div key={a.id} className="flex items-center gap-2 bg-white p-2 rounded border border-slate-100">
-                                                <input type="checkbox" checked={a.activo} onChange={e => updateItem('adicionales', a.id, 'activo', e.target.checked)} className="accent-red-600" />
-                                                <span className="flex-1 text-[10px] font-black uppercase">{a.nombre}</span>
-                                                <input type="number" className="w-12 p-1 border text-xs text-center" value={a.cantidad} onChange={e => updateItem('adicionales', a.id, 'cantidad', Number(e.target.value))} />
+                                            <div key={a.id} className="flex items-center gap-2 bg-white p-2 rounded-xl border border-slate-100">
+                                                <input type="checkbox" checked={a.activo} onChange={e => updateItem('adicionales', a.id, 'activo', e.target.checked)} className="accent-red-600 w-4 h-4" />
+                                                <span className="flex-1 text-[10px] font-black uppercase text-slate-700">{a.nombre}</span>
+                                                <input type="number" className="w-10 p-1 border text-xs text-center rounded" value={a.cantidad} onChange={e => updateItem('adicionales', a.id, 'cantidad', Number(e.target.value))} />
                                             </div>
                                         ))}
                                     </div>
                                 </section>
 
-                                <div className={`p-6 rounded-2xl border-2 text-center transition ${data.esPagoTotal ? 'bg-green-100 border-green-500' : 'bg-red-50 border-red-500'}`}>
-                                    <button onClick={() => setData({...data, esPagoTotal: !data.esPagoTotal})} className={`mb-4 px-6 py-2 rounded-full font-black text-[10px] uppercase shadow-md ${data.esPagoTotal ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
-                                        {data.esPagoTotal ? 'PRECIO PROMO ACTIVO' : 'MODO SEÑA 50%'}
-                                    </button>
-                                    <p className="text-4xl font-black text-slate-800">${calculos.totalFinal.toLocaleString()}</p>
+                                <div className="p-6 rounded-2xl bg-slate-900 text-white shadow-xl text-center">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Inversión Total del Evento</p>
+                                    <p className="text-4xl font-black text-white italic tracking-tighter">${calculos.totalBaseTransferencia.toLocaleString()}</p>
+
+                                    <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-800 text-xs">
+                                        <div className="bg-slate-800 p-3 rounded-xl border border-green-500/30">
+                                            <p className="text-[9px] font-black text-green-400 uppercase">Seña 50% Transferencia</p>
+                                            <p className="text-lg font-black text-white">${calculos.sena50Transferencia.toLocaleString()}</p>
+                                            <span className="text-[9px] text-green-400 block font-bold">Sin recargos</span>
+                                        </div>
+                                        <div className="bg-slate-800 p-3 rounded-xl border border-blue-500/30">
+                                            <p className="text-[9px] font-black text-blue-400 uppercase">Seña 50% Mercado Pago</p>
+                                            <p className="text-lg font-black text-white">${Math.round(calculos.sena50MercadoPago).toLocaleString()}</p>
+                                            <span className="text-[9px] text-blue-300 block font-bold">+8% Link de pago</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* DOCUMENTO PDF */}
-                    <div id="presupuesto-doc" className="max-w-4xl mx-auto bg-white shadow-2xl overflow-hidden border border-slate-100 mb-20">
-                        <div className="relative h-48 bg-gradient-to-r from-red-800 to-red-600 flex items-center px-12 overflow-hidden">
-                            <div className="flex items-center gap-10 z-10 w-full text-white">
-                                <div className="bg-white p-6 rounded-3xl shadow-2xl transform -rotate-3 border-4 border-red-500">
-                                    <div className="w-24 h-24 flex flex-col items-center justify-center font-black text-red-600 text-5xl leading-tight text-center italic">
+                    {/* DOCUMENTO PDF & SECCIÓN DE PAGO */}
+                    <div id="presupuesto-doc" className="max-w-4xl mx-auto bg-white shadow-2xl overflow-hidden border border-slate-100 mb-16 rounded-2xl sm:rounded-3xl">
+                        <div className="relative h-40 sm:h-48 bg-gradient-to-r from-red-800 to-red-600 flex items-center px-6 sm:px-12 overflow-hidden">
+                            <div className="flex items-center gap-6 sm:gap-10 z-10 w-full text-white">
+                                <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-2xl transform -rotate-3 border-4 border-red-500">
+                                    <div className="w-16 h-16 sm:w-24 sm:h-24 flex flex-col items-center justify-center font-black text-red-600 text-3xl sm:text-5xl leading-tight text-center italic">
                                         <span>E</span>
-                                        <span className="text-2xl border-t-4 border-red-100 mt-1 pt-1">3.0</span>
+                                        <span className="text-lg sm:text-2xl border-t-2 sm:border-t-4 border-red-100 mt-0.5 pt-0.5">3.0</span>
                                     </div>
                                 </div>
-                                <div className="text-white border-l-4 border-red-400 pl-10">
-                                    <h1 className="text-6xl font-black tracking-tighter uppercase italic text-white drop-shadow-2xl leading-none italic font-black italic drop-shadow-2xl">Eventos Tres.Cero</h1>
-                                    <p className="text-2xl font-light tracking-[0.2em] uppercase opacity-90 mt-2">Catering • Premium • Experiences</p>
+                                <div className="text-white border-l-2 sm:border-l-4 border-red-400 pl-4 sm:pl-10">
+                                    <h1 className="text-3xl sm:text-6xl font-black tracking-tighter uppercase italic text-white drop-shadow-2xl leading-none">Eventos Tres.Cero</h1>
+                                    <p className="text-xs sm:text-2xl font-light tracking-[0.2em] uppercase opacity-90 mt-1 sm:mt-2">Catering • Premium • Experiences</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="p-16 text-slate-800 relative">
-                            <div className="flex justify-between items-start mb-16 border-b-4 border-slate-50 pb-10">
-                                <div className="space-y-4">
-                                    <h3 className="text-4xl font-black text-slate-900 uppercase italic tracking-tighter">{data.cliente || 'Nombre del Cliente'}</h3>
-                                    <div className="flex gap-10 text-[11px] font-black uppercase text-slate-500">
+                        <div className="p-6 sm:p-16 text-slate-800 relative">
+                            {/* CABECERA DEL CLIENTE */}
+                            <div className="flex flex-col sm:flex-row justify-between items-start mb-8 sm:mb-12 border-b-4 border-slate-50 pb-6 sm:pb-10 gap-4">
+                                <div className="space-y-2">
+                                    <h3 className="text-2xl sm:text-4xl font-black text-slate-900 uppercase italic tracking-tighter">{data.cliente || 'Nombre del Cliente'}</h3>
+                                    <div className="flex flex-wrap gap-4 text-xs font-black uppercase text-slate-500">
                                         <p>Fecha: <span className="text-slate-900">{data.fecha || 'A confirmar'}</span></p>
                                         <p>Invitados: <span className="text-red-600">{data.personas} PERS.</span></p>
+                                        {data.telefono && <p>Tel: <span className="text-slate-900">{data.telefono}</span></p>}
                                     </div>
+                                    {(data.direccion || data.localidad) && (
+                                        <p className="text-xs text-slate-600 font-bold italic flex items-center gap-1">
+                                            <Icons.MapPin size={14} className="text-red-600" />
+                                            {data.direccion} {data.entreCalles ? `(e/ ${data.entreCalles})` : ''} - {data.localidad}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
-                            <div className="space-y-12">
-                                <div className="bg-white rounded-[2rem] overflow-hidden border-2 border-slate-50 shadow-sm">
-                                    <table className="w-full text-left">
+                            {/* TABLA DE PRODUCTOS */}
+                            <div className="space-y-8 sm:space-y-12">
+                                <div className="bg-white rounded-2xl overflow-x-auto border-2 border-slate-100 shadow-sm">
+                                    <table className="w-full text-left min-w-[500px]">
                                         <thead>
                                             <tr className="bg-slate-50 text-[10px] font-black text-slate-400 border-b border-slate-100 uppercase italic">
-                                                <th className="px-8 py-5">Concepto</th>
-                                                <th className="px-8 py-5 text-center">Referencia</th>
-                                                <th className="px-8 py-5 text-right">Subtotal</th>
+                                                <th className="px-6 py-4">Concepto</th>
+                                                <th className="px-6 py-4 text-center">Referencia</th>
+                                                <th className="px-6 py-4 text-right">Subtotal</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-slate-50">
                                             {data.servicios.filter(s => s.activo).map(s => (
                                                 <tr key={s.id}>
-                                                    <td className="px-8 py-6 font-black uppercase italic">{s.nombre}</td>
-                                                    <td className="px-8 py-6 text-center text-xs font-black text-slate-400 tracking-tighter">${s.precio.toLocaleString()} x pers.</td>
-                                                    <td className="px-8 py-6 text-right font-black text-slate-900 text-lg italic tracking-tighter">${(s.precio * data.personas).toLocaleString()}</td>
+                                                    <td className="px-6 py-4 font-black uppercase italic text-xs sm:text-sm">{s.nombre}</td>
+                                                    <td className="px-6 py-4 text-center text-xs font-black text-slate-400">${s.precio.toLocaleString()} x pers.</td>
+                                                    <td className="px-6 py-4 text-right font-black text-slate-900 text-sm sm:text-lg italic">${(s.precio * data.personas).toLocaleString()}</td>
                                                 </tr>
                                             ))}
                                             {data.personal.filter(p => p.cantidad > 0).map(p => (
                                                 <tr key={p.id}>
-                                                    <td className="px-8 py-5 font-black uppercase text-xs">{p.nombre} {p.id === 20 && aplicaBonificacionCocinera && <span className="text-green-600 ml-2">BONIFICADO</span>}</td>
-                                                    <td className="px-8 py-5 text-center text-xs font-bold text-slate-400 tracking-tighter">{p.cantidad} pers.</td>
-                                                    <td className="px-8 py-5 text-right font-black text-slate-900 italic tracking-tighter">{ (p.id === 20 && aplicaBonificacionCocinera) ? 'SIN CARGO' : `$${(p.precio * p.cantidad).toLocaleString()}`}</td>
+                                                    <td className="px-6 py-4 font-black uppercase text-xs">{p.nombre} {p.id === 20 && aplicaBonificacionCocinera && <span className="text-green-600 ml-2">BONIFICADO</span>}</td>
+                                                    <td className="px-6 py-4 text-center text-xs font-bold text-slate-400">{p.cantidad} pers.</td>
+                                                    <td className="px-6 py-4 text-right font-black text-slate-900 italic">{ (p.id === 20 && aplicaBonificacionCocinera) ? 'SIN CARGO' : `$${(p.precio * p.cantidad).toLocaleString()}`}</td>
                                                 </tr>
                                             ))}
                                             {data.adicionales.filter(a => a.activo).map(a => (
                                                 <tr key={a.id}>
-                                                    <td className="px-8 py-5 font-black uppercase text-xs">{a.nombre}</td>
-                                                    <td className="px-8 py-5 text-center text-xs font-black text-slate-400 tracking-tighter">{a.cantidad} u.</td>
-                                                    <td className="px-8 py-5 text-right font-black text-slate-900 italic tracking-tighter">${(a.precio * a.cantidad).toLocaleString()}</td>
+                                                    <td className="px-6 py-4 font-black uppercase text-xs">{a.nombre}</td>
+                                                    <td className="px-6 py-4 text-center text-xs font-black text-slate-400">{a.cantidad} u.</td>
+                                                    <td className="px-6 py-4 text-right font-black text-slate-900 italic">${(a.precio * a.cantidad).toLocaleString()}</td>
                                                 </tr>
                                             ))}
                                             {calculos.logistica > 0 && (
                                                 <tr>
-                                                    <td className="px-8 py-5 font-black uppercase text-xs italic tracking-tighter">Logística / Traslado</td>
-                                                    <td className="px-8 py-5 text-center text-[10px] font-bold text-slate-400 tracking-tighter">{data.distanciaKm} KM</td>
-                                                    <td className="px-8 py-5 text-right font-black text-slate-900 italic tracking-tighter">${calculos.logistica.toLocaleString()}</td>
-                                                </tr>
-                                            )}
-                                            {!data.esPagoTotal && calculos.montoFinanciacion > 0 && (
-                                                <tr className="bg-blue-50/50">
-                                                    <td className="px-8 py-5 font-black text-blue-800 uppercase text-xs italic tracking-tighter">Gastos de Financiación</td>
-                                                    <td className="px-8 py-5 text-center text-[10px] font-black text-blue-400 italic tracking-tighter">{data.financiacionPorcentaje}%</td>
-                                                    <td className="px-8 py-5 text-right font-black text-blue-800 italic tracking-tighter">${calculos.montoFinanciacion.toLocaleString()}</td>
+                                                    <td className="px-6 py-4 font-black uppercase text-xs italic">Logística / Traslado</td>
+                                                    <td className="px-6 py-4 text-center text-xs font-bold text-slate-400">{data.distanciaKm} KM</td>
+                                                    <td className="px-6 py-4 text-right font-black text-slate-900 italic">${calculos.logistica.toLocaleString()}</td>
                                                 </tr>
                                             )}
                                         </tbody>
                                     </table>
                                 </div>
 
-                                <div className="flex flex-col items-end pt-4 space-y-6">
-                                    <div className="w-96 space-y-4">
-                                        <div className="bg-slate-900 p-8 rounded-[3rem] shadow-2xl text-white">
-                                            <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mb-2">Inversión Final</p>
-                                            <div className="flex justify-between items-baseline">
-                                                <span className="text-4xl font-black italic tracking-tighter uppercase leading-none">Total:</span>
-                                                <span className="text-5xl font-black italic tracking-tighter text-red-500 leading-none">${calculos.totalFinal.toLocaleString()}</span>
-                                            </div>
-                                        </div>
+                                {/* SECCIÓN PESTAÑAS DE SEÑA Y MEDIOS DE PAGO */}
+                                <div className="bg-slate-50 p-4 sm:p-8 rounded-3xl border-2 border-slate-200 print-hidden">
+                                    <h3 className="text-lg font-black text-slate-900 uppercase italic tracking-tight mb-2">
+                                        Confirmación de Reserva & Medio de Pago
+                                    </h3>
+                                    <p className="text-xs text-slate-500 font-medium mb-6">
+                                        Selecciona tu método de pago preferido para abonar el 50% de seña y congelar la fecha de tu evento.
+                                    </p>
 
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="bg-white p-4 rounded-[2rem] border-2 border-slate-50 text-center">
-                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-tight">Seña 50%</p>
-                                                <p className="text-2xl font-black text-slate-900 italic tracking-tighter mt-1">${(calculos.totalFinal / 2).toLocaleString()}</p>
-                                            </div>
-                                            <div className="bg-white p-4 rounded-[2rem] border-2 border-slate-50 text-center">
-                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-tight">Saldo Evento</p>
-                                                <p className="text-2xl font-black text-slate-900 italic tracking-tighter mt-1">${(calculos.totalFinal / 2).toLocaleString()}</p>
-                                            </div>
-                                        </div>
+                                    {/* SELECTOR DE PESTAÑAS */}
+                                    <div className="grid grid-cols-2 gap-2 p-1.5 bg-slate-200 rounded-2xl mb-6">
+                                        <button
+                                            onClick={() => setTabMetodoPago('transferencia')}
+                                            className={`py-3 px-4 rounded-xl font-black text-xs uppercase transition flex items-center justify-center gap-2 ${tabMetodoPago === 'transferencia' ? 'bg-green-600 text-white shadow-md' : 'text-slate-700 hover:text-slate-900'}`}
+                                        >
+                                            <span>Transferencia (Sin Recargo)</span>
+                                        </button>
+                                        <button
+                                            onClick={() => setTabMetodoPago('mercadopago')}
+                                            className={`py-3 px-4 rounded-xl font-black text-xs uppercase transition flex items-center justify-center gap-2 ${tabMetodoPago === 'mercadopago' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-700 hover:text-slate-900'}`}
+                                        >
+                                            <Icons.CreditCard size={16} />
+                                            <span>Mercado Pago (+8%)</span>
+                                        </button>
                                     </div>
 
-                                    {!data.esPagoTotal && data.financiacionPorcentaje > 0 && (
-                                        <div className="w-96 bg-green-50 border-4 border-green-500 rounded-[2.5rem] p-6 shadow-xl transform rotate-1">
-                                            <div className="flex items-center gap-3 text-green-700 mb-2">
-                                                <Icons.Zap size={24} className="fill-green-600 text-green-600" />
-                                                <h5 className="font-black uppercase tracking-widest text-sm italic leading-none">¡Opción Pago Promocional!</h5>
-                                            </div>
-                                            <p className="text-[10px] text-green-600 font-bold uppercase mb-4 leading-tight italic font-black">
-                                                Abonando el 100% eliminas el costo de financiación.
-                                            </p>
-                                            <div className="flex justify-between items-end border-t border-green-200 pt-4">
+                                    {/* CONTENIDO PESTAÑA: TRANSFERENCIA BANCARIA */}
+                                    {tabMetodoPago === 'transferencia' && (
+                                        <div className="bg-white p-5 sm:p-6 rounded-2xl border-2 border-green-300 shadow-sm space-y-4">
+                                            <div className="flex items-center justify-between border-b pb-3">
                                                 <div>
-                                                    <p className="text-[9px] font-black text-green-500 uppercase italic">Precio Promo</p>
-                                                    <p className="text-3xl font-black text-green-700 italic">${calculos.precioPromo.toLocaleString()}</p>
+                                                    <span className="bg-green-100 text-green-800 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">Precio Lista Sin Recargo</span>
+                                                    <h4 className="text-xl font-black text-slate-900 italic mt-1">Monto Seña 50%: ${calculos.sena50Transferencia.toLocaleString()}</h4>
                                                 </div>
                                                 <div className="text-right">
-                                                    <span className="text-xs font-bold text-green-600">Ahorras: ${calculos.montoFinanciacion.toLocaleString()}</span>
+                                                    <p className="text-[10px] font-black text-slate-400 uppercase">Saldo el día del evento</p>
+                                                    <p className="text-base font-black text-slate-800">${calculos.sena50Transferencia.toLocaleString()}</p>
                                                 </div>
+                                            </div>
+
+                                            <div className="bg-green-50/50 p-4 rounded-xl border border-green-200 space-y-3">
+                                                <p className="text-xs font-black text-green-900 uppercase italic">Datos para realizar la transferencia:</p>
+
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                                    <div className="bg-white p-3 rounded-lg border border-green-200 flex justify-between items-center">
+                                                        <div>
+                                                            <p className="text-[10px] text-slate-400 uppercase font-black">Alias Mercado Pago</p>
+                                                            <p className="font-black text-slate-900 text-sm">tres.cero.mp</p>
+                                                        </div>
+                                                        <button onClick={() => copiarTexto('tres.cero.mp', 'alias')} className="bg-green-100 hover:bg-green-200 text-green-800 p-2 rounded-lg font-bold flex items-center gap-1 text-[10px]">
+                                                            {copiadoAlias ? <Icons.Check size={14} className="text-green-600"/> : <Icons.Copy size={14}/>}
+                                                            {copiadoAlias ? 'Copiado' : 'Copiar'}
+                                                        </button>
+                                                    </div>
+
+                                                    <div className="bg-white p-3 rounded-lg border border-green-200 flex justify-between items-center">
+                                                        <div>
+                                                            <p className="text-[10px] text-slate-400 uppercase font-black">CVU / CBU</p>
+                                                            <p className="font-black text-slate-900 text-xs tracking-tight">0000003100109736830548</p>
+                                                        </div>
+                                                        <button onClick={() => copiarTexto('0000003100109736830548', 'cvu')} className="bg-green-100 hover:bg-green-200 text-green-800 p-2 rounded-lg font-bold flex items-center gap-1 text-[10px]">
+                                                            {copiadoCvu ? <Icons.Check size={14} className="text-green-600"/> : <Icons.Copy size={14}/>}
+                                                            {copiadoCvu ? 'Copiado' : 'Copiar'}
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div className="text-xs text-slate-600 font-bold">
+                                                    <strong>Titular:</strong> Fernando Ezequiel Mazzera
+                                                </div>
+                                            </div>
+
+                                            <a
+                                                href={generarWhatsAppUrl('transferencia')}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg transition text-sm uppercase italic"
+                                            >
+                                                <Icons.WhatsApp size={20} />
+                                                <span>Confirmar Seña y Enviar Pedido por WhatsApp</span>
+                                            </a>
+                                        </div>
+                                    )}
+
+                                    {/* CONTENIDO PESTAÑA: MERCADO PAGO / TARJETAS */}
+                                    {tabMetodoPago === 'mercadopago' && (
+                                        <div className="bg-white p-5 sm:p-6 rounded-2xl border-2 border-blue-300 shadow-sm space-y-4">
+                                            <div className="flex items-center justify-between border-b pb-3">
+                                                <div>
+                                                    <span className="bg-blue-100 text-blue-800 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">Link de Pago / Tarjetas (+8%)</span>
+                                                    <h4 className="text-xl font-black text-slate-900 italic mt-1">Monto Seña 50%: ${Math.round(calculos.sena50MercadoPago).toLocaleString()}</h4>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="text-[10px] font-black text-slate-400 uppercase">Saldo el día del evento</p>
+                                                    <p className="text-base font-black text-slate-800">${calculos.sena50Transferencia.toLocaleString()}</p>
+                                                </div>
+                                            </div>
+
+                                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                                                Al seleccionar esta opción serás redirigido a la pasarela segura de Mercado Pago para abonar la seña con Tarjetas de Crédito, Débito o dinero en cuenta.
+                                            </p>
+
+                                            <div className="flex flex-col sm:flex-row gap-3">
+                                                <button
+                                                    onClick={() => procesarPagoMercadoPago('sena_50')}
+                                                    disabled={cargandoMP}
+                                                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg transition text-sm uppercase italic"
+                                                >
+                                                    <Icons.CreditCard size={18} />
+                                                    {cargandoMP ? 'Cargando Mercado Pago...' : `Pagar Seña $${Math.round(calculos.sena50MercadoPago).toLocaleString()}`}
+                                                </button>
+
+                                                <a
+                                                    href={generarWhatsAppUrl('mercadopago')}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="bg-slate-900 hover:bg-black text-white font-black py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md transition text-sm uppercase italic"
+                                                >
+                                                    <Icons.WhatsApp size={18} />
+                                                    <span>Pedir Link por WhatsApp</span>
+                                                </a>
                                             </div>
                                         </div>
                                     )}
                                 </div>
 
-                                <section className="bg-slate-50 p-12 rounded-[3.5rem] mt-16 relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-64 h-64 bg-red-600 opacity-[0.03] rounded-full -mr-32 -mt-32"></div>
-                                    <h4 className="font-black text-slate-900 mb-8 flex items-center gap-3 uppercase text-xs tracking-[0.2em] italic leading-none font-black italic leading-none">
-                                        <Icons.Info size={18} className="text-red-600" /> Condiciones del Servicio
+                                {mensajePago && (
+                                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl text-center text-xs font-bold">
+                                        {mensajePago}
+                                    </div>
+                                )}
+
+                                {/* CONDICIONES GENERALES */}
+                                <section className="bg-slate-50 p-6 sm:p-12 rounded-3xl mt-12 relative overflow-hidden">
+                                    <h4 className="font-black text-slate-900 mb-6 flex items-center gap-2 uppercase text-xs tracking-wider italic">
+                                        <Icons.Info size={18} className="text-red-600" /> Condiciones Generales del Servicio
                                     </h4>
-                                    <ul className="text-[12px] text-slate-500 space-y-5 leading-relaxed font-bold italic">
-                                        <li className="flex gap-4">
-                                            <span className="text-red-600 font-black text-lg italic leading-none">I.</span>
-                                            <span><strong>RESERVA:</strong> La fecha se confirma mediante el pago del 50% de seña. El precio por persona queda **congelado**.</span>
+                                    <ul className="text-xs text-slate-600 space-y-4 font-medium italic">
+                                        <li className="flex gap-3">
+                                            <span className="text-red-600 font-black text-sm">I.</span>
+                                            <span><strong>SEÑA 50%:</strong> Todos los servicios se señan con el 50% para congelar la fecha y el precio. El saldo restante (50%) se abona el día del evento o entrega del pedido.</span>
                                         </li>
-                                        <li className="flex gap-4 bg-white p-4 rounded-3xl border-2 border-green-100 text-green-700 shadow-sm">
-                                            <span className="font-black text-lg italic leading-none text-green-600">II.</span>
-                                            <span><strong>PRECIO PROMO:</strong> Pago anticipado del 100% elimina gastos de financiación.</span>
+                                        <li className="flex gap-3 bg-white p-3.5 rounded-2xl border border-green-200 text-green-900 shadow-sm">
+                                            <span className="font-black text-sm text-green-600">II.</span>
+                                            <span><strong>RECARGOS POR PASARELA:</strong> Los precios publicados corresponden a pagos por Transferencia o Efectivo (Sin Recargo). La seña abonada mediante Link de Pago o Mercado Pago incluye un 8% de recargo por costo de pasarela.</span>
                                         </li>
-                                        <li className="flex gap-4">
-                                            <span className="text-red-600 font-black text-lg italic leading-none">III.</span>
-                                            <span><strong>DURACIÓN:</strong> 3 horas continuas. El personal arriba 1 hora antes para armado.</span>
-                                        </li>
-                                        <li className="flex gap-4">
-                                            <span className="text-red-600 font-black text-lg italic leading-none">IV.</span>
-                                            <span><strong>COMENSALES:</strong> No se aceptan bajas. Sumar personas hasta 3 días antes.</span>
+                                        <li className="flex gap-3">
+                                            <span className="text-red-600 font-black text-sm">III.</span>
+                                            <span><strong>DURACIÓN Y COMENSALES:</strong> El servicio incluye 3 horas continuas de atención. Podrás sumar comensales hasta 3 días antes del evento.</span>
                                         </li>
                                     </ul>
-                                    <p className="mt-10 pt-8 border-t border-slate-200 text-[10px] italic text-slate-400 uppercase font-black tracking-tighter text-center leading-none">
+                                    <p className="mt-8 pt-6 border-t border-slate-200 text-[10px] italic text-slate-400 uppercase font-black tracking-tight text-center">
                                         Presupuesto regido por Arts. 1059/1060 Cód. Civil y Comercial y Ley Defensa Consumidor 24.240.
                                     </p>
                                 </section>
                             </div>
 
-                            <footer className="mt-20 pt-12 border-t-2 border-slate-50 grid grid-cols-3 text-center text-slate-300 text-[10px] font-black uppercase tracking-[0.3em] italic">
+                            <footer className="mt-16 pt-8 border-t-2 border-slate-50 grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-slate-400 text-[10px] font-black uppercase tracking-widest italic">
                                 <p>WA: +5491132664036</p>
                                 <p>WWW.EVENTOSTRESPUNTOCERO.COM.AR</p>
                                 <p>Buenos Aires • AR</p>
