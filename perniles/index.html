@@ -71,6 +71,16 @@
 
     <div class="h-20 md:h-24"></div>
 
+    <!-- BANNER DE PAGO EXITOSO (POST-PAGO) -->
+    <div id="banner-exito" class="hidden max-w-4xl mx-auto my-6 px-4">
+        <div class="bg-green-600 text-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-green-400 text-center space-y-3">
+            <h3 class="text-2xl md:text-3xl font-black uppercase italic">¡Pago Aprobado con Éxito! 🎉</h3>
+            <p class="text-sm font-bold opacity-90 max-w-2xl mx-auto">
+                Tu seña fue procesada correctamente. Completá los datos de entrega y fecha abajo para enviar tu pedido por WhatsApp y coordinar la entrega.
+            </p>
+        </div>
+    </div>
+
     <!-- HEADER SECCIÓN -->
     <header class="py-12 md:py-16 bg-slate-900 text-white text-center px-4 relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('../img/pernil-1.jpg')] bg-cover bg-center" aria-label="Pernil de cerdo horneado artesanal"></div>
@@ -85,10 +95,12 @@
     <section class="py-12 md:py-16 px-3 sm:px-4">
         <div class="max-w-7xl mx-auto">
 
-            <!-- FORMULARIO UBICACIÓN -->
-            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-slate-100 mb-8 max-w-4xl mx-auto">
-                <h3 class="text-xs font-black uppercase tracking-wider text-slate-700 mb-3">📍 Datos de Entrega y Reserva</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+            <!-- FORMULARIO DE UBICACIÓN Y DATOS (VISIBLE SOLO TRAS EL PAGO O AL PEDIR POR TRANSFERENCIA/WHATSAPP) -->
+            <div id="seccion-datos-entrega" class="hidden bg-white rounded-3xl p-6 sm:p-8 shadow-xl border-2 border-green-500 mb-10 max-w-4xl mx-auto space-y-4">
+                <h3 class="text-sm font-black uppercase tracking-wider text-green-800 flex items-center gap-2">
+                    📍 Completá tus datos de entrega y fecha para agendar el pedido
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                     <div>
                         <label class="text-[10px] font-black uppercase text-slate-400">Cliente</label>
                         <input type="text" id="pernil_cliente" placeholder="Nombre completo" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
@@ -115,6 +127,11 @@
                         <label class="text-[10px] font-black uppercase text-slate-400">Entre Calles</label>
                         <input type="text" id="pernil_entre_calles" placeholder="Ej: Libertad y Talcahuano" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
                     </div>
+                </div>
+                <div class="pt-2">
+                    <button id="btn-enviar-datos-post-pago" onclick="enviarWhatsappPostPago()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-xl uppercase text-xs shadow-lg flex items-center justify-center gap-2">
+                        <span>💬 Enviar Datos y Confirmar por WhatsApp</span>
+                    </button>
                 </div>
             </div>
 
@@ -251,8 +268,8 @@
                         <p class="text-[10px] text-slate-500 font-bold">Titular: Fernando Ezequiel Mazzera</p>
                     </div>
 
-                    <button id="btn-confirmar-wa-modal" onclick="confirmarPernilWhatsapp('transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl uppercase text-xs shadow flex items-center justify-center gap-2">
-                        <span>💬 Confirmar Seña y Enviar Pedido por WhatsApp</span>
+                    <button onclick="mostrarFormularioEntregaTransf()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl uppercase text-xs shadow flex items-center justify-center gap-2">
+                        <span>Continuar con Datos de Entrega ➔</span>
                     </button>
                 </div>
             </div>
@@ -269,6 +286,15 @@
         const WHATSAPP_NUM = "5491132664036";
         let pernilSeleccionado = { nombre: '', precio: 0, modo: '' };
 
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('pago') === 'exito') {
+                document.getElementById('banner-exito').classList.remove('hidden');
+                document.getElementById('seccion-datos-entrega').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
         function copiarTexto(txt, btn) {
             navigator.clipboard.writeText(txt);
             const orig = btn.innerText;
@@ -280,6 +306,12 @@
             document.getElementById('panel-transf-pernil').classList.add('hidden');
         }
 
+        function mostrarFormularioEntregaTransf() {
+            cerrarModalTransf();
+            document.getElementById('seccion-datos-entrega').classList.remove('hidden');
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
         async function seleccionarPernil(nombre, precioTotal, modo) {
             pernilSeleccionado = { nombre, precioTotal, modo };
 
@@ -288,22 +320,20 @@
                 document.getElementById('monto-sena-modal-txt').innerText = `Monto Seña 50% (Sin Recargo): $${senaTransf.toLocaleString('es-AR')}`;
                 document.getElementById('panel-transf-pernil').classList.remove('hidden');
             } else {
-                // Mercado Pago directo con 8% recargo
                 const senaMP = Math.round((precioTotal / 2) * 1.08);
-                const cliente = document.getElementById("pernil_cliente").value || "Cliente Pernil";
-                const telefono = document.getElementById("pernil_telefono").value || "";
 
                 try {
                     const res = await fetch('https://huhigdlbztpqwtfyznya.supabase.co/functions/v1/crear-preferencia-mp', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            cliente_nombre: cliente,
-                            cliente_telefono: telefono,
+                            cliente_nombre: "Cliente Pernil",
+                            cliente_telefono: "",
                             monto: senaMP,
                             concepto: "Pernil de Cerdo - " + nombre,
                             tipo_pago: 'sena_50',
-                            reserva_id: `RES-${Date.now()}`
+                            reserva_id: `RES-${Date.now()}`,
+                            success_url: window.location.href.split('?')[0] + '?pago=exito'
                         })
                     });
                     const data = await res.json();
@@ -318,7 +348,7 @@
             }
         }
 
-        function confirmarPernilWhatsapp(modo) {
+        function enviarWhatsappPostPago() {
             const cliente = document.getElementById("pernil_cliente").value || "Cliente";
             const telefono = document.getElementById("pernil_telefono").value || "Sin especificar";
             const fecha = document.getElementById("pernil_fecha").value || "A confirmar";
@@ -329,35 +359,26 @@
             const senaTransf = Math.round(pernilSeleccionado.precioTotal / 2);
 
             const msg = "¡Hola *Eventos Tres.Cero*! 👋🏼\n" +
-                      "Quiero confirmar la reserva de mi *Pernil de Cerdo*:\n\n" +
-                      "🍖 *PRODUCTO*: " + pernilSeleccionado.nombre + "\n\n" +
+                      "Ya realicé el pago de mi *Pernil de Cerdo* y quiero confirmar la entrega:\n\n" +
+                      "🍖 *PRODUCTO*: " + (pernilSeleccionado.nombre || "Pernil de Cerdo") + "\n\n" +
                       "📍 *DATOS DE ENTREGA*:\n" +
                       "• *Cliente*: " + cliente + "\n" +
                       "• *Teléfono*: " + telefono + "\n" +
                       "• *Fecha*: " + fecha + "\n" +
                       "• *Localidad*: " + localidad + "\n" +
                       "• *Dirección*: " + direccion + " (e/ " + entreCalles + ")\n\n" +
-                      "💰 *RESUMEN DE SEÑA*:\n" +
-                      "• *Precio Total*: $" + pernilSeleccionado.precioTotal.toLocaleString('es-AR') + "\n" +
-                      "• *Seña 50%*: $" + senaTransf.toLocaleString('es-AR') + " (Transferencia sin recargo)\n" +
+                      "💰 *PAGO REALIZADO*:\n" +
+                      "• *Precio Total*: $" + (pernilSeleccionado.precioTotal || 0).toLocaleString('es-AR') + "\n" +
+                      "• *Seña 50% abonada*: $" + senaTransf.toLocaleString('es-AR') + "\n" +
                       "• *Saldo contra entrega*: $" + senaTransf.toLocaleString('es-AR') + "\n\n" +
-                      "Adjunto comprobante de transferencia. ¡Muchas gracias!";
+                      "Adjunto comprobante. ¡Muchas gracias!";
 
             gtag_report_conversion("https://wa.me/" + WHATSAPP_NUM + "?text=" + encodeURIComponent(msg));
         }
 
         function solicitarPdfPernil() {
-            const cliente = document.getElementById("pernil_cliente").value || "Cliente";
-            const telefono = document.getElementById("pernil_telefono").value || "Sin especificar";
-            const fecha = document.getElementById("pernil_fecha").value || "A confirmar";
-            const localidad = document.getElementById("pernil_localidad").value || "Sin especificar";
-
             const msg = "¡Hola *Eventos Tres.Cero*! 👋🏼\n" +
-                      "Me interesan los *Perniles de Cerdo* y quiero solicitar el catálogo con fotos y presupuesto detallado en PDF:\n\n" +
-                      "• *Cliente*: " + cliente + "\n" +
-                      "• *Teléfono*: " + telefono + "\n" +
-                      "• *Fecha tentativa*: " + fecha + "\n" +
-                      "• *Localidad*: " + localidad + "\n\n" +
+                      "Me interesan los *Perniles de Cerdo* y quiero solicitar el catálogo con fotos y presupuesto detallado en PDF.\n\n" +
                       "Por favor enviame la información. ¡Muchas gracias!";
 
             gtag_report_conversion("https://wa.me/" + WHATSAPP_NUM + "?text=" + encodeURIComponent(msg));

@@ -86,6 +86,16 @@
 
     <div class="h-20 md:h-24"></div>
 
+    <!-- BANNER DE PAGO EXITOSO (POST-PAGO) -->
+    <div id="banner-exito" class="hidden max-w-4xl mx-auto my-6 px-4">
+        <div class="bg-green-600 text-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-green-400 text-center space-y-3">
+            <h3 class="text-2xl md:text-3xl font-black uppercase italic">¡Pago Aprobado con Éxito! 🎉</h3>
+            <p class="text-sm font-bold opacity-90 max-w-2xl mx-auto">
+                Tu seña fue procesada correctamente. Completá los datos de entrega y fecha abajo para enviar tu combo por WhatsApp y agendar el evento.
+            </p>
+        </div>
+    </div>
+
     <!-- CONTENEDOR PRINCIPAL -->
     <main class="py-8 md:py-16 px-3 sm:px-4">
         <div class="max-w-5xl mx-auto">
@@ -99,42 +109,40 @@
             <div class="bg-white rounded-2xl md:rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
                 <div class="p-4 sm:p-8 md:p-12">
 
-                    <!-- 1. DATOS BÁSICOS -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8 border-b border-slate-100 pb-8">
-                        <div>
-                            <label class="text-[10px] font-black uppercase text-slate-400">Cliente</label>
-                            <input type="text" id="ev_cliente_nombre" placeholder="Tu nombre" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-sm outline-none focus:border-red-600 transition mt-1">
+                    <!-- FORMULARIO DE UBICACIÓN Y DATOS (VISIBLE TRAS PAGO) -->
+                    <div id="seccion-datos-entrega" class="hidden bg-slate-50 p-6 rounded-3xl border-2 border-green-500 mb-8 space-y-4">
+                        <h3 class="text-xs font-black uppercase tracking-wider text-green-800">📍 Dirección y Datos de Contacto (Para agendar entrega)</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                            <div>
+                                <label class="text-[10px] font-black uppercase text-slate-400">Cliente</label>
+                                <input type="text" id="ev_cliente_nombre" placeholder="Nombre completo" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-600 mt-1">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase text-slate-400">WhatsApp</label>
+                                <input type="text" id="ev_cliente_telefono" placeholder="11 3266-4036" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs text-center outline-none focus:border-red-600 mt-1">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase text-slate-400">Fecha del Evento *</label>
+                                <input type="date" id="ev_fecha" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs text-center outline-none focus:border-red-600 mt-1">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase text-slate-400">Localidad / Barrio *</label>
+                                <input type="text" id="ev_localidad" placeholder="Ej: Quilmes / CABA" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-600 mt-1">
+                            </div>
                         </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase text-slate-400">WhatsApp / Teléfono</label>
-                            <input type="text" id="ev_cliente_telefono" placeholder="11 3266-4036" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-sm text-center outline-none focus:border-red-600 transition mt-1">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase text-slate-400">Fecha del Evento *</label>
-                            <input type="date" id="ev_fecha" onchange="validarCampos(); calcular()" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-xs text-center outline-none focus:border-red-600 transition mt-1">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase text-slate-400">Localidad / Barrio *</label>
-                            <input type="text" id="ev_localidad" placeholder="Ej: Quilmes / CABA" oninput="validarCampos()" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-sm outline-none focus:border-red-600 transition mt-1">
-                        </div>
-                    </div>
-
-                    <!-- DOMICILIO Y ENTREGA -->
-                    <div class="bg-slate-50 p-4 sm:p-6 rounded-2xl border-2 border-slate-200 mb-8">
-                        <h3 class="text-xs font-black uppercase tracking-wider text-slate-700 mb-3">📍 Dirección de Entrega</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="text-[10px] font-black uppercase text-slate-400">Dirección Exacta</label>
-                                <input type="text" id="ev_direccion" placeholder="Ej: Av. Corrientes 1234" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                                <input type="text" id="ev_direccion" placeholder="Ej: Av. Corrientes 1234" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-600 mt-1">
                             </div>
                             <div>
                                 <label class="text-[10px] font-black uppercase text-slate-400">Entre Calles</label>
-                                <input type="text" id="ev_entre_calles" placeholder="Ej: Libertad y Talcahuano" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                                <input type="text" id="ev_entre_calles" placeholder="Ej: Libertad y Talcahuano" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-600 mt-1">
                             </div>
                         </div>
                     </div>
 
-                    <!-- 2. TABLAS Y MIGA -->
+                    <!-- 1. TABLAS Y MIGA -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-4 border-b border-red-100 pb-2 italic">1. Tablas Gourmet y Sándwiches de Miga</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
@@ -155,7 +163,7 @@
                         </div>
                     </div>
 
-                    <!-- 3. FINGER FOOD -->
+                    <!-- 2. FINGER FOOD -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-4 border-b border-red-100 pb-2 italic">2. Finger Food</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
                         <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
@@ -174,7 +182,7 @@
                         </div>
                     </div>
 
-                    <!-- 4. PERNILES -->
+                    <!-- 3. PERNILES -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-4 border-b border-red-100 pb-2 italic">3. Perniles Horneados</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                         <div class="md:col-span-2">
@@ -189,17 +197,6 @@
                         <div>
                             <label class="text-[9px] font-black text-slate-400 uppercase">Cantidad</label>
                             <input type="number" id="sp_pernil_qty" value="1" min="1" max="5" oninput="calcular()" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-black text-center text-red-600 text-sm outline-none mt-1">
-                        </div>
-                    </div>
-
-                    <!-- 5. PERSONAL Y LOGÍSTICA -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                        <div>
-                            <label class="text-[9px] font-black text-slate-400 uppercase">Método de Entrega</label>
-                            <select id="traslado" onchange="calcular()" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-xs focus:border-red-600 outline-none mt-1">
-                                <option value="retiro">Retiro por producción (Bernal) - Sin Cargo</option>
-                                <option value="envio">Envío a domicilio (A cotizar por zona)</option>
-                            </select>
                         </div>
                     </div>
 
@@ -265,7 +262,7 @@
                                     <p class="text-[10px] text-slate-300 font-bold">Titular: Fernando Ezequiel Mazzera</p>
                                 </div>
 
-                                <button onclick="enviarWhatsapp('transferencia')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                                <button onclick="mostrarFormularioEntregaCombo()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
                                     <span>💬 Confirmar Seña y Enviar Pedido por WhatsApp</span>
                                 </button>
                             </div>
@@ -324,6 +321,16 @@
         let senaMPCalculada = 0;
         let resumenTexto = "";
 
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('pago') === 'exito') {
+                document.getElementById('banner-exito').classList.remove('hidden');
+                document.getElementById('seccion-datos-entrega').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            calcular();
+        });
+
         function cambiarTab(tab) {
             tabActual = tab;
             if (tab === 'transf') {
@@ -344,13 +351,6 @@
             const orig = btn.innerText;
             btn.innerText = "¡Copiado!";
             setTimeout(() => btn.innerText = orig, 2000);
-        }
-
-        function validarCampos() {
-            let fecha = document.getElementById('ev_fecha').value;
-            let loc = document.getElementById('ev_localidad').value;
-            if(fecha) document.getElementById('ev_fecha').classList.remove('error-field');
-            if(loc.trim() !== "") document.getElementById('ev_localidad').classList.remove('error-field');
         }
 
         function calcular() {
@@ -414,7 +414,7 @@
 
             totalCalculado = total;
             senaTransfCalculada = Math.round(total / 2);
-            senaMPCalculada = Math.round(senaTransfCalculada * 1.08); // 8% recargo
+            senaMPCalculada = Math.round(senaTransfCalculada * 1.08);
             resumenTexto = detalleWA;
 
             document.getElementById("txtTotal").innerText = formatArg(totalCalculado);
@@ -425,6 +425,12 @@
 
             document.getElementById("txt-sena-mp").innerText = "Seña 50%: " + formatArg(senaMPCalculada);
             document.getElementById("txt-saldo-mp").innerText = formatArg(senaTransfCalculada);
+        }
+
+        function mostrarFormularioEntregaCombo() {
+            document.getElementById('seccion-datos-entrega').classList.remove('hidden');
+            window.scrollTo({ top: 100, behavior: 'smooth' });
+            enviarWhatsapp('transferencia');
         }
 
         async function pagarMercadoPagoCombo(tipoPago) {
@@ -442,7 +448,8 @@
                         monto: monto,
                         concepto: "Combo a Medida Eventos Tres.Cero",
                         tipo_pago: tipoPago,
-                        reserva_id: `RES-${Date.now()}`
+                        reserva_id: `RES-${Date.now()}`,
+                        success_url: window.location.href.split('?')[0] + '?pago=exito'
                     })
                 });
                 const data = await res.json();

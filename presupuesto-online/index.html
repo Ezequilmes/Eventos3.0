@@ -45,7 +45,6 @@
             margin: 0;
         }
 
-        /* Marquee Animation */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -95,6 +94,16 @@
 
     <div class="h-20 md:h-24"></div>
 
+    <!-- BANNER DE PAGO EXITOSO (POST-PAGO) -->
+    <div id="banner-exito" class="hidden max-w-4xl mx-auto my-6 px-4">
+        <div class="bg-green-600 text-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-green-400 text-center space-y-3">
+            <h3 class="text-2xl md:text-3xl font-black uppercase italic">¡Pago Aprobado con Éxito! 🎉</h3>
+            <p class="text-sm font-bold opacity-90 max-w-2xl mx-auto">
+                Tu seña fue procesada correctamente. Completá los datos de ubicación y fecha abajo para enviar tu presupuesto por WhatsApp y agendar el evento.
+            </p>
+        </div>
+    </div>
+
     <!-- CONTENEDOR DEL COTIZADOR -->
     <main class="py-8 md:py-16 px-3 sm:px-4">
         <div class="max-w-4xl mx-auto">
@@ -125,29 +134,19 @@
             <div class="bg-white rounded-2xl md:rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
                 <div class="p-4 sm:p-8 md:p-12">
 
-                    <!-- PASO 1: DATOS BÁSICOS DEL CLIENTE Y FECHA -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8 border-b border-slate-100 pb-8">
-                        <div>
-                            <label class="text-[10px] font-black uppercase text-slate-400">Cliente</label>
-                            <input id="input-cliente-nombre" type="text" placeholder="Nombre completo" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-sm outline-none focus:border-red-500 mt-1">
+                    <!-- FORMULARIO DE UBICACIÓN Y DATOS (VISIBLE TRAS PAGO) -->
+                    <div id="seccion-datos-entrega" class="hidden bg-slate-50 p-6 rounded-3xl border-2 border-green-500 mb-8 space-y-4">
+                        <h3 class="text-xs font-black uppercase tracking-wider text-green-800">📍 Dirección y Datos de Contacto (Para agendar entrega)</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-[10px] font-black uppercase text-slate-400">Cliente</label>
+                                <input id="input-cliente-nombre" type="text" placeholder="Nombre completo" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase text-slate-400">WhatsApp / Teléfono</label>
+                                <input id="input-cliente-telefono" type="text" placeholder="11 3266-4036" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs text-center outline-none focus:border-red-500 mt-1">
+                            </div>
                         </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase text-slate-400">WhatsApp / Teléfono</label>
-                            <input id="input-cliente-telefono" type="text" placeholder="11 3266-4036" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-sm text-center outline-none focus:border-red-500 mt-1">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase text-slate-400">Cantidad Invitados</label>
-                            <input id="cantidad-personas" type="number" min="10" value="30" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-black text-xl text-center text-red-600 outline-none focus:border-red-500 mt-1">
-                        </div>
-                        <div>
-                            <label class="text-[10px] font-black uppercase text-slate-400">Fecha del Evento</label>
-                            <input id="fecha-evento" type="date" onchange="calcularPrecio()" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-xs text-center outline-none focus:border-red-500 mt-1">
-                        </div>
-                    </div>
-
-                    <!-- PASO 2: DOMICILIO DE ENTREGA -->
-                    <div class="bg-slate-50 p-4 sm:p-6 rounded-2xl border-2 border-slate-200 mb-8">
-                        <h3 class="text-xs font-black uppercase tracking-wider text-slate-700 mb-3">📍 Ubicación del Evento / Entrega</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div>
                                 <label class="text-[10px] font-black uppercase text-slate-400">Dirección Exacta</label>
@@ -164,7 +163,20 @@
                         </div>
                     </div>
 
-                    <!-- PASO 3: ZONAS -->
+                    <!-- PASO 1: DATOS BÁSICOS (SUPER RÁPIDO: INVITADOS Y FECHA) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 border-b border-slate-100 pb-8">
+                        <div class="space-y-2 text-center sm:text-left">
+                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Cantidad de Invitados</label>
+                            <input id="cantidad-personas" type="number" min="10" value="30" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-black text-3xl text-center text-red-600 outline-none focus:border-red-500 transition">
+                            <p class="text-[9px] text-slate-400 font-bold uppercase italic">* Mínimo 10 personas para servicio con personal</p>
+                        </div>
+                        <div class="space-y-2 text-center sm:text-left">
+                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Fecha del Evento</label>
+                            <input id="fecha-evento" type="date" onchange="calcularPrecio()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-center outline-none focus:border-red-500 transition">
+                        </div>
+                    </div>
+
+                    <!-- PASO 2: ZONAS -->
                     <div class="mb-8">
                         <label class="text-[10px] font-black uppercase text-red-600 tracking-widest block mb-4 text-center italic">Zona de Cobertura</label>
                         <div class="grid grid-cols-2 md:grid-cols-5 gap-2.5">
@@ -176,9 +188,9 @@
                         </div>
                     </div>
 
-                    <!-- PASO 4: SERVICIOS BASE -->
+                    <!-- PASO 3: SERVICIOS -->
                     <div class="mb-8">
-                        <label class="text-[10px] font-black uppercase text-red-600 tracking-widest block mb-4 text-center italic">Servicio Base</label>
+                        <label class="text-[10px] font-black uppercase text-red-600 tracking-widest block mb-4 text-center italic">Elegí tu Servicio Base</label>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <button type="button" class="btn-servicio active p-4 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="7800" data-name="Pizza Party" data-desc="Bruschettas + Empanadas + 10 variedades de pizza libre">
                                 <div class="flex justify-between items-center mb-1">
@@ -275,7 +287,7 @@
                                     <p class="text-[10px] text-slate-300 font-bold">Titular: Fernando Ezequiel Mazzera</p>
                                 </div>
 
-                                <button id="btn-wa-transf" onclick="enviarWhatsappGeneral('transferencia')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                                <button onclick="mostrarFormularioEntregaTransfOnline()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
                                     <span>💬 Confirmar Seña y Enviar Pedido por WhatsApp</span>
                                 </button>
                             </div>
@@ -325,6 +337,16 @@
         let totalCalculado = 0;
         let senaTransfCalculada = 0;
         let senaMPCalculada = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('pago') === 'exito') {
+                document.getElementById('banner-exito').classList.remove('hidden');
+                document.getElementById('seccion-datos-entrega').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            calcularPrecio();
+        });
 
         document.querySelectorAll(".btn-zona").forEach(btn => {
             btn.addEventListener("click", e => {
@@ -395,7 +417,7 @@
 
             totalCalculado = Math.round((personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost);
             senaTransfCalculada = Math.round(totalCalculado / 2);
-            senaMPCalculada = Math.round(senaTransfCalculada * 1.08); // 8% recargo
+            senaMPCalculada = Math.round(senaTransfCalculada * 1.08);
 
             document.getElementById("precio-estimado").innerText = "$" + totalCalculado.toLocaleString('es-AR');
             document.getElementById("resumen-base").innerHTML = "<span>Menú Base:</span> <strong class='text-red-400 uppercase italic'>" + servicioActivo.name + " (" + personas + " pers.)</strong>";
@@ -409,8 +431,14 @@
             document.getElementById("txt-saldo-mp").innerText = "$" + senaTransfCalculada.toLocaleString('es-AR');
         }
 
+        function mostrarFormularioEntregaTransfOnline() {
+            document.getElementById('seccion-datos-entrega').classList.remove('hidden');
+            window.scrollTo({ top: 100, behavior: 'smooth' });
+            enviarWhatsappGeneral('transferencia');
+        }
+
         async function pagarMercadoPagoOnline(tipoPago) {
-            const cliente = document.getElementById("input-cliente-nombre").value || "Cliente Cotizador";
+            const cliente = document.getElementById("input-cliente-nombre").value || "Cliente Presupuesto";
             const telefono = document.getElementById("input-cliente-telefono").value || "";
             const monto = senaMPCalculada;
 
@@ -424,7 +452,8 @@
                         monto: monto,
                         concepto: "Presupuesto Online - " + servicioActivo.name,
                         tipo_pago: tipoPago,
-                        reserva_id: `RES-${Date.now()}`
+                        reserva_id: `RES-${Date.now()}`,
+                        success_url: window.location.href.split('?')[0] + '?pago=exito'
                     })
                 });
                 const data = await res.json();
@@ -452,7 +481,7 @@
             const recargoTexto = esMP ? ' (Mercado Pago +8%)' : ' (Transferencia sin recargo)';
 
             const msg = "¡Hola *Eventos Tres.Cero*! 👋🏼\n" +
-                      "Quiero confirmar la reserva de mi *Presupuesto Online*.\n\n" +
+                      "Quiero confirmar la reserva de mi *Presupuesto Online*:\n\n" +
                       "📋 *DETALLE DEL PEDIDO*:\n" +
                       "• *Cliente*: " + cliente + "\n" +
                       "• *Teléfono*: " + telefono + "\n" +
@@ -467,13 +496,12 @@
                       "• *Total Estimado*: $" + totalCalculado.toLocaleString('es-AR') + "\n" +
                       "• *Seña 50%*: $" + montoSena.toLocaleString('es-AR') + recargoTexto + "\n" +
                       "• *Saldo al evento*: $" + senaTransfCalculada.toLocaleString('es-AR') + "\n\n" +
-                      "Quedo a la espera de la confirmación. ¡Muchas gracias!";
+                      "Adjunto comprobante o quedo a la espera de la confirmación. ¡Muchas gracias!";
 
             gtag_report_conversion("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg));
         }
 
         document.getElementById("cantidad-personas").addEventListener("input", calcularPrecio);
-        window.addEventListener('DOMContentLoaded', calcularPrecio);
     </script>
 </body>
 </html>
