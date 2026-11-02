@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
 
-
     <script>
     function gtag_report_conversion(url) {
       var callback = function () {
@@ -36,187 +35,18 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
 
-        /* --- Paso 2 & 3: Navegación Móvil UI/UX --- */
-
         @media (max-width: 768px) {
-            /* Ocultamos los enlaces de texto superiores y el botón WhatsApp original en el header */
             nav .hidden.lg\:flex,
             nav a.bg-green-500 {
                 display: none !important;
             }
-
-            /* Padding inferior al body para que la barra no tape el contenido del footer */
             body {
                 padding-bottom: 75px;
             }
         }
-
-        /* Estilos exclusivos de la Barra Inferior (App-Style) */
-        .app-bottom-bar {
-            display: flex;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.85); /* Glassmorphism */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            z-index: 9999;
-            justify-content: space-around;
-            align-items: center;
-            padding-bottom: env(safe-area-inset-bottom); /* Soporte para iPhone con Notch */
-        }
-
-        .app-bottom-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            text-decoration: none;
-            color: #64748b; /* slate-500 */
-            transition: all 0.2s ease;
-        }
-
-        .app-bottom-item:active {
-            transform: scale(0.9);
-            background: rgba(0,0,0,0.03);
-        }
-
-        .app-bottom-item span {
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-top: 4px;
-            letter-spacing: 0.05em;
-        }
-
-        .app-bottom-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        .app-bottom-bar {
-            display: flex;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.85); /* Glassmorphism */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            z-index: 9999;
-            justify-content: space-around;
-            align-items: center;
-            padding-bottom: env(safe-area-inset-bottom); /* Soporte para iPhone con Notch */
-        }
-
-        .app-bottom-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            text-decoration: none;
-            color: #64748b; /* slate-500 */
-            transition: all 0.2s ease;
-        }
-
-        .app-bottom-item:active {
-            transform: scale(0.9);
-            background: rgba(0,0,0,0.03);
-        }
-
-        .app-bottom-item span {
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-top: 4px;
-            letter-spacing: 0.05em;
-        }
-
-        .app-bottom-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Ocultar barra en computadoras */
-        @media (min-width: 769px) {
-            .app-bottom-bar {
-                display: none;
-            }
-        }
-
-        /* --- Paso 2: FAQ SEO & UI/UX --- */
-
-        .faq-master {
-            border-radius: 1.5rem;
-            overflow: hidden;
-        }
-
-        .faq-master-trigger {
-            list-style: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            background: #f8fafc; /* slate-50 */
-            border: 1px solid #e2e8f0; /* slate-200 */
-            border-radius: 1.25rem;
-            color: #22c55e; /* verde whatsapp */
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-        }
-
-        .faq-master-trigger::-webkit-details-marker { display: none; }
-
-        .faq-master-trigger:hover {
-            background: #ffffff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .faq-content-wrapper {
-            margin-top: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .faq-item {
-            background: white;
-            border: 1px solid #f1f5f9;
-            border-radius: 1rem;
-        }
-
-        .faq-item summary {
-            list-style: none;
-            cursor: pointer;
-            padding: 1rem;
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: #1e293b; /* slate-800 */
-            position: relative;
-        }
-
-        .faq-item summary::-webkit-details-marker { display: none; }
-
-        .faq-answer {
-            padding: 0 1rem 1rem 1rem;
-            font-size: 0.8125rem;
-            line-height: 1.5;
-            color: #64748b; /* slate-500 */
-        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen">
+<body class="bg-slate-50 text-slate-900 min-h-screen antialiased">
 
     <!-- Navegación -->
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
@@ -239,281 +69,299 @@
         </div>
     </nav>
 
-    <!-- Spacer para el nav fixed -->
     <div class="h-20 md:h-24"></div>
 
     <!-- HEADER SECCIÓN -->
-    <header class="py-16 bg-slate-900 text-white text-center px-4 relative overflow-hidden">
+    <header class="py-12 md:py-16 bg-slate-900 text-white text-center px-4 relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('../img/pernil-1.jpg')] bg-cover bg-center" aria-label="Pernil de cerdo horneado artesanal"></div>
         <div class="relative z-10">
-            <h1 class="text-xs font-black text-red-500 uppercase tracking-[0.5em] mb-4 text-balance">Especialidad de la Casa</h1>
-            <p class="text-4xl md:text-6xl font-black italic tracking-tighter uppercase leading-none">Perniles Horneados</p>
-            <p class="mt-6 text-slate-400 font-medium max-w-xl mx-auto text-balance italic">Carne seleccionada, tiernizada durante 12 horas y lista para servir en tu evento.</p>
+            <h1 class="text-xs font-black text-red-500 uppercase tracking-[0.5em] mb-3 text-balance">Especialidad de la Casa</h1>
+            <p class="text-3xl md:text-6xl font-black italic tracking-tighter uppercase leading-none">Perniles Horneados</p>
+            <p class="mt-4 text-slate-400 font-medium max-w-xl mx-auto text-balance italic text-xs sm:text-sm">Carne seleccionada, tiernizada durante 12 horas y lista para servir en tu evento.</p>
         </div>
     </header>
 
-    <!-- LISTADO DE PRODUCTOS -->
-    <section class="py-20 px-4">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- LISTADO DE PRODUCTOS Y SELECCIÓN -->
+    <section class="py-12 md:py-16 px-3 sm:px-4">
+        <div class="max-w-7xl mx-auto">
 
-            <!-- PERNIL CHICO -->
-            <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
-                <div class="h-64 overflow-hidden relative group">
-                    <img src="../img/pernil-3.jpg" alt="Pernil de cerdo chico para 20 personas con salsas y panes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute top-4 right-4 bg-red-600 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase shadow-lg">Ideal 20 Pers.</div>
+            <!-- FORMULARIO UBICACIÓN -->
+            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-slate-100 mb-8 max-w-4xl mx-auto">
+                <h3 class="text-xs font-black uppercase tracking-wider text-slate-700 mb-3">📍 Datos de Entrega y Reserva</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Cliente</label>
+                        <input type="text" id="pernil_cliente" placeholder="Nombre completo" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">WhatsApp</label>
+                        <input type="text" id="pernil_telefono" placeholder="11 3266-4036" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold text-xs text-center outline-none focus:border-red-500 mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Fecha Entrega</label>
+                        <input type="date" id="pernil_fecha" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold text-xs text-center outline-none focus:border-red-500 mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Localidad</label>
+                        <input type="text" id="pernil_localidad" placeholder="Ej: Quilmes / CABA" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                    </div>
                 </div>
-                <div class="p-8 flex-1 flex flex-col">
-                    <h3 class="text-2xl font-black uppercase italic text-slate-900 mb-2 leading-none">Pernil de Cerdo Chico</h3>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">~5 KG DE PURA CARNE</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Dirección Exacta</label>
+                        <input type="text" id="pernil_direccion" placeholder="Ej: Av. Corrientes 1234" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Entre Calles</label>
+                        <input type="text" id="pernil_entre_calles" placeholder="Ej: Libertad y Talcahuano" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                    </div>
+                </div>
+            </div>
 
-                    <ul class="space-y-3 mb-8 text-sm text-slate-600 font-medium flex-1">
-                        <li class="flex items-center gap-3">
-                            <span class="text-red-500 text-lg">🥖</span>
-                            <span>Incluye 50 figazas de manteca recién horneadas.</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-red-500 text-lg">🍯</span>
-                            <span>3 variedades de salsas artesanales exclusivas.</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-red-500 text-lg">🍽️</span>
-                            <span>Rinde aprox. 3 sándwiches por persona.</span>
-                        </li>
-                    </ul>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12">
 
-                    <div class="bg-slate-50 p-6 rounded-3xl mb-8 border border-slate-100">
-                        <p class="text-xs text-slate-400 font-bold uppercase mb-1">Precio Promocional</p>
-                        <div class="text-4xl font-black italic text-slate-900 tracking-tighter">$73.700</div>
-                        <p class="text-[9px] text-slate-400 mt-2 font-bold uppercase italic leading-none">Seña 50% para congelar valor. Saldo contra entrega.</p>
+                <!-- PERNIL CHICO -->
+                <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col hover:-translate-y-1 transition duration-300">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="../img/pernil-3.jpg" alt="Pernil Chico" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-red-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase shadow">Ideal 20 Pers.</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-black uppercase italic text-slate-900 mb-1">Pernil Chico</h3>
+                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-4">~5 KG DE PURA CARNE + 50 FIGAZAS + 3 SALSAS</p>
+
+                            <div class="bg-slate-50 p-4 rounded-2xl mb-4 border border-slate-100">
+                                <p class="text-[10px] text-slate-400 font-bold uppercase mb-0.5">Precio Base Transferencia</p>
+                                <div class="text-3xl font-black italic text-slate-900 tracking-tight">$73.700</div>
+                                <p class="text-[9px] text-green-600 font-bold uppercase mt-1">Seña 50%: $36.850 (Sin Recargo)</p>
+                                <p class="text-[9px] text-blue-600 font-bold uppercase">Seña Mercado Pago (+8%): $39.798</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <button onclick="seleccionarPernil('Pernil Chico (50 figazas)', 73700, 'mp')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow">
+                                💳 Pagar Seña con Mercado Pago
+                            </button>
+                            <button onclick="seleccionarPernil('Pernil Chico (50 figazas)', 73700, 'transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow flex items-center justify-center gap-1">
+                                <span>💬 Reservar por Transferencia</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PERNIL MEDIANO -->
+                <div class="bg-white rounded-3xl shadow-xl border-2 border-red-600 overflow-hidden flex flex-col relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[9px] font-black px-4 py-1 rounded-full uppercase shadow tracking-widest z-20">MÁS SOLICITADO</div>
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="../img/pernil-para-40.jpg" alt="Pernil Mediano" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-slate-900 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase">Para 40 Pers.</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-black uppercase italic text-slate-900 mb-1">Pernil Mediano</h3>
+                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-4">6.5 KG + 100 FIGAZAS + 3 SALSAS</p>
+
+                            <div class="bg-red-50 p-4 rounded-2xl mb-4 border border-red-100">
+                                <p class="text-[10px] text-red-600 font-bold uppercase mb-0.5">Precio Especial</p>
+                                <div class="text-4xl font-black italic text-slate-900 tracking-tight">$83.500</div>
+                                <p class="text-[9px] text-green-700 font-bold uppercase mt-1">Seña 50%: $41.750 (Sin Recargo)</p>
+                                <p class="text-[9px] text-blue-700 font-bold uppercase">Seña Mercado Pago (+8%): $45.090</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <button onclick="seleccionarPernil('Pernil Mediano (100 figazas)', 83500, 'mp')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow">
+                                💳 Pagar Seña con Mercado Pago
+                            </button>
+                            <button onclick="seleccionarPernil('Pernil Mediano (100 figazas)', 83500, 'transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow flex items-center justify-center gap-1">
+                                <span>💬 Reservar por Transferencia</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PERNIL GRANDE -->
+                <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col hover:-translate-y-1 transition duration-300">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="../img/pernil-60.jpg" alt="Pernil Gigante" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-red-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase shadow">+60 Pers.</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-black uppercase italic text-slate-900 mb-1">Pernil Gigante</h3>
+                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-4">14 KG + 150 FIGAZAS + 3 SALSAS</p>
+
+                            <div class="bg-slate-50 p-4 rounded-2xl mb-4 border border-slate-100">
+                                <p class="text-[10px] text-slate-400 font-bold uppercase mb-0.5">Precio Base Transferencia</p>
+                                <div class="text-3xl font-black italic text-slate-900 tracking-tight">$130.000</div>
+                                <p class="text-[9px] text-green-600 font-bold uppercase mt-1">Seña 50%: $65.000 (Sin Recargo)</p>
+                                <p class="text-[9px] text-blue-600 font-bold uppercase">Seña Mercado Pago (+8%): $70.200</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <button onclick="seleccionarPernil('Pernil Gigante (150 figazas)', 130000, 'mp')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow">
+                                💳 Pagar Seña con Mercado Pago
+                            </button>
+                            <button onclick="seleccionarPernil('Pernil Gigante (150 figazas)', 130000, 'transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow flex items-center justify-center gap-1">
+                                <span>💬 Reservar por Transferencia</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- BOTÓN SECUNDARIO: SOLICITAR CATALOGO/PDF POR WHATSAPP SIN ABONAR -->
+            <div class="max-w-xl mx-auto text-center bg-slate-900 text-white p-6 rounded-3xl mb-12 shadow-xl border border-slate-800">
+                <p class="text-xs font-bold uppercase text-slate-300 mb-3 italic">¿Aún no estás listo para reservar online? Recibí el presupuesto detallado:</p>
+                <button onclick="solicitarPdfPernil()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition border border-slate-700 flex items-center justify-center gap-2">
+                    <span>📄 Solicitar Presupuesto Detallado en PDF por WhatsApp</span>
+                </button>
+            </div>
+
+            <!-- MODAL / PANEL DATOS TRANSFERENCIA -->
+            <div id="panel-transf-pernil" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-3xl p-6 max-w-md w-full text-slate-900 space-y-4 relative shadow-2xl">
+                    <button onclick="cerrarModalTransf()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 font-black text-xl">✕</button>
+
+                    <h4 class="text-lg font-black uppercase italic text-slate-900">Datos para Transferencia</h4>
+                    <p class="text-xs text-slate-500 font-medium">Abonando el 50% de seña por transferencia no pagas recargos. Congelas la fecha de tu pedido.</p>
+
+                    <div id="monto-sena-modal-txt" class="bg-green-50 border border-green-200 p-3 rounded-xl text-center font-black text-green-900 text-sm">
+                        Monto Seña 50%: $0
                     </div>
 
-                    <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20encargar%20el%20*Pernil%20Chico*%20($73.700)%20para%20mi%20evento." onclick="return gtag_report_conversion('https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20encargar%20el%20*Pernil%20Chico*%20($73.700)%20para%20mi%20evento.')" target="_blank" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg shadow-red-900/20">
-                        🛒 Encargar Pernil
-                    </a>
-                </div>
-            </div>
-
-            <!-- PERNIL MEDIANO -->
-            <div class="bg-white rounded-[2.5rem] shadow-xl border-2 border-red-600 overflow-hidden flex flex-col relative transform scale-105 z-10">
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] font-black px-6 py-2 rounded-full uppercase shadow-xl tracking-widest">MÁS SOLICITADO</div>
-                <div class="h-64 overflow-hidden relative group">
-                    <img src="../img/pernil-para-40.jpg" alt="Pernil de cerdo artesanal para 40 invitados" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute top-4 right-4 bg-slate-900 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase">Para 40 Pers.</div>
-                </div>
-                <div class="p-8 flex-1 flex flex-col">
-                    <h3 class="text-2xl font-black uppercase italic text-slate-900 mb-2 leading-none">Pernil de Cerdo Mediano</h3>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">6.5 A 7 KG DE PURA CARNE</p>
-
-                    <ul class="space-y-3 mb-8 text-sm text-slate-600 font-medium flex-1">
-                        <li class="flex items-center gap-3">
-                            <span class="text-red-500 text-lg">🥖</span>
-                            <span>Incluye 100 figazas de manteca tiernas.</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-red-500 text-lg">🍯</span>
-                            <span>3 variedades de salsas artesanales gourmet.</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-red-500 text-lg">✨</span>
-                            <span>Sugerimos complementar con una entrada.</span>
-                        </li>
-                    </ul>
-
-                    <div class="bg-red-50 p-6 rounded-3xl mb-8 border border-red-100">
-                        <p class="text-xs text-red-600 font-bold uppercase mb-1 text-center">Precio Especial</p>
-                        <div class="text-5xl font-black italic text-slate-900 tracking-tighter text-center">$83.500</div>
-                        <p class="text-[9px] text-slate-500 mt-2 font-bold uppercase italic text-center">Seña 50% por transferencia para reservar fecha.</p>
+                    <div class="space-y-2 text-xs">
+                        <div class="bg-slate-50 p-3 rounded-xl border flex justify-between items-center">
+                            <div>
+                                <p class="text-[9px] text-slate-400 font-black uppercase">Alias MP</p>
+                                <p class="font-black text-slate-900">tres.cero.mp</p>
+                            </div>
+                            <button onclick="copiarTexto('tres.cero.mp', this)" class="bg-green-600 text-white px-3 py-1 rounded text-[10px] font-black uppercase">Copiar</button>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border flex justify-between items-center">
+                            <div>
+                                <p class="text-[9px] text-slate-400 font-black uppercase">CVU / CBU</p>
+                                <p class="font-black text-slate-900 text-[11px]">0000003100109736830548</p>
+                            </div>
+                            <button onclick="copiarTexto('0000003100109736830548', this)" class="bg-green-600 text-white px-3 py-1 rounded text-[10px] font-black uppercase">Copiar</button>
+                        </div>
+                        <p class="text-[10px] text-slate-500 font-bold">Titular: Fernando Ezequiel Mazzera</p>
                     </div>
 
-                    <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Me%20interesa%20el%20*Pernil%20Mediano*%20($83.500).%20%C2%BFTienen%20disponibilidad?" onclick="return gtag_report_conversion('https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Me%20interesa%20el%20*Pernil%20Mediano*%20($83.500).%20%C2%BFTienen%20disponibilidad?')" target="_blank" class="w-full bg-slate-900 hover:bg-black text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg">
-                        🛒 Encargar Pernil
-                    </a>
+                    <button id="btn-confirmar-wa-modal" onclick="confirmarPernilWhatsapp('transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl uppercase text-xs shadow flex items-center justify-center gap-2">
+                        <span>💬 Confirmar Seña y Enviar Pedido por WhatsApp</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- PERNIL GRANDE -->
-            <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden flex flex-col hover:-translate-y-2 transition-transform duration-300">
-                <div class="h-64 overflow-hidden relative group">
-                    <img src="../img/pernil-60.jpg" alt="Pernil gigante para eventos de más de 60 personas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute top-4 right-4 bg-red-600 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase shadow-lg">+60 Pers.</div>
-                </div>
-                <div class="p-8 flex-1 flex flex-col">
-                    <h3 class="text-2xl font-black uppercase italic text-slate-900 mb-2 leading-none">Pernil Gigante</h3>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">14 A 15 KG • EL REY DE LA FIESTA</p>
-
-                    <ul class="space-y-3 mb-8 text-sm text-slate-600 font-medium flex-1">
-                        <li class="flex items-center gap-3">
-                            <span class="text-red-500 text-lg">🥖</span>
-                            <span>Incluye 150 figazas (abundancia total).</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-red-500 text-lg">🍯</span>
-                            <span>3 salsas artesanales (Sugerimos sumar aderezos).</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-red-500 text-lg">🍞</span>
-                            <span>Recomendamos agregar pan de campo extra.</span>
-                        </li>
-                    </ul>
-
-                    <div class="bg-slate-50 p-6 rounded-3xl mb-8 border border-slate-100 text-center">
-                        <p class="text-xs text-slate-400 font-bold uppercase mb-1">Precio Especial</p>
-                        <div class="text-4xl font-black italic text-slate-900 tracking-tighter">$130.000</div>
-                        <p class="text-[9px] text-red-600 mt-2 font-bold uppercase italic">Tarjeta de crédito +10% de recargo.</p>
-                    </div>
-
-                    <a href="https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20consultar%20por%20el%20*Pernil%20Gigante*%20de%2015kg%20para%20un%20evento%20grande." onclick="return gtag_report_conversion('https://wa.me/5491132664036?text=Hola%20Eventos%20Tres%20Punto%20Cero!%20Quiero%20consultar%20por%20el%20*Pernil%20Gigante*%20de%2015kg%20para%20un%20evento%20grande.')" target="_blank" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl text-center uppercase tracking-widest transition shadow-lg shadow-red-900/20">
-                        🛒 Encargar Pernil
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- CONDICIONES GENERALES -->
-    <section class="pb-24 px-4">
-        <div class="max-w-4xl mx-auto bg-white rounded-3xl p-8 md:p-12 border border-slate-100 shadow-sm text-center">
-            <h4 class="text-xs font-black text-red-600 uppercase tracking-widest mb-6">Información Importante</h4>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                <div class="flex gap-4">
-                    <span class="text-2xl">💳</span>
-                    <p class="text-sm text-slate-500 font-medium leading-relaxed">
-                        <strong class="text-slate-800">Reserva de Fecha:</strong> Se confirma mediante el pago del 50% de seña vía transferencia bancaria.
-                    </p>
-                </div>
-                <div class="flex gap-4">
-                    <span class="text-2xl">🚚</span>
-                    <p class="text-sm text-slate-500 font-medium leading-relaxed">
-                        <strong class="text-slate-800">Retiro o Envío:</strong> El saldo restante se abona al momento de retirar por Bernal Oeste o al recibir la entrega.
-                    </p>
-                </div>
-            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 py-16 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4">
-            <!-- Contenedor Fiscal y QR -->
-            <div class="flex flex-col md:flex-row items-center justify-center gap-8 mb-10">
-                <!-- QR -->
-                <div class="bg-white p-1 rounded-xl shadow-2xl flex-shrink-0">
-                    <img src="../img/qr.jpg" alt="QR Fiscal" class="w-24 h-24 object-contain">
-                </div>
-
-                <!-- Datos Fiscales -->
-                <div class="text-center md:text-left space-y-1.5">
-                    <p class="text-slate-100 font-black uppercase italic tracking-widest text-base mb-2">Eventos Tres.Cero</p>
-                    <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
-                        <span>📄</span> CUIT: 20343393564
-                    </p>
-                    <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2 text-balance">
-                        <span>📍</span> Oficinas: Monteverde 112, Fcio. Varela | Cnel. de Pinedo 2160, Quilmes
-                    </p>
-                    <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
-                        <span>✉️</span> <a href="mailto:Info@eventostrespuntocero.com.ar" onclick="return gtag_report_conversion('mailto:Info@eventostrespuntocero.com.ar')" class="hover:text-red-400 transition">Info@eventostrespuntocero.com.ar</a>
-                    </p>
-                    <p class="text-slate-400 text-xs font-medium flex items-center justify-center md:justify-start gap-2">
-                        <span>📞</span> <a href="https://wa.me/5491132664036" onclick="return gtag_report_conversion('https://wa.me/5491132664036')" class="hover:text-red-400 transition">+54 9 11 3266-4036</a>
-                    </p>
-                </div>
-            </div>
-
-            <p class="text-[9px] uppercase tracking-[0.4em] text-slate-600 font-bold italic text-center border-t border-white/5 pt-10">
-                © 2026 Eventos Tres.Cero • Catering Móvil Premium • Buenos Aires
-            </p>
-        </div>
+    <footer class="bg-slate-900 py-12 border-t border-slate-800 text-center text-slate-400 text-xs">
+        <p class="font-black uppercase tracking-widest">© 2026 Eventos Tres.Cero • Catering Móvil Premium • Buenos Aires</p>
     </footer>
 
-    <!-- Sección de FAQ Optimizada para SEO -->
-    <div class="faq-contenedor-principal max-w-4xl mx-auto my-12 px-4">
-        <details class="faq-master group">
-            <summary class="faq-master-trigger">
-                <span class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Ver Preguntas Frecuentes
-                </span>
-                <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </summary>
+    <script>
+        const WHATSAPP_NUM = "5491132664036";
+        let pernilSeleccionado = { nombre: '', precio: 0, modo: '' };
 
-            <div class="faq-content-wrapper">
-                <!-- Pregunta 1: Pernil -->
-                <details class="faq-item">
-                    <summary>¿Con cuánta anticipación debo encargar un pernil de cerdo?</summary>
-                    <div class="faq-answer">
-                        Recomendamos reservar tu <strong>pernil de cerdo</strong> con al menos 48 a 72 horas de anticipación para garantizar la frescura y el tiempo de horneado lento de 12 horas.
-                    </div>
-                </details>
+        function copiarTexto(txt, btn) {
+            navigator.clipboard.writeText(txt);
+            const orig = btn.innerText;
+            btn.innerText = "¡Copiado!";
+            setTimeout(() => btn.innerText = orig, 2000);
+        }
 
-                <!-- Pregunta 2: Pizza Party -->
-                <details class="faq-item">
-                    <summary>¿Qué incluye el servicio de Pizza Party a domicilio?</summary>
-                    <div class="faq-answer">
-                        Incluye recepción con bruschettas y empanadas, seguido de 10 variedades de pizzas libres hasta que no coman más. Llevamos todo lo necesario para llevar adelante el servicio.
-                    </div>
-                </details>
+        function cerrarModalTransf() {
+            document.getElementById('panel-transf-pernil').classList.add('hidden');
+        }
 
-                <!-- Pregunta 3: Lunch -->
-                <details class="faq-item">
-                    <summary>¿Hacen envíos de catering y lunch a domicilio?</summary>
-                    <div class="faq-answer">
-                        Sí, enviamos nuestros combos de catering móvil listos para calentar a toda la Capital Federal y el AMBA. También ofrecemos la opción de retiro por Bernal Oeste.
-                    </div>
-                </details>
+        async function seleccionarPernil(nombre, precioTotal, modo) {
+            pernilSeleccionado = { nombre, precioTotal, modo };
 
-                <!-- Pregunta 4: Cobertura -->
-                <details class="faq-item">
-                    <summary>¿A qué zonas llega el servicio de Eventos Tres.Cero?</summary>
-                    <div class="faq-answer">
-                        Brindamos servicio de catering para eventos en Capital Federal y la Provincia de Buenos Aires. Consultá por los costos de logística según tu localidad.
-                    </div>
-                </details>
-            </div>
-        </details>
-    </div>
+            if (modo === 'transf') {
+                const senaTransf = Math.round(precioTotal / 2);
+                document.getElementById('monto-sena-modal-txt').innerText = `Monto Seña 50% (Sin Recargo): $${senaTransf.toLocaleString('es-AR')}`;
+                document.getElementById('panel-transf-pernil').classList.remove('hidden');
+            } else {
+                // Mercado Pago directo con 8% recargo
+                const senaMP = Math.round((precioTotal / 2) * 1.08);
+                const cliente = document.getElementById("pernil_cliente").value || "Cliente Pernil";
+                const telefono = document.getElementById("pernil_telefono").value || "";
 
-    <!-- Barra de Navegación Móvil (Estilo App Nativa) -->
-    <nav class="app-bottom-bar">
-        <!-- Botón Inicio -->
-        <a href="../#inicio" class="app-bottom-item">
-            <svg class="app-bottom-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-            </svg>
-            <span>Inicio</span>
-        </a>
+                try {
+                    const res = await fetch('/api/pagos/crear-preferencia', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            cliente_nombre: cliente,
+                            cliente_telefono: telefono,
+                            monto: senaMP,
+                            concepto: "Pernil de Cerdo - " + nombre,
+                            tipo_pago: 'sena_50',
+                            reserva_id: `RES-${Date.now()}`
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.init_point) {
+                        window.location.href = data.init_point;
+                    } else {
+                        alert('No se pudo generar el link de pago.');
+                    }
+                } catch (e) {
+                    alert('Error conectando con Mercado Pago.');
+                }
+            }
+        }
 
-        <!-- Botón Catering -->
-        <a href="../#servicios" class="app-bottom-item">
-            <svg class="app-bottom-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-            </svg>
-            <span>Catering</span>
-        </a>
+        function confirmarPernilWhatsapp(modo) {
+            const cliente = document.getElementById("pernil_cliente").value || "Cliente";
+            const telefono = document.getElementById("pernil_telefono").value || "Sin especificar";
+            const fecha = document.getElementById("pernil_fecha").value || "A confirmar";
+            const localidad = document.getElementById("pernil_localidad").value || "Sin especificar";
+            const direccion = document.getElementById("pernil_direccion").value || "Pendiente de definir";
+            const entreCalles = document.getElementById("pernil_entre_calles").value || "Sin especificar";
 
-        <!-- Botón Presupuesto -->
-        <a href="../presupuesto-online/" class="app-bottom-item">
-            <svg class="app-bottom-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-            </svg>
-            <span>Presupuesto</span>
-        </a>
+            const senaTransf = Math.round(pernilSeleccionado.precioTotal / 2);
 
-        <!-- Botón Armá tu Combo -->
-        <a href="../arma-tu-combo/" class="app-bottom-item">
-            <svg class="app-bottom-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-            </svg>
-            <span>Combos</span>
-        </a>
+            const msg = "¡Hola *Eventos Tres.Cero*! 👋🏼\n" +
+                      "Quiero confirmar la reserva de mi *Pernil de Cerdo*:\n\n" +
+                      "🍖 *PRODUCTO*: " + pernilSeleccionado.nombre + "\n\n" +
+                      "📍 *DATOS DE ENTREGA*:\n" +
+                      "• *Cliente*: " + cliente + "\n" +
+                      "• *Teléfono*: " + telefono + "\n" +
+                      "• *Fecha*: " + fecha + "\n" +
+                      "• *Localidad*: " + localidad + "\n" +
+                      "• *Dirección*: " + direccion + " (e/ " + entreCalles + ")\n\n" +
+                      "💰 *RESUMEN DE SEÑA*:\n" +
+                      "• *Precio Total*: $" + pernilSeleccionado.precioTotal.toLocaleString('es-AR') + "\n" +
+                      "• *Seña 50%*: $" + senaTransf.toLocaleString('es-AR') + " (Transferencia sin recargo)\n" +
+                      "• *Saldo contra entrega*: $" + senaTransf.toLocaleString('es-AR') + "\n\n" +
+                      "Adjunto comprobante de transferencia. ¡Muchas gracias!";
 
-        <!-- Botón WhatsApp (Destacado) -->
-        <a href="https://wa.me/5491132664036" target="_blank" class="app-bottom-item">
-            <svg class="app-bottom-icon text-green-500" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.353-.883-.788-1.48-1.766-1.653-2.063-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.214 1.36.183 1.872.109.57-.083 1.758-.718 2.008-1.413.25-.694.25-1.289.175-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            <span class="text-green-600">WhatsApp</span>
-        </a>
-    </nav>
+            gtag_report_conversion("https://wa.me/" + WHATSAPP_NUM + "?text=" + encodeURIComponent(msg));
+        }
+
+        function solicitarPdfPernil() {
+            const cliente = document.getElementById("pernil_cliente").value || "Cliente";
+            const telefono = document.getElementById("pernil_telefono").value || "Sin especificar";
+            const fecha = document.getElementById("pernil_fecha").value || "A confirmar";
+            const localidad = document.getElementById("pernil_localidad").value || "Sin especificar";
+
+            const msg = "¡Hola *Eventos Tres.Cero*! 👋🏼\n" +
+                      "Me interesan los *Perniles de Cerdo* y quiero solicitar el catálogo con fotos y presupuesto detallado en PDF:\n\n" +
+                      "• *Cliente*: " + cliente + "\n" +
+                      "• *Teléfono*: " + telefono + "\n" +
+                      "• *Fecha tentativa*: " + fecha + "\n" +
+                      "• *Localidad*: " + localidad + "\n\n" +
+                      "Por favor enviame la información. ¡Muchas gracias!";
+
+            gtag_report_conversion("https://wa.me/" + WHATSAPP_NUM + "?text=" + encodeURIComponent(msg));
+        }
+    </script>
 </body>
 </html>
