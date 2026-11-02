@@ -294,7 +294,7 @@
                 const telefono = document.getElementById("pernil_telefono").value || "";
 
                 try {
-                    const res = await fetch('https://panel.eventostrespuntocero.com.ar/api/pagos/crear-preferencia', {
+                    const res = await fetch('https://huhigdlbztpqwtfyznya.supabase.co/functions/v1/crear-preferencia-mp', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

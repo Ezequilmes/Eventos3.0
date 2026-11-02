@@ -174,7 +174,7 @@
                     const monto = tipoPago === 'sena_50' ? calculos.sena50MercadoPago : calculos.total100MercadoPago;
                     const conceptoServicios = data.servicios.filter(s => s.activo).map(s => s.nombre).join(', ') || 'Servicio Catering';
 
-                    const res = await fetch('https://panel.eventostrespuntocero.com.ar/api/pagos/crear-preferencia', {
+                    const res = await fetch('https://huhigdlbztpqwtfyznya.supabase.co/functions/v1/crear-preferencia-mp', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
