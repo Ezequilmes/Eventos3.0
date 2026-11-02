@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Pago Exitoso! - Eventos Tres.Cero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Navegación -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center w-full">
+            <a href="../" class="flex items-center group">
+                <span class="text-xl font-black italic tracking-tighter text-slate-900 uppercase">Eventos Tres.Cero</span>
+            </a>
+            <a href="https://wa.me/5491132664036" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-full font-black text-xs uppercase tracking-widest shadow-lg hover:bg-green-600 transition">
+                WhatsApp Directo
+            </a>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="py-12 px-4 flex-1 flex items-center justify-center">
+        <div class="max-w-xl w-full bg-white text-slate-900 rounded-[2.5rem] shadow-2xl p-8 md:p-12 border-4 border-green-500 text-center space-y-6">
+            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
+                🎉
+            </div>
+
+            <div>
+                <h1 class="text-3xl font-black uppercase italic tracking-tighter text-slate-900">¡Pago Aprobado con Éxito!</h1>
+                <p class="text-xs text-slate-500 font-medium mt-2">
+                    Tu seña ha sido acreditada correctamente a través de Mercado Pago. Completá los siguientes datos para agendar tu evento oficialmente con nuestro equipo:
+                </p>
+            </div>
+
+            <!-- Formulario de Entrega Post-Pago -->
+            <div class="bg-slate-50 p-6 rounded-3xl border-2 border-slate-200 text-left space-y-4">
+                <h3 class="text-xs font-black uppercase tracking-wider text-green-800">📍 Datos de Entrega y del Evento</h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Nombre Completo</label>
+                        <input type="text" id="gracias_cliente" placeholder="Tu nombre" class="w-full p-3 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Teléfono / WhatsApp</label>
+                        <input type="text" id="gracias_telefono" placeholder="11 3266-4036" class="w-full p-3 bg-white border rounded-xl font-bold text-xs text-center outline-none focus:border-red-500 mt-1">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Fecha del Evento</label>
+                        <input type="date" id="gracias_fecha" class="w-full p-3 bg-white border rounded-xl font-bold text-xs text-center outline-none focus:border-red-500 mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Localidad / Barrio</label>
+                        <input type="text" id="gracias_localidad" placeholder="Ej: Quilmes / CABA" class="w-full p-3 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-black uppercase text-slate-400">Dirección Exacta</label>
+                    <input type="text" id="gracias_direccion" placeholder="Ej: Av. Corrientes 1234 (e/ Calles)" class="w-full p-3 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
+                </div>
+            </div>
+
+            <button onclick="enviarWhatsappGracias()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-2xl uppercase tracking-widest text-xs transition shadow-xl flex items-center justify-center gap-2">
+                <span>💬 Enviar Datos y Confirmar por WhatsApp</span>
+            </button>
+
+            <p class="text-[10px] text-slate-400 uppercase font-bold italic">
+                ID de Pago verificado por Mercado Pago. ¡Gracias por confiar en Eventos Tres.Cero!
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 text-center text-slate-500 text-[10px] font-black uppercase tracking-widest border-t border-slate-800">
+        <p>© 2026 Eventos Tres.Cero • Buenos Aires • AR</p>
+    </footer>
+
+    <script>
+        const WHATSAPP_NUM = "5491132664036";
+
+        function enviarWhatsappGracias() {
+            const cliente = document.getElementById("gracias_cliente").value || "Cliente";
+            const telefono = document.getElementById("gracias_telefono").value || "Sin especificar";
+            const fecha = document.getElementById("gracias_fecha").value || "A confirmar";
+            const localidad = document.getElementById("gracias_localidad").value || "Sin especificar";
+            const direccion = document.getElementById("gracias_direccion").value || "Pendiente de definir";
+
+            const params = new URLSearchParams(window.location.search);
+            const paymentId = params.get('collection_id') || params.get('payment_id') || 'Aprobado';
+
+            const msg = "¡Hola *Eventos Tres.Cero*! 👋🏼\n" +
+                      "✅ *¡Ya realicé el pago de mi seña por Mercado Pago!*\n\n" +
+                      "📋 *DATOS DE LA RESERVA*:\n" +
+                      "• *Cliente*: " + cliente + "\n" +
+                      "• *Teléfono*: " + telefono + "\n" +
+                      "• *Fecha del Evento*: " + fecha + "\n" +
+                      "• *Localidad*: " + localidad + "\n" +
+                      "• *Dirección*: " + direccion + "\n" +
+                      "• *ID de Pago MP*: " + paymentId + "\n\n" +
+                      "Quedo a la espera de la confirmación formal. ¡Muchas gracias!";
+
+            window.open("https://wa.me/" + WHATSAPP_NUM + "?text=" + encodeURIComponent(msg), '_blank');
+        }
+    </script>
+</body>
+</html>
