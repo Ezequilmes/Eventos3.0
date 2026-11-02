@@ -433,7 +433,7 @@
             const monto = senaMPCalculada;
 
             try {
-                const res = await fetch('/api/pagos/crear-preferencia', {
+                const res = await fetch('https://panel.eventostrespuntocero.com.ar/api/pagos/crear-preferencia', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
