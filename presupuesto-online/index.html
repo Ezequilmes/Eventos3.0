@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 
+
     <script>
     function gtag_report_conversion(url) {
       var callback = function () {
@@ -39,12 +40,14 @@
             background-color: #fef2f2; /* red-50 */
             color: #b91c1c; /* red-700 */
         }
+        /* Ocultar flechas del input number */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
 
+        /* Marquee Animation */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -57,15 +60,146 @@
         .animate-marquee:hover {
             animation-play-state: paused;
         }
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .animate-pulse-green {
+            animation: pulse-green 2s infinite;
+        }
+
+        /* --- Paso 2 & 3: Navegación Móvil UI/UX --- */
 
         @media (max-width: 768px) {
+            /* Ocultamos los enlaces de texto superiores y el botón WhatsApp original en el header */
             nav .hidden.lg\:flex,
             nav a.bg-green-500 {
                 display: none !important;
             }
+
+            /* Padding inferior al body para que la barra no tape el contenido del footer */
             body {
                 padding-bottom: 75px;
             }
+        }
+
+        /* Estilos exclusivos de la Barra Inferior (App-Style) */
+        .app-bottom-bar {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.85); /* Glassmorphism */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            z-index: 9999;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom); /* Soporte para iPhone con Notch */
+        }
+
+        .app-bottom-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-decoration: none;
+            color: #64748b; /* slate-500 */
+            transition: all 0.2s ease;
+        }
+
+        .app-bottom-item:active {
+            transform: scale(0.9);
+            background: rgba(0,0,0,0.03);
+        }
+
+        .app-bottom-item span {
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .app-bottom-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Ocultar barra en computadoras */
+        @media (min-width: 769px) {
+            .app-bottom-bar {
+                display: none;
+            }
+        }
+
+        /* --- Paso 2: FAQ SEO & UI/UX --- */
+
+        .faq-master {
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+
+        .faq-master-trigger {
+            list-style: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: #f8fafc; /* slate-50 */
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 1.25rem;
+            color: #22c55e; /* verde whatsapp */
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .faq-master-trigger::-webkit-details-marker { display: none; }
+
+        .faq-master-trigger:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .faq-content-wrapper {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1rem;
+        }
+
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #1e293b; /* slate-800 */
+            position: relative;
+        }
+
+        .faq-item summary::-webkit-details-marker { display: none; }
+
+        .faq-answer {
+            padding: 0 1rem 1rem 1rem;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            color: #64748b; /* slate-500 */
         }
     </style>
 </head>
@@ -92,94 +226,66 @@
         </div>
     </nav>
 
+    <!-- Spacer para el nav fixed -->
     <div class="h-20 md:h-24"></div>
 
-    <!-- BANNER DE PAGO EXITOSO (POST-PAGO) -->
-    <div id="banner-exito" class="hidden max-w-4xl mx-auto my-6 px-4">
-        <div class="bg-green-600 text-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-green-400 text-center space-y-3">
-            <h3 class="text-2xl md:text-3xl font-black uppercase italic">¡Pago Aprobado con Éxito! 🎉</h3>
-            <p class="text-sm font-bold opacity-90 max-w-2xl mx-auto">
-                Tu seña fue procesada correctamente. Completá los datos de ubicación y fecha abajo para enviar tu presupuesto por WhatsApp y agendar el evento.
-            </p>
-        </div>
-    </div>
-
     <!-- CONTENEDOR DEL COTIZADOR -->
-    <main class="py-8 md:py-16 px-3 sm:px-4">
+    <main class="py-12 md:py-20 px-4">
         <div class="max-w-4xl mx-auto">
 
-            <div class="text-center mb-8">
-                <h1 class="text-xs font-black text-red-600 uppercase tracking-[0.5em] mb-2 text-balance">Servicio Premium con Staff</h1>
-                <p class="text-3xl md:text-5xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">Presupuestador Online</p>
+            <div class="text-center mb-12">
+                <h1 class="text-xs font-black text-red-600 uppercase tracking-[0.5em] mb-4 text-balance">Servicio Premium con Staff</h1>
+                <p class="text-4xl md:text-5xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">Presupuestador Online</p>
 
                 <!-- MARQUEE INFINITO DE FOTOS -->
-                <div class="relative overflow-hidden w-full bg-transparent py-6 my-2">
+                <div class="relative overflow-hidden w-full bg-transparent py-8 my-4">
                     <div class="flex animate-marquee hover:[animation-play-state:paused]">
                         <div class="flex gap-4 pr-4">
-                            <img src="../img/pizza-3.jpg" class="w-36 h-28 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pizza Party">
-                            <img src="../img/tacos-1.jpg" class="w-36 h-28 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Tacos Show">
-                            <img src="../img/pernil-1.jpg" class="w-36 h-28 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pernil">
-                            <img src="../img/disco-1.jpg" class="w-36 h-28 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Comida al disco">
+                            <img src="../img/pizza-3.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pizza Party catering a domicilio">
+                            <img src="../img/tacos-1.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Tacos Show catering premium">
+                            <img src="../img/pernil-1.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pernil de cerdo artesanal para eventos">
+                            <img src="../img/disco-1.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Comida al disco para fiestas">
+                            <img src="../img/evento-1.png" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Catering integral para eventos sociales">
+                            <img src="../img/pernil-2.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pernil horneado artesanal fresco">
                         </div>
                         <div class="flex gap-4 pr-4">
-                            <img src="../img/pizza-3.jpg" class="w-36 h-28 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pizza Party">
-                            <img src="../img/tacos-1.jpg" class="w-36 h-28 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Tacos Show">
-                            <img src="../img/pernil-1.jpg" class="w-36 h-28 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pernil">
-                            <img src="../img/disco-1.jpg" class="w-36 h-28 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Comida al disco">
+                            <img src="../img/pizza-3.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pizza Party catering a domicilio">
+                            <img src="../img/tacos-1.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Tacos Show catering premium">
+                            <img src="../img/pernil-1.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pernil de cerdo artesanal para eventos">
+                            <img src="../img/disco-1.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Comida al disco para fiestas">
+                            <img src="../img/evento-1.png" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Catering integral para eventos sociales">
+                            <img src="../img/pernil-2.jpg" class="w-40 h-32 md:w-56 md:h-40 object-cover rounded-3xl shadow-md border border-white" alt="Pernil horneado artesanal fresco">
                         </div>
                     </div>
                 </div>
+
+                <p class="mt-6 text-slate-500 font-medium italic">Obtené un valor estimado real para tu fiesta en segundos.</p>
+                <div class="mt-4 flex flex-wrap justify-center gap-4">
+                    <span class="bg-red-50 text-red-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-red-100 shadow-sm">⏱️ 4 Horas de Servicio</span>
+                    <span class="bg-slate-50 text-slate-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-slate-100 shadow-sm">🚐 Llevamos todo lo necesario</span>
+                </div>
             </div>
 
-            <div class="bg-white rounded-2xl md:rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
-                <div class="p-4 sm:p-8 md:p-12">
+            <div class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
+                <div class="p-6 md:p-12">
 
-                    <!-- FORMULARIO DE UBICACIÓN Y DATOS (VISIBLE TRAS PAGO) -->
-                    <div id="seccion-datos-entrega" class="hidden bg-slate-50 p-6 rounded-3xl border-2 border-green-500 mb-8 space-y-4">
-                        <h3 class="text-xs font-black uppercase tracking-wider text-green-800">📍 Dirección y Datos de Contacto (Para agendar entrega)</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">Cliente</label>
-                                <input id="input-cliente-nombre" type="text" placeholder="Nombre completo" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">WhatsApp / Teléfono</label>
-                                <input id="input-cliente-telefono" type="text" placeholder="11 3266-4036" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs text-center outline-none focus:border-red-500 mt-1">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">Dirección Exacta</label>
-                                <input id="input-direccion" type="text" placeholder="Ej: Av. Corrientes 1234" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">Entre Calles</label>
-                                <input id="input-entre-calles" type="text" placeholder="Ej: Libertad y Talcahuano" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">Localidad</label>
-                                <input id="input-localidad" type="text" placeholder="Ej: CABA / Lanús" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-500 mt-1">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PASO 1: DATOS BÁSICOS (SUPER RÁPIDO: INVITADOS Y FECHA) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 border-b border-slate-100 pb-8">
-                        <div class="space-y-2 text-center sm:text-left">
-                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Cantidad de Invitados</label>
-                            <input id="cantidad-personas" type="number" min="10" value="30" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-black text-3xl text-center text-red-600 outline-none focus:border-red-500 transition">
+                    <!-- PASO 1: DATOS BÁSICOS -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 border-b border-slate-100 pb-10">
+                        <div class="space-y-2 text-center md:text-left">
+                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">1. Cantidad de Invitados</label>
+                            <input id="cantidad-personas" type="number" min="10" value="30" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-black text-3xl text-center text-red-600 outline-none focus:border-red-200 transition">
                             <p class="text-[9px] text-slate-400 font-bold uppercase italic">* Mínimo 10 personas para servicio con personal</p>
                         </div>
-                        <div class="space-y-2 text-center sm:text-left">
-                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">Fecha del Evento</label>
-                            <input id="fecha-evento" type="date" onchange="calcularPrecio()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-center outline-none focus:border-red-500 transition">
+                        <div class="space-y-2 text-center md:text-left">
+                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest">2. Fecha del Evento</label>
+                            <input id="fecha-evento" type="date" onchange="calcularPrecio()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-center outline-none focus:border-red-200 transition">
                         </div>
                     </div>
 
                     <!-- PASO 2: ZONAS -->
-                    <div class="mb-8">
-                        <label class="text-[10px] font-black uppercase text-red-600 tracking-widest block mb-4 text-center italic">Zona de Cobertura</label>
-                        <div class="grid grid-cols-2 md:grid-cols-5 gap-2.5">
+                    <div class="mb-12">
+                        <label class="text-[10px] font-black uppercase text-red-600 tracking-widest block mb-6 text-center italic">Paso 1: Seleccioná la Zona del Evento</label>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
                             <button type="button" class="btn-zona active p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight" data-envio="15500" data-name="Zona Sur (Bernal, Quilmes, Avellaneda, Lanús)">Zona Sur</button>
                             <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight" data-envio="35500" data-name="CABA">CABA</button>
                             <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight" data-envio="45500" data-name="Zona Norte">Zona Norte</button>
@@ -189,66 +295,107 @@
                     </div>
 
                     <!-- PASO 3: SERVICIOS -->
-                    <div class="mb-8">
-                        <label class="text-[10px] font-black uppercase text-red-600 tracking-widest block mb-4 text-center italic">Elegí tu Servicio Base</label>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <button type="button" class="btn-servicio active p-4 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="7800" data-name="Pizza Party" data-desc="Bruschettas + Empanadas + 10 variedades de pizza libre">
+                    <div class="mb-12">
+                        <label class="text-[10px] font-black uppercase text-red-600 tracking-widest block mb-6 text-center italic">Paso 2: Elegí tu Servicio Base</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <button type="button" class="btn-servicio active p-5 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="7800" data-name="Pizza Party" data-desc="Bruschettas + Empanadas + 10 variedades de pizza libre">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="font-black uppercase italic text-base group-hover:text-red-600 transition">Pizza Party</span>
-                                    <span class="text-lg">🍕</span>
+                                    <span class="font-black uppercase italic text-lg group-hover:text-red-600 transition">Pizza Party</span>
+                                    <span class="text-xl">🍕</span>
                                 </div>
                                 <p class="text-[10px] text-slate-500 font-medium leading-tight">Bruschettas + Empanadas + 10 variedades de pizza libre.</p>
                             </button>
-                            <button type="button" class="btn-servicio p-4 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="8500" data-name="Tacos Party" data-desc="Bruschettas Gourmet + Pernil + Tacos Libres">
+                            <button type="button" class="btn-servicio p-5 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="8500" data-name="Tacos Party" data-desc="Bruschettas Gourmet + Pernil + Tacos Libres">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="font-black uppercase italic text-base group-hover:text-red-600 transition">Tacos Party</span>
-                                    <span class="text-lg">🌮</span>
+                                    <span class="font-black uppercase italic text-lg group-hover:text-red-600 transition">Tacos Party</span>
+                                    <span class="text-xl">🌮</span>
                                 </div>
                                 <p class="text-[10px] text-slate-500 font-medium leading-tight">Bruschettas Gourmet + Pernil + Tacos Libres.</p>
                             </button>
-                            <button type="button" class="btn-servicio p-4 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="9200" data-name="Pernil Party Full" data-desc="Tabla de fiambres + Pizzetas Empandas + Pernil de cerdo y Res de carne">
+                            <button type="button" class="btn-servicio p-5 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="9200" data-name="Pernil Party Full" data-desc="Tabla de fiambres + Pizzetas Empandas + Pernil de cerdo y Res de carne">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="font-black uppercase italic text-base group-hover:text-red-600 transition">Pernil Party</span>
-                                    <span class="text-lg">🍖</span>
+                                    <span class="font-black uppercase italic text-lg group-hover:text-red-600 transition">Pernil Party</span>
+                                    <span class="text-xl">🍖</span>
                                 </div>
                                 <p class="text-[10px] text-slate-500 font-medium leading-tight">Tabla de fiambres + Pizzetas y empanadas + Perniles.</p>
                             </button>
-                            <button type="button" class="btn-servicio p-4 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="12500" data-name="Disco Party" data-desc="Empanadas + Pollo al disco tradicional">
+                            <button type="button" class="btn-servicio p-5 rounded-2xl border-2 border-slate-100 text-left hover:bg-slate-50 transition group" data-price="12500" data-name="Disco Party" data-desc="Empanadas + Pollo al disco tradicional">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="font-black uppercase italic text-base group-hover:text-red-600 transition">Disco Party</span>
-                                    <span class="text-lg">🔥</span>
+                                    <span class="font-black uppercase italic text-lg group-hover:text-red-600 transition">Disco Party</span>
+                                    <span class="text-xl">🔥</span>
                                 </div>
-                                <p class="text-[10px] text-slate-500 font-medium leading-tight">Empanadas + Chorizo a la pomarola y Pollo al disco.</p>
+                                <p class="text-[10px] text-slate-500 font-medium leading-tight">Tabla de fiambres + Pizzetas y empanadas + Chorizo a la pomarola y Pollo al disco.</p>
                             </button>
+                        </div>
+                        <div id="menu-descripcion-caja" class="mt-6 p-4 bg-slate-50 rounded-2xl text-[11px] font-medium text-slate-600 border-l-4 border-red-600 italic">
+                            <strong>Incluye de Base:</strong> Bruschettas + Empanadas + 10 variedades de pizza libre. Llevamos hornos, bandejas y vajilla descartable premium. 4 horas de servicio incluidas.
                         </div>
                     </div>
 
-                    <!-- RESULTADO TICKET & SECCIÓN DE PAGO -->
-                    <div class="bg-slate-900 rounded-3xl md:rounded-[2.5rem] p-6 md:p-10 text-white shadow-2xl relative overflow-hidden">
+                    <!-- PASO 4: ADICIONALES -->
+                    <div class="mb-12">
+                        <label class="text-[10px] font-black uppercase text-red-600 tracking-widest block mb-6 text-center italic">Paso 3: Sumá Adicionales Premium (Opcional)</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <label class="flex items-center gap-4 p-4 rounded-2xl border-2 border-slate-100 cursor-pointer hover:bg-slate-50 transition">
+                                <input type="checkbox" class="check-adicional w-5 h-5 accent-red-600" data-price="2200" data-name="Tabla de Fiambres Completa">
+                                <div class="text-left leading-none">
+                                    <span class="block font-black uppercase text-[11px]">Tabla Fiambres</span>
+                                    <span class="text-[9px] text-slate-400 font-bold uppercase italic">Selección Gourmet</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-4 p-4 rounded-2xl border-2 border-slate-100 cursor-pointer hover:bg-slate-50 transition">
+                                <input type="checkbox" class="check-adicional w-5 h-5 accent-red-600" data-price="2800" data-name="Pernil Extra de Cerdo">
+                                <div class="text-left leading-none">
+                                    <span class="block font-black uppercase text-[11px]">Pernil de Cerdo</span>
+                                    <span class="text-[9px] text-slate-400 font-bold uppercase italic">Extra Figazzitas</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-4 p-4 rounded-2xl border-2 border-slate-100 cursor-pointer hover:bg-slate-50 transition">
+                                <input type="checkbox" class="check-adicional w-5 h-5 accent-red-600" data-price="1900" data-name="Sándwiches de Miga">
+                                <div class="text-left leading-none">
+                                    <span class="block font-black uppercase text-[11px]">Sándwiches Miga</span>
+                                    <span class="text-[9px] text-slate-400 font-bold uppercase italic">Triples Premium</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- RESULTADO TICKET -->
+                    <div class="bg-slate-900 rounded-[3rem] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-full h-2 bg-red-600"></div>
 
-                        <div class="text-center mb-8">
-                            <p class="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 mb-2">Presupuesto Estimado Total</p>
-                            <div id="precio-estimado" class="text-5xl md:text-7xl font-black italic tracking-tighter leading-none">$0</div>
+                        <div class="text-center mb-10">
+                            <p class="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 mb-2">Presupuesto Estimado Todo Incluido</p>
+                            <div id="precio-estimado" class="text-6xl md:text-8xl font-black italic tracking-tighter leading-none">$0</div>
+
+                            <!-- Trust Badge Ticket Staff -->
+                            <div class="mt-6 flex items-center justify-center gap-2 opacity-60">
+                                <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Servicio Garantizado • Reputación Verificada</span>
+                            </div>
                         </div>
 
-                        <div class="bg-white/5 rounded-2xl p-4 sm:p-6 text-xs space-y-3 mb-6 border border-white/5">
+                        <div class="bg-white/5 rounded-3xl p-6 md:p-10 text-xs space-y-4 mb-8 border border-white/5">
                             <div id="resumen-base" class="flex justify-between border-b border-white/10 pb-2"><span>Menú Seleccionado:</span> <strong class="text-red-400 uppercase italic">-</strong></div>
+                            <div id="resumen-adicionales" class="flex justify-between border-b border-white/10 pb-2"><span>Adicionales:</span> <strong class="text-red-400">-</strong></div>
                             <div id="zona-mostrada" class="flex justify-between border-b border-white/10 pb-2 text-slate-400"><span>Cobertura en:</span> <strong>-</strong></div>
                             <div id="staff-mostrado" class="flex justify-between border-b border-white/10 pb-2 text-slate-400"><span>Personal asignado:</span> <strong>-</strong></div>
+
+                            <div id="pago-mostrado" class="pt-6 text-center space-y-2">
+                                <!-- Desglose automático de seña -->
+                            </div>
                         </div>
 
-                        <!-- MODULO DE MEDIOS DE PAGO Y SEÑA 50% -->
-                        <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 text-left space-y-4">
-                            <h3 class="text-sm font-black uppercase tracking-wider text-white">💳 Confirmación de Reserva & Medio de Pago</h3>
-                            <p class="text-[11px] text-slate-400">Seleccioná tu método de pago preferido para abonar el 50% de seña y congelar la fecha. El saldo restante (50%) se abona el día del evento.</p>
+                        <!-- MODULO DE PAGOS Y SEÑA 50% INTEGRADO -->
+                        <div class="bg-slate-800 p-5 sm:p-8 rounded-3xl border border-slate-700 text-left space-y-4 mb-6">
+                            <h3 class="text-xs font-black uppercase tracking-wider text-white">💳 Confirmación de Reserva & Medio de Pago</h3>
+                            <p class="text-[11px] text-slate-400">Aboná el 50% de seña para congelar el precio de tu evento. El saldo restante (50%) se abona el día del evento.</p>
 
                             <!-- Pestañas -->
                             <div class="grid grid-cols-2 gap-2 p-1 bg-slate-900 rounded-xl">
-                                <button id="tab-btn-transf" onclick="cambiarTab('transf')" class="py-2.5 px-3 rounded-lg font-black text-[11px] uppercase bg-green-600 text-white shadow">
+                                <button type="button" id="tab-btn-transf" onclick="cambiarTabPago('transf')" class="py-3 px-3 rounded-lg font-black text-xs uppercase bg-green-600 text-white shadow">
                                     Transferencia (Sin Recargo)
                                 </button>
-                                <button id="tab-btn-mp" onclick="cambiarTab('mp')" class="py-2.5 px-3 rounded-lg font-black text-[11px] uppercase text-slate-400 hover:text-white transition">
+                                <button type="button" id="tab-btn-mp" onclick="cambiarTab('mp')" class="py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition">
                                     Mercado Pago (+8%)
                                 </button>
                             </div>
@@ -260,34 +407,30 @@
                                         <span class="text-[9px] font-black uppercase text-green-400 bg-green-500/20 px-2 py-0.5 rounded-full">Precio Sin Recargo</span>
                                         <p id="txt-sena-transf" class="text-lg font-black text-white italic mt-1">Seña 50%: $0</p>
                                     </div>
-                                    <div class="text-right">
-                                        <p class="text-[9px] text-slate-400 font-black uppercase">Saldo al evento</p>
-                                        <p id="txt-saldo-transf" class="text-sm font-black text-white">$0</p>
-                                    </div>
                                 </div>
 
-                                <div class="bg-slate-900 p-3 rounded-xl border border-slate-700 text-xs space-y-2">
-                                    <p class="text-[10px] font-black text-green-400 uppercase italic">Datos para transferir:</p>
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 text-xs space-y-2">
+                                    <p class="text-xs font-black text-green-400 uppercase italic">Datos para transferir:</p>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                         <div class="bg-slate-800 p-2.5 rounded-lg flex justify-between items-center">
                                             <div>
                                                 <p class="text-[8px] text-slate-400 font-black uppercase">Alias MP</p>
                                                 <p class="font-black text-white text-xs">tres.cero.mp</p>
                                             </div>
-                                            <button onclick="copiarAlias('tres.cero.mp', this)" class="bg-green-600 hover:bg-green-700 text-white px-2.5 py-1 rounded text-[9px] font-black">Copiar</button>
+                                            <button type="button" onclick="copiarAlias('tres.cero.mp', this)" class="bg-green-600 hover:bg-green-700 text-white px-2.5 py-1 rounded text-[9px] font-black">Copiar</button>
                                         </div>
                                         <div class="bg-slate-800 p-2.5 rounded-lg flex justify-between items-center">
                                             <div>
                                                 <p class="text-[8px] text-slate-400 font-black uppercase">CVU / CBU</p>
                                                 <p class="font-black text-white text-[10px]">0000003100109736830548</p>
                                             </div>
-                                            <button onclick="copiarAlias('0000003100109736830548', this)" class="bg-green-600 hover:bg-green-700 text-white px-2.5 py-1 rounded text-[9px] font-black">Copiar</button>
+                                            <button type="button" onclick="copiarAlias('0000003100109736830548', this)" class="bg-green-600 hover:bg-green-700 text-white px-2.5 py-1 rounded text-[9px] font-black">Copiar</button>
                                         </div>
                                     </div>
                                     <p class="text-[10px] text-slate-300 font-bold">Titular: Fernando Ezequiel Mazzera</p>
                                 </div>
 
-                                <button onclick="mostrarFormularioEntregaTransfOnline()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                                <button type="button" onclick="enviarWhatsAppPresupuesto('transferencia')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
                                     <span>💬 Confirmar Seña y Enviar Pedido por WhatsApp</span>
                                 </button>
                             </div>
@@ -299,209 +442,114 @@
                                         <span class="text-[9px] font-black uppercase text-blue-400 bg-blue-500/20 px-2 py-0.5 rounded-full">Link de Pago (+8%)</span>
                                         <p id="txt-sena-mp" class="text-lg font-black text-white italic mt-1">Seña 50%: $0</p>
                                     </div>
-                                    <div class="text-right">
-                                        <p class="text-[9px] text-slate-400 font-black uppercase">Saldo al evento</p>
-                                        <p id="txt-saldo-mp" class="text-sm font-black text-white">$0</p>
-                                    </div>
                                 </div>
 
-                                <div class="flex flex-col sm:flex-row gap-2">
-                                    <button onclick="pagarMercadoPagoOnline('sena_50')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg">
-                                        💳 Pagar Seña con Mercado Pago
-                                    </button>
-                                    <button onclick="enviarWhatsappGeneral('mercadopago')" class="bg-slate-900 hover:bg-black text-white font-black py-3.5 px-4 rounded-xl uppercase tracking-wider text-xs transition">
-                                        💬 Pedir Link por WhatsApp
-                                    </button>
-                                </div>
+                                <button type="button" onclick="pagarMercadoPagoPresupuesto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                                    <span>💳 Pagar Seña con Mercado Pago (+8%)</span>
+                                </button>
                             </div>
                         </div>
 
+                        <div class="text-center mb-6 px-6">
+                            <p class="text-[11px] font-bold uppercase text-slate-400 leading-relaxed italic">
+                                ✨ <strong>¡Congelamos el precio de tu fecha!</strong> Solicitá tu presupuesto formal detallado en PDF junto al catálogo de fotos del servicio.
+                            </p>
+                        </div>
+
+                        <button id="btn-whatsapp-principal" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-black py-5 rounded-2xl text-center uppercase tracking-[0.1em] transition flex items-center justify-center gap-3 border border-white/10">
+                            <span class="text-2xl">📄</span>
+                            <span>Solicitar Presupuesto Detallado en PDF por WhatsApp</span>
+                        </button>
                     </div>
 
                 </div>
             </div>
 
-            <!-- Footer -->
-            <footer class="bg-slate-900 py-12 mt-12 border-t border-slate-800 rounded-3xl text-center text-slate-400 text-xs">
-                <p class="font-black uppercase tracking-widest">© 2026 Eventos Tres.Cero • Catering Móvil Premium • Buenos Aires</p>
-            </footer>
-        </div>
-    </main>
-
     <script>
-        const phone = "5491132664036";
-        let servicioActivo = { price: 7800, name: "Pizza Party", desc: "Bruschettas + Empanadas + 10 variedades de pizza libre" };
-        let zonaActiva = { envio: 15500, name: "Zona Sur (Bernal, Quilmes, Avellaneda, Lanús)" };
-        let tabActual = 'transf';
+        let tabActualPago = 'transf';
+        let señaCalculadaPresupuesto = 0;
+        let señaMPPresupuesto = 0;
 
-        let totalCalculado = 0;
-        let senaTransfCalculada = 0;
-        let senaMPCalculada = 0;
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('pago') === 'exito') {
-                document.getElementById('banner-exito').classList.remove('hidden');
-                document.getElementById('seccion-datos-entrega').classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            calcularPrecio();
-        });
-
-        document.querySelectorAll(".btn-zona").forEach(btn => {
-            btn.addEventListener("click", e => {
-                e.preventDefault();
-                document.querySelectorAll(".btn-zona").forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-                zonaActiva.envio = parseInt(btn.dataset.envio);
-                zonaActiva.name = btn.dataset.name;
-                calcularPrecio();
-            });
-        });
-
-        document.querySelectorAll(".btn-servicio").forEach(btn => {
-            btn.addEventListener("click", e => {
-                e.preventDefault();
-                document.querySelectorAll(".btn-servicio").forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-                servicioActivo.price = parseInt(btn.dataset.price);
-                servicioActivo.name = btn.dataset.name;
-                servicioActivo.desc = btn.dataset.desc;
-                calcularPrecio();
-            });
-        });
-
-        function cambiarTab(tab) {
-            tabActual = tab;
+        function cambiarTabPago(tab) {
+            tabActualPago = tab;
             if (tab === 'transf') {
-                document.getElementById('tab-btn-transf').className = 'py-2.5 px-3 rounded-lg font-black text-[11px] uppercase bg-green-600 text-white shadow';
-                document.getElementById('tab-btn-mp').className = 'py-2.5 px-3 rounded-lg font-black text-[11px] uppercase text-slate-400 hover:text-white transition';
+                document.getElementById('tab-btn-transf').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase bg-green-600 text-white shadow';
+                document.getElementById('tab-btn-mp').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition';
                 document.getElementById('content-transf').classList.remove('hidden');
                 document.getElementById('content-mp').classList.add('hidden');
             } else {
-                document.getElementById('tab-btn-mp').className = 'py-2.5 px-3 rounded-lg font-black text-[11px] uppercase bg-blue-600 text-white shadow';
-                document.getElementById('tab-btn-transf').className = 'py-2.5 px-3 rounded-lg font-black text-[11px] uppercase text-slate-400 hover:text-white transition';
+                document.getElementById('tab-btn-mp').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase bg-blue-600 text-white shadow';
+                document.getElementById('tab-btn-transf').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition';
                 document.getElementById('content-mp').classList.remove('hidden');
                 document.getElementById('content-transf').classList.add('hidden');
             }
         }
 
-        function copiarAlias(texto, btn) {
-            navigator.clipboard.writeText(texto);
+        function copiarAlias(txt, btn) {
+            navigator.clipboard.writeText(txt);
             const orig = btn.innerText;
             btn.innerText = "¡Copiado!";
             setTimeout(() => btn.innerText = orig, 2000);
         }
 
-        function calcularPrecio(){
-            const personas = parseInt(document.getElementById("cantidad-personas").value) || 0;
-            const hoy = new Date();
-            const fechaInput = document.getElementById('fecha-evento').value;
-            let multiplicador = 1;
-
-            if (fechaInput) {
-                const fechaEv = new Date(fechaInput + 'T00:00:00');
-                let mesesDiff = (fechaEv.getFullYear() - hoy.getFullYear()) * 12 + (fechaEv.getMonth() - hoy.getMonth());
-                if (mesesDiff > 0) {
-                    multiplicador = Math.pow(1.02, mesesDiff);
-                }
+        async function pagarMercadoPagoPresupuesto() {
+            const precioTexto = document.getElementById("precio-estimado").innerText;
+            const totalNum = parseInt(precioTexto.replace(/[^0-9.-]+/g,"")) || 0;
+            if (totalNum <= 0) {
+                alert("Por favor seleccioná los datos del evento para continuar.");
+                return;
             }
-
-            let subtotalPorPersona = (servicioActivo.price * multiplicador) * 1.1;
-            const costCocinero = (personas < 30) ? (25500 * multiplicador) : 0;
-            let mozos = 1;
-            if (personas > 30 && personas <= 55) { mozos = 2; }
-            else if (personas > 55 && personas <= 80) { mozos = 3; }
-            else if (personas > 80) { mozos = Math.ceil(personas / 25); }
-            const totalStaffCost = costCocinero + (mozos * 25500);
-
-            totalCalculado = Math.round((personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost);
-            senaTransfCalculada = Math.round(totalCalculado / 2);
-            senaMPCalculada = Math.round(senaTransfCalculada * 1.08);
-
-            document.getElementById("precio-estimado").innerText = "$" + totalCalculado.toLocaleString('es-AR');
-            document.getElementById("resumen-base").innerHTML = "<span>Menú Base:</span> <strong class='text-red-400 uppercase italic'>" + servicioActivo.name + " (" + personas + " pers.)</strong>";
-            document.getElementById("zona-mostrada").innerHTML = "<span>Cobertura en:</span> <strong>" + zonaActiva.name + "</strong>";
-            document.getElementById("staff-mostrado").innerHTML = "<span>Personal Staff:</span> <strong>1 Cocinero y " + mozos + " Mozo" + (mozos > 1 ? "s" : "") + " (Incluidos)</strong>";
-
-            document.getElementById("txt-sena-transf").innerText = "Seña 50%: $" + senaTransfCalculada.toLocaleString('es-AR');
-            document.getElementById("txt-saldo-transf").innerText = "$" + senaTransfCalculada.toLocaleString('es-AR');
-
-            document.getElementById("txt-sena-mp").innerText = "Seña 50%: $" + senaMPCalculada.toLocaleString('es-AR');
-            document.getElementById("txt-saldo-mp").innerText = "$" + senaTransfCalculada.toLocaleString('es-AR');
-        }
-
-        function mostrarFormularioEntregaTransfOnline() {
-            document.getElementById('seccion-datos-entrega').classList.remove('hidden');
-            window.scrollTo({ top: 100, behavior: 'smooth' });
-            enviarWhatsappGeneral('transferencia');
-        }
-
-        async function pagarMercadoPagoOnline(tipoPago) {
-            const cliente = document.getElementById("input-cliente-nombre").value || "Cliente Presupuesto";
-            const telefono = document.getElementById("input-cliente-telefono").value || "";
-            const monto = senaMPCalculada;
+            const sena50 = Math.round(totalNum / 2);
+            const montoMP = Math.round(sena50 * 1.08); // 8% recargo
 
             try {
                 const res = await fetch('https://huhigdlbztpqwtfyznya.supabase.co/functions/v1/crear-preferencia-mp', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        cliente_nombre: cliente,
-                        cliente_telefono: telefono,
-                        monto: monto,
-                        concepto: "Presupuesto Online - " + servicioActivo.name,
-                        tipo_pago: tipoPago,
+                        cliente_nombre: "Cliente Presupuesto",
+                        cliente_telefono: "",
+                        monto: montoMP,
+                        concepto: "Presupuesto Online - " + (window.servicioActivoName || "Catering"),
+                        tipo_pago: 'sena_50',
                         reserva_id: `RES-${Date.now()}`,
-                        success_url: window.location.href.split('?')[0] + '?pago=exito'
+                        success_url: "https://eventostrespuntocero.com.ar/gracias/"
                     })
                 });
                 const data = await res.json();
                 if (data.init_point) {
                     window.location.href = data.init_point;
                 } else {
-                    alert('No se pudo generar el link de pago de Mercado Pago.');
+                    alert('No se pudo generar el link de pago: ' + (data.detail || 'Error'));
                 }
             } catch (e) {
-                alert('Error al conectar con Mercado Pago.');
+                alert('Error al conectar con la pasarela de pago.');
             }
         }
 
-        function enviarWhatsappGeneral(medioPago) {
+        function enviarWhatsAppPresupuesto(modo) {
             const personas = document.getElementById("cantidad-personas").value;
             const fecha = document.getElementById("fecha-evento").value || "A confirmar";
-            const cliente = document.getElementById("input-cliente-nombre").value || "Cliente";
-            const telefono = document.getElementById("input-cliente-telefono").value || "Sin especificar";
-            const direccion = document.getElementById("input-direccion").value || "Pendiente de definir";
-            const entreCalles = document.getElementById("input-entre-calles").value || "Sin especificar";
-            const localidad = document.getElementById("input-localidad").value || "Sin especificar";
+            const precio = document.getElementById("precio-estimado").innerText;
+            const seña = Math.round(parseInt(precio.replace(/[^0-9.-]+/g,"")) / 2);
+            const staffTexto = document.getElementById("staff-mostrado").innerText.replace("Personal Staff: ", "");
 
-            const esMP = medioPago === 'mercadopago';
-            const montoSena = esMP ? senaMPCalculada : senaTransfCalculada;
-            const recargoTexto = esMP ? ' (Mercado Pago +8%)' : ' (Transferencia sin recargo)';
+            let adicionalesStr = "";
+            document.querySelectorAll(".check-adicional:checked").forEach(check => adicionalesStr += "\n- " + check.dataset.name);
 
-            const msg = "¡Hola *Eventos Tres.Cero*! 👋🏼\n" +
-                      "Quiero confirmar la reserva de mi *Presupuesto Online*:\n\n" +
-                      "📋 *DETALLE DEL PEDIDO*:\n" +
-                      "• *Cliente*: " + cliente + "\n" +
-                      "• *Teléfono*: " + telefono + "\n" +
-                      "• *Servicio*: " + servicioActivo.name + " (" + personas + " pers.)\n" +
-                      "• *Fecha*: " + fecha + "\n\n" +
-                      "📍 *UBICACIÓN Y ENTREGA*:\n" +
-                      "• *Dirección*: " + direccion + "\n" +
-                      "• *Entre calles*: " + entreCalles + "\n" +
-                      "• *Localidad*: " + localidad + "\n" +
-                      "• *Zona*: " + zonaActiva.name + "\n\n" +
-                      "💰 *RESUMEN DE PAGO*:\n" +
-                      "• *Total Estimado*: $" + totalCalculado.toLocaleString('es-AR') + "\n" +
-                      "• *Seña 50%*: $" + montoSena.toLocaleString('es-AR') + recargoTexto + "\n" +
-                      "• *Saldo al evento*: $" + senaTransfCalculada.toLocaleString('es-AR') + "\n\n" +
-                      "Adjunto comprobante o quedo a la espera de la confirmación. ¡Muchas gracias!";
+            const msg = "¡Hola *Eventos Tres Punto Cero*! 👋 Armé mi presupuesto web y quiero coordinar la seña:\n\n" +
+                      "🍔 *Menú:* Pizza Party / Catering (" + personas + " pers.)" +
+                      (adicionalesStr ? "\n➕ *Adicionales:*" + adicionalesStr : "") + "\n\n" +
+                      "📍 *Detalles:* \n" +
+                      "- Fecha: " + fecha + "\n" +
+                      "- Ubicación: " + (window.zonaActivaName || "A coordinar") + "\n" +
+                      "- Staff: " + staffTexto + "\n\n" +
+                      "💰 *Presupuesto:* " + precio + "\n" +
+                      "📌 *Seña 50%*: $" + seña.toLocaleString('es-AR') + " (Transferencia sin recargo)\n\n" +
+                      "Adjunto comprobante o quedo a la espera. ¡Gracias!";
 
-            gtag_report_conversion("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg));
+            gtag_report_conversion("https://wa.me/5491132664036?text=" + encodeURIComponent(msg));
         }
-
-        document.getElementById("cantidad-personas").addEventListener("input", calcularPrecio);
     </script>
 </body>
 </html>

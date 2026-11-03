@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 
+
     <script>
     function gtag_report_conversion(url) {
       var callback = function () {
@@ -37,6 +38,7 @@
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .error-field { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
 
+        /* Marquee Animation */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -48,6 +50,14 @@
         }
         .animate-marquee:hover {
             animation-play-state: paused;
+        }
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .animate-pulse-green {
+            animation: pulse-green 2s infinite;
         }
 
         @media (max-width: 768px) {
@@ -84,146 +94,319 @@
         </div>
     </nav>
 
+    <!-- Spacer para el nav fixed -->
     <div class="h-20 md:h-24"></div>
 
-    <!-- BANNER DE PAGO EXITOSO (POST-PAGO) -->
-    <div id="banner-exito" class="hidden max-w-4xl mx-auto my-6 px-4">
-        <div class="bg-green-600 text-white rounded-3xl p-6 md:p-8 shadow-2xl border-4 border-green-400 text-center space-y-3">
-            <h3 class="text-2xl md:text-3xl font-black uppercase italic">¡Pago Aprobado con Éxito! 🎉</h3>
-            <p class="text-sm font-bold opacity-90 max-w-2xl mx-auto">
-                Tu seña fue procesada correctamente. Completá los datos de entrega y fecha abajo para enviar tu combo por WhatsApp y agendar el evento.
-            </p>
-        </div>
-    </div>
-
     <!-- CONTENEDOR PRINCIPAL -->
-    <main class="py-8 md:py-16 px-3 sm:px-4">
+    <main class="py-12 md:py-20 px-4">
         <div class="max-w-5xl mx-auto">
 
-            <div class="text-center mb-8">
-                <h1 class="text-[10px] font-black text-red-600 uppercase tracking-[0.5em] mb-2 text-balance">Servicio de Catering Móvil</h1>
-                <p class="text-3xl md:text-5xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">Armá tu Combo a Medida</p>
-                <p class="mt-4 text-slate-500 font-medium italic text-xs sm:text-sm">Seleccioná todo lo que necesites para tu fiesta y obtené el total en vivo.</p>
+            <div class="text-center mb-12">
+                <h1 class="text-[10px] font-black text-red-600 uppercase tracking-[0.5em] mb-4 text-balance">Servicio de Catering Móvil</h1>
+                <p class="text-4xl md:text-5xl font-black italic tracking-tighter text-slate-900 uppercase leading-none">Armá tu Combo a Medida</p>
+                <p class="mt-6 text-slate-500 font-medium italic">Seleccioná todo lo que necesites para tu fiesta y recibí el presupuesto final.</p>
+
+                <!-- Trust Seal Inicial -->
+                <div class="mt-8 flex items-center justify-center gap-2 bg-white border border-slate-100 py-2 px-4 rounded-full w-fit mx-auto shadow-sm">
+                    <span class="flex gap-0.5">
+                        <span class="w-2 h-2 rounded-full bg-[#00a650]"></span>
+                        <span class="w-2 h-2 rounded-full bg-[#00a650]"></span>
+                        <span class="w-2 h-2 rounded-full bg-[#00a650]"></span>
+                        <span class="w-2 h-2 rounded-full bg-[#00a650]"></span>
+                        <span class="w-2 h-2 rounded-full bg-[#00a650]"></span>
+                    </span>
+                    <span class="text-[9px] font-black uppercase text-slate-400 tracking-tighter italic">Vendedor Líder Platinum • Descuentos Especiales (+45 unid.)</span>
+                </div>
             </div>
 
-            <div class="bg-white rounded-2xl md:rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
-                <div class="p-4 sm:p-8 md:p-12">
+            <div class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
+                <div class="p-6 md:p-12">
 
-                    <!-- FORMULARIO DE UBICACIÓN Y DATOS (VISIBLE TRAS PAGO) -->
-                    <div id="seccion-datos-entrega" class="hidden bg-slate-50 p-6 rounded-3xl border-2 border-green-500 mb-8 space-y-4">
-                        <h3 class="text-xs font-black uppercase tracking-wider text-green-800">📍 Dirección y Datos de Contacto (Para agendar entrega)</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">Cliente</label>
-                                <input type="text" id="ev_cliente_nombre" placeholder="Nombre completo" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-600 mt-1">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">WhatsApp</label>
-                                <input type="text" id="ev_cliente_telefono" placeholder="11 3266-4036" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs text-center outline-none focus:border-red-600 mt-1">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">Fecha del Evento *</label>
-                                <input type="date" id="ev_fecha" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs text-center outline-none focus:border-red-600 mt-1">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">Localidad / Barrio *</label>
-                                <input type="text" id="ev_localidad" placeholder="Ej: Quilmes / CABA" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-600 mt-1">
-                            </div>
+                    <!-- 1. DATOS BÁSICOS -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 border-b border-slate-100 pb-10">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">Fecha planeada *</label>
+                            <input type="date" id="ev_fecha" onchange="validarCampos(); calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none transition">
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">Dirección Exacta</label>
-                                <input type="text" id="ev_direccion" placeholder="Ej: Av. Corrientes 1234" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-600 mt-1">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black uppercase text-slate-400">Entre Calles</label>
-                                <input type="text" id="ev_entre_calles" placeholder="Ej: Libertad y Talcahuano" class="w-full p-2.5 bg-white border rounded-xl font-bold text-xs outline-none focus:border-red-600 mt-1">
-                            </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">Localidad / Barrio del evento *</label>
+                            <input type="text" id="ev_localidad" placeholder="Ej: Bernal, Quilmes, CABA" oninput="validarCampos()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none transition">
                         </div>
                     </div>
 
-                    <!-- 1. TABLAS Y MIGA -->
-                    <h3 class="text-xs font-black uppercase text-red-600 mb-4 border-b border-red-100 pb-2 italic">1. Tablas Gourmet y Sándwiches de Miga</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <label class="font-black text-xs text-slate-800 mb-1 block uppercase italic">Tabla de Fiambres Clásica Premium</label>
-                            <p class="text-[9px] text-slate-400 font-bold mb-3 uppercase italic">$82.500 cada 10 personas</p>
-                            <div class="flex items-center gap-3">
-                                <input type="number" id="sp_tabla_pax" value="0" min="0" step="10" oninput="calcular()" class="flex-1 p-2.5 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none text-sm shadow-sm">
+                    <!-- 2. TABLAS Y MIGA -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">1. Tablas Gourmet y Sándwiches de Miga</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                            <label class="font-black text-sm text-slate-800 mb-1 block uppercase italic">Tabla de Fiambres Clásica Premium</label>
+                            <p class="text-[10px] text-slate-400 font-bold mb-4 uppercase italic">$82.500 cada 10 personas</p>
+                            <div class="flex items-center gap-4">
+                                <input type="number" id="sp_tabla_pax" value="0" min="0" step="10" oninput="calcular()" class="flex-1 p-3 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none focus:border-red-200 shadow-sm">
                                 <span class="text-[10px] font-bold text-slate-400 uppercase italic">Pers.</span>
                             </div>
+                            <p class="text-[9px] text-slate-400 mt-2 font-medium">* Descuentos automáticos por volumen (+20 y +30 pers.)</p>
                         </div>
-                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                            <label class="font-black text-xs text-slate-800 mb-1 block uppercase italic">Sándwiches de Miga Triples</label>
-                            <p class="text-[9px] text-slate-400 font-bold mb-3 uppercase italic">Surtidos Premium - $1.850 c/u</p>
-                            <div class="flex items-center gap-3">
-                                <input type="number" id="sp_miga_unid" value="0" min="0" step="6" oninput="calcular()" class="flex-1 p-2.5 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none text-sm shadow-sm">
+                        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100">
+                            <label class="font-black text-sm text-slate-800 mb-1 block uppercase italic">Sándwiches de Miga Triples</label>
+                            <p class="text-[10px] text-slate-400 font-bold mb-4 uppercase italic">Surtidos Premium - $1.850 c/u</p>
+                            <div class="flex items-center gap-4">
+                                <input type="number" id="sp_miga_unid" value="0" min="0" step="6" oninput="calcular()" class="flex-1 p-3 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none focus:border-red-200 shadow-sm">
                                 <span class="text-[10px] font-bold text-slate-400 uppercase italic">Unid.</span>
                             </div>
+                            <p class="text-[9px] text-slate-400 mt-2 font-medium">* Mínimo 6 unidades y múltiplos de 6.</p>
+                        </div>
+                        <!-- Sándwich de Miga Especial -->
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100 md:col-span-2">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Sándwich de Miga Especial (Roquefort o Jamón Crudo)</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$2.300 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_miga_especial" data-nombre="Miga Especial" data-precio="2300" value="0" min="0" step="6" oninput="calcular()">
                         </div>
                     </div>
 
-                    <!-- 2. FINGER FOOD -->
-                    <h3 class="text-xs font-black uppercase text-red-600 mb-4 border-b border-red-100 pb-2 italic">2. Finger Food</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
-                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <!-- 3. FINGER FOOD -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">2. Finger Food (Listos para calentar)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <!-- Pizzetas -->
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
                             <div class="flex-1">
-                                <p class="font-black text-xs text-slate-800 uppercase italic">Pizzetas con Muzzarella</p>
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Pizzetas con Muzzarella</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.600 c/u (Mayorista $1.300)</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_pizzetas" data-nombre="Pizzetas" data-precio="1600" data-precio-100="1300" value="0" min="0" step="10" oninput="calcular()">
+                        </div>
+                        <!-- Empanadas Carne -->
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Empanadas de Carne</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">Promo x50 $1.450 | Mayorista $1.350</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_emp_carne" data-nombre="Empanadas Carne" data-precio="1450" data-precio-50="1400" data-precio-100="1350" value="0" min="0" step="12" oninput="calcular()">
+                        </div>
+                        <!-- Empanadas Pollo -->
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Empanadas de Pollo</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">Promo x50 $1.450 | Mayorista $1.350</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_emp_pollo" data-nombre="Empanadas Pollo" data-precio="1450" data-precio-50="1400" data-precio-100="1350" value="0" min="0" step="12" oninput="calcular()">
+                        </div>
+                        <!-- Canastitas -->
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Canastitas Verdura, Humita, Caprese</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">Promo x50 $1.350 | Mayorista $1.250</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_canas_verdura" data-nombre="Canastitas Mix" data-precio="1550" data-precio-50="1350" data-precio-100="1250" value="0" min="0" step="10" oninput="calcular()">
+                        </div>
+                    </div>
+
+                    <!-- 3. ESPECIALIDADES, CHIPS Y FIGAZITAS -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">3. Especialidades, Chips y Figazitas</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Chips de Jamón y Queso</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.500 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_chips_jq" data-nombre="Chips Jamón y Queso" data-precio="1500" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Chips de Pollo al Verdeo</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.500 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_chips_pollo" data-nombre="Chips Pollo" data-precio="1500" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Medialunas con Jamón y Queso</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.850 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_medialunas_jq" data-nombre="Medialunas J&Q" data-precio="1850" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Figazitas de Pollo al Verdeo</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.500 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_figa_pollo" data-nombre="Figazitas Pollo" data-precio="1500" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Figazitas Rúcula y Jamón Crudo</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.850 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_figa_rucula" data-nombre="Figazitas Rúcula" data-precio="1850" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Figazitas de Carne a la Portuguesa</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.850 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_figa_carne" data-nombre="Figazitas Carne" data-precio="1850" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Figazitas de Pernil</p>
                                 <p class="text-[9px] text-slate-400 font-bold uppercase">$1.600 c/u</p>
                             </div>
-                            <input type="number" class="sp-input w-16 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none text-xs" id="sp_pizzetas" data-nombre="Pizzetas" data-precio="1600" value="0" min="0" step="10" oninput="calcular()">
-                        </div>
-                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                            <div class="flex-1">
-                                <p class="font-black text-xs text-slate-800 uppercase italic">Empanadas de Carne</p>
-                                <p class="text-[9px] text-slate-400 font-bold uppercase">$1.450 c/u</p>
-                            </div>
-                            <input type="number" class="sp-input w-16 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none text-xs" id="sp_emp_carne" data-nombre="Empanadas Carne" data-precio="1450" value="0" min="0" step="12" oninput="calcular()">
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_figa_pernil" data-nombre="Figazitas Pernil" data-precio="1600" value="0" min="0" oninput="calcular()">
                         </div>
                     </div>
 
-                    <!-- 3. PERNILES -->
-                    <h3 class="text-xs font-black uppercase text-red-600 mb-4 border-b border-red-100 pb-2 italic">3. Perniles Horneados</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                        <div class="md:col-span-2">
-                            <label class="text-[9px] font-black text-slate-400 uppercase">Seleccioná el tamaño deseado</label>
-                            <select id="sp_pernil_tipo" onchange="calcular()" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-xs focus:border-red-600 outline-none mt-1">
+                    <!-- 4. PINCHOS Y ARROLLADITOS PREMIUM -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">4. Pinchos y Arrolladitos Premium</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Mini Pinchos Caprese (10u)</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$7.200 (Pack x10)</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_pinchos_caprese" data-nombre="Pinchos Caprese" data-precio="720" value="0" min="0" step="10" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Mini Pinchos de Carne (10u)</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$10.500 (Pack x10)</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_pinchos_carne" data-nombre="Pinchos Carne" data-precio="1050" value="0" min="0" step="10" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Arrolladito de Jamón y Quesos (20cm)</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$14.900 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_arrolladito_jq" data-nombre="Arrolladito J&Q" data-precio="14900" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="flex-1">
+                                <p class="font-black text-sm text-slate-800 uppercase italic">Arrolladito Roquefort, Nuez y Quesos</p>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase">$21.700 c/u</p>
+                            </div>
+                            <input type="number" class="sp-input w-20 p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_arrolladito_roq" data-nombre="Arrolladito Roquefort" data-precio="21700" value="0" min="0" oninput="calcular()">
+                        </div>
+                    </div>
+
+                    <!-- 5. TACOS PARTY (OPCIONAL) -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">5. Tacos Party (Opcional)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+                        <div class="p-4 bg-red-50 rounded-2xl border border-red-100 text-center">
+                            <label class="font-black text-[10px] uppercase block mb-2 italic">Tacos Cerdo</label>
+                            <input type="number" class="sp-taco w-full p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_tacos_cerdo" data-nombre="Tacos Cerdo" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-2xl border border-red-100 text-center">
+                            <label class="font-black text-[10px] uppercase block mb-2 italic">Tacos Pollo</label>
+                            <input type="number" class="sp-taco w-full p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_tacos_pollo" data-nombre="Tacos Pollo" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-2xl border border-red-100 text-center">
+                            <label class="font-black text-[10px] uppercase block mb-2 italic">Tacos Verdura</label>
+                            <input type="number" class="sp-taco w-full p-2 border-2 border-white rounded-xl text-center font-black text-red-600 outline-none shadow-sm" id="sp_tacos_verdura" data-nombre="Tacos Verdura" value="0" min="0" oninput="calcular()">
+                        </div>
+                        <p class="md:col-span-3 text-[9px] text-slate-400 text-center font-bold uppercase italic">* Promo $2.000 superando las 24 unidades combinadas.</p>
+                        <p class="md:col-span-3 text-[10px] text-green-600 text-center font-black uppercase italic mt-2">
+                            🎉 ¡PROMO ESPECIAL! 10% OFF EN TODO EL COMBO SUPERANDO LAS 45 UNIDADES TOTALES
+                        </p>
+                    </div>
+
+                    <!-- 6. PERNILES -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">6. Perniles Horneados (Con panes y 3 salsas artesanales)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 items-end">
+                        <div class="md:col-span-2 space-y-2">
+                            <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Seleccioná el tamaño deseado</label>
+                            <select id="sp_pernil_tipo" onchange="calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none appearance-none cursor-pointer">
                                 <option value="0">No agregar pernil</option>
-                                <option value="75000" data-nombre="Pernil CHICO">Pernil CHICO - $75.000 (Rinde ~15 pers. / 50 figazas)</option>
-                                <option value="95000" data-nombre="Pernil MEDIANO">Pernil MEDIANO - $95.000 (Rinde ~25 pers. / 100 figazas)</option>
-                                <option value="130000" data-nombre="Pernil GRANDE">Pernil GRANDE - $130.000 (Rinde ~35 pers. / 150 figazas)</option>
+                                <option value="75000" data-nombre="Pernil CHICO">Pernil CHICO - $75.000 (Rinde ~10-15 pers. / 50 figazas)</option>
+                                <option value="95000" data-nombre="Pernil MEDIANO">Pernil MEDIANO - $95.000 (Rinde ~20-25 pers. / 100 figazas)</option>
+                                <option value="130000" data-nombre="Pernil GRANDE">Pernil GRANDE - $130.000 (Rinde ~30-35 pers. / 150 figazas)</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="text-[9px] font-black text-slate-400 uppercase">Cantidad</label>
-                            <input type="number" id="sp_pernil_qty" value="1" min="1" max="5" oninput="calcular()" class="w-full p-3 bg-slate-50 border-2 border-slate-100 rounded-xl font-black text-center text-red-600 text-sm outline-none mt-1">
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none text-center block">Cantidad</label>
+                            <input type="number" id="sp_pernil_qty" value="1" min="1" max="5" oninput="calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-black text-center text-red-600 outline-none shadow-sm">
                         </div>
                     </div>
 
-                    <!-- RESULTADO FINAL Y MODULO DE PAGO -->
-                    <div class="bg-slate-900 rounded-3xl md:rounded-[2.5rem] p-6 md:p-10 text-white shadow-2xl relative overflow-hidden">
+                    <!-- 5. PLATOS CALIENTES -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">7. Sumale un Plato Principal Caliente (Opcional)</h3>
+                    <div class="mb-12">
+                        <select id="sp_menu_caliente" onchange="calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none appearance-none cursor-pointer">
+                            <option value="none">No agregar plato principal caliente</option>
+                            <option value="Pollo a la crema con papas dore">Pollo a la crema con papas dore</option>
+                            <option value="Lomo con salsa de hongos y papas">Lomo con salsa de hongos y papas</option>
+                            <option value="Hamburguesas con fritas">Hamburguesas con fritas</option>
+                            <option value="Otro menú personalizado">Otro menú a elección (A coordinar por privado)</option>
+                        </select>
+                        <p class="text-[9px] text-slate-400 mt-2 font-medium italic">* Ideales para eventos formales. Presupuestamos el valor final por WhatsApp.</p>
+                    </div>
+
+                    <!-- 6. PERSONAL Y LOGISTICA -->
+                    <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">8. Servicio con Personal y Logística</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <div class="space-y-4">
+                            <label class="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 cursor-pointer hover:border-red-200 transition">
+                                <input type="checkbox" id="incluir_personal" onchange="calcular()" class="w-6 h-6 accent-red-600 cursor-pointer">
+                                <div>
+                                    <span class="block font-black uppercase text-xs italic">¿Deseás Servicio con Personal?</span>
+                                    <span class="text-[9px] text-slate-400 font-bold uppercase italic leading-tight block mt-1">Cocinero y/o Mozos en tu locación. (Costo a coordinar)</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Método de Entrega</label>
+                            <select id="traslado" onchange="calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none appearance-none cursor-pointer">
+                                <option value="retiro">Retiro por producción (Bernal Oeste) - Sin Cargo</option>
+                                <option value="envio">Envío a domicilio (Se cotiza por WhatsApp)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- RESULTADO FINAL TICKET -->
+                    <div class="bg-slate-900 rounded-[3rem] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-full h-2 bg-red-600"></div>
 
-                        <div class="text-center mb-6">
-                            <p class="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 mb-2">Total Estimado Combo</p>
-                            <div id="txtTotal" class="text-5xl md:text-7xl font-black italic tracking-tighter leading-none">$0</div>
+                        <div class="text-center mb-10">
+                            <p class="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 mb-2">Total Estimado Productos</p>
+                            <div id="txtTotal" class="text-6xl md:text-8xl font-black italic tracking-tighter leading-none">$0</div>
                         </div>
 
-                        <div id="resumenContenido" class="bg-white/5 rounded-2xl p-4 text-xs space-y-2 mb-6 border border-white/5 uppercase italic font-bold">
+                        <div id="resumenContenido" class="bg-white/5 rounded-3xl p-6 md:p-10 text-[11px] space-y-4 mb-8 border border-white/5 uppercase italic font-bold">
                             <!-- Detalle dinámico -->
                         </div>
 
-                        <!-- SECCIÓN SEÑA Y PASARELA -->
-                        <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 text-left space-y-4 mb-6">
-                            <h3 class="text-xs font-black uppercase tracking-wider text-white">💳 Confirmación de Reserva - Seña 50%</h3>
-                            <p class="text-[11px] text-slate-400">Aboná el 50% de seña para congelar el precio de tu pedido. El saldo restante (50%) se abona contra entrega.</p>
+                        <div class="space-y-3 mb-10 px-4">
+                            <div id="rowMenuCalienteExtra" class="flex justify-between text-[10px] font-bold uppercase text-red-400 hidden">
+                                <span>🍽️ Plato Principal:</span>
+                                <span>A cotizar por WhatsApp</span>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-bold uppercase text-slate-400 italic">
+                                <span>🚚 Método de Entrega:</span>
+                                <span id="txtLogistica">Retiro por Local ($0)</span>
+                            </div>
+                            <div id="rowPersonalExtra" class="flex justify-between text-[10px] font-bold uppercase text-red-400 hidden">
+                                <span>👨‍🍳 Servicio Personal:</span>
+                                <span>Solicitado (A cotizar)</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/10 p-5 rounded-2xl mb-8 text-center italic">
+                            <p class="text-[10px] text-slate-400 uppercase mb-1 tracking-widest">Seña 50% para congelar valor:</p>
+                            <p id="txtSeña" class="text-3xl font-black text-red-500 leading-none">$0</p>
+                            <p class="text-[9px] text-slate-500 uppercase mt-2">Saldo al momento del retiro o entrega</p>
+                        </div>
+
+                        <!-- MODULO DE PAGOS Y SEÑA 50% INTEGRADO CON TODAS LAS OPCIONES -->
+                        <div class="bg-slate-800 p-5 sm:p-8 rounded-3xl border border-slate-700 text-left space-y-4 mb-6">
+                            <h3 class="text-xs font-black uppercase tracking-wider text-white">💳 Confirmación de Reserva & Medio de Pago</h3>
+                            <p class="text-[11px] text-slate-400">Aboná el 50% de seña para congelar el precio de tu combo. El saldo restante (50%) se abona contra entrega.</p>
 
                             <!-- Pestañas -->
                             <div class="grid grid-cols-2 gap-2 p-1 bg-slate-900 rounded-xl">
-                                <button id="tab-btn-transf" onclick="cambiarTab('transf')" class="py-2.5 px-3 rounded-lg font-black text-[11px] uppercase bg-green-600 text-white shadow">
+                                <button type="button" id="tab-btn-transf" onclick="cambiarTabPago('transf')" class="py-3 px-3 rounded-lg font-black text-xs uppercase bg-green-600 text-white shadow">
                                     Transferencia (Sin Recargo)
                                 </button>
-                                <button id="tab-btn-mp" onclick="cambiarTab('mp')" class="py-2.5 px-3 rounded-lg font-black text-[11px] uppercase text-slate-400 hover:text-white transition">
+                                <button type="button" id="tab-btn-mp" onclick="cambiarTabPago('mp')" class="py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition">
                                     Mercado Pago (+8%)
                                 </button>
                             </div>
@@ -235,34 +418,30 @@
                                         <span class="text-[9px] font-black uppercase text-green-400 bg-green-500/20 px-2 py-0.5 rounded-full">Precio Sin Recargo</span>
                                         <p id="txt-sena-transf" class="text-lg font-black text-white italic mt-1">Seña 50%: $0</p>
                                     </div>
-                                    <div class="text-right">
-                                        <p class="text-[9px] text-slate-400 font-black uppercase">Saldo al evento</p>
-                                        <p id="txt-saldo-transf" class="text-sm font-black text-white">$0</p>
-                                    </div>
                                 </div>
 
-                                <div class="bg-slate-900 p-3 rounded-xl border border-slate-700 text-xs space-y-2">
-                                    <p class="text-[10px] font-black text-green-400 uppercase italic">Datos para transferir:</p>
+                                <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 text-xs space-y-2">
+                                    <p class="text-xs font-black text-green-400 uppercase italic">Datos para transferir:</p>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                         <div class="bg-slate-800 p-2.5 rounded-lg flex justify-between items-center">
                                             <div>
                                                 <p class="text-[8px] text-slate-400 font-black uppercase">Alias MP</p>
                                                 <p class="font-black text-white text-xs">tres.cero.mp</p>
                                             </div>
-                                            <button onclick="copiarAlias('tres.cero.mp', this)" class="bg-green-600 hover:bg-green-700 text-white px-2.5 py-1 rounded text-[9px] font-black">Copiar</button>
+                                            <button type="button" onclick="copiarAlias('tres.cero.mp', this)" class="bg-green-600 hover:bg-green-700 text-white px-2.5 py-1 rounded text-[9px] font-black">Copiar</button>
                                         </div>
                                         <div class="bg-slate-800 p-2.5 rounded-lg flex justify-between items-center">
                                             <div>
                                                 <p class="text-[8px] text-slate-400 font-black uppercase">CVU / CBU</p>
                                                 <p class="font-black text-white text-[10px]">0000003100109736830548</p>
                                             </div>
-                                            <button onclick="copiarAlias('0000003100109736830548', this)" class="bg-green-600 hover:bg-green-700 text-white px-2.5 py-1 rounded text-[9px] font-black">Copiar</button>
+                                            <button type="button" onclick="copiarAlias('0000003100109736830548', this)" class="bg-green-600 hover:bg-green-700 text-white px-2.5 py-1 rounded text-[9px] font-black">Copiar</button>
                                         </div>
                                     </div>
                                     <p class="text-[10px] text-slate-300 font-bold">Titular: Fernando Ezequiel Mazzera</p>
                                 </div>
 
-                                <button onclick="mostrarFormularioEntregaCombo()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                                <button type="button" onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
                                     <span>💬 Confirmar Seña y Enviar Pedido por WhatsApp</span>
                                 </button>
                             </div>
@@ -274,244 +453,81 @@
                                         <span class="text-[9px] font-black uppercase text-blue-400 bg-blue-500/20 px-2 py-0.5 rounded-full">Link de Pago (+8%)</span>
                                         <p id="txt-sena-mp" class="text-lg font-black text-white italic mt-1">Seña 50%: $0</p>
                                     </div>
-                                    <div class="text-right">
-                                        <p class="text-[9px] text-slate-400 font-black uppercase">Saldo al evento</p>
-                                        <p id="txt-saldo-mp" class="text-sm font-black text-white">$0</p>
-                                    </div>
                                 </div>
 
-                                <div class="flex flex-col sm:flex-row gap-2">
-                                    <button onclick="pagarMercadoPagoCombo('sena_50')" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg">
-                                        💳 Pagar Seña con Mercado Pago
-                                    </button>
-                                    <button onclick="enviarWhatsapp('mercadopago')" class="bg-slate-900 hover:bg-black text-white font-black py-3.5 px-4 rounded-xl uppercase tracking-wider text-xs transition">
-                                        💬 Pedir Link por WhatsApp
-                                    </button>
-                                </div>
+                                <button type="button" onclick="pagarMercadoPagoCombo()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                                    <span>💳 Pagar Seña con Mercado Pago (+8%)</span>
+                                </button>
                             </div>
                         </div>
 
-                        <!-- OPCIÓN SECUNDARIA: SOLICITAR PRESUPUESTO EN PDF POR WHATSAPP SIN PAGAR -->
-                        <div class="pt-4 border-t border-white/10 text-center">
-                            <p class="text-[11px] font-bold text-slate-400 uppercase italic mb-3">¿Aún no deseás abonar online? Recibí la cotización formal:</p>
-                            <button onclick="enviarWhatsapp('consulta')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition border border-white/10 flex items-center justify-center gap-2">
-                                <span>📄 Solicitar Presupuesto Detallado en PDF por WhatsApp</span>
-                            </button>
-                        </div>
+                        <button type="button" onclick="enviarWhatsApp()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-black py-4 rounded-2xl text-center uppercase tracking-[0.1em] transition flex items-center justify-center gap-3 border border-white/10">
+                            <span>📄 Solicitar Presupuesto Detallado en PDF por WhatsApp</span>
+                        </button>
 
+                        <p class="text-[9px] text-slate-500 text-center mt-6 uppercase font-bold italic tracking-tighter">
+                            * Valores sujetos a confirmación de agenda y stock final.
+                        </p>
                     </div>
 
                 </div>
             </div>
 
-            <!-- Footer -->
-            <footer class="bg-slate-900 py-12 mt-12 border-t border-slate-800 rounded-3xl text-center text-slate-400 text-xs">
-                <p class="font-black uppercase tracking-widest">© 2026 Eventos Tres.Cero • Catering Móvil Premium • Buenos Aires</p>
-            </footer>
-        </div>
-    </main>
-
     <script>
-        const WHATSAPP_NUM = "5491132664036";
-        const formatArg = (num) => '$' + num.toLocaleString('es-AR');
+        let tabActualPago = 'transf';
 
-        let tabActual = 'transf';
-        let totalCalculado = 0;
-        let senaTransfCalculada = 0;
-        let senaMPCalculada = 0;
-        let resumenTexto = "";
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('pago') === 'exito') {
-                document.getElementById('banner-exito').classList.remove('hidden');
-                document.getElementById('seccion-datos-entrega').classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            calcular();
-        });
-
-        function cambiarTab(tab) {
-            tabActual = tab;
+        function cambiarTabPago(tab) {
+            tabActualPago = tab;
             if (tab === 'transf') {
-                document.getElementById('tab-btn-transf').className = 'py-2.5 px-3 rounded-lg font-black text-[11px] uppercase bg-green-600 text-white shadow';
-                document.getElementById('tab-btn-mp').className = 'py-2.5 px-3 rounded-lg font-black text-[11px] uppercase text-slate-400 hover:text-white transition';
+                document.getElementById('tab-btn-transf').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase bg-green-600 text-white shadow';
+                document.getElementById('tab-btn-mp').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition';
                 document.getElementById('content-transf').classList.remove('hidden');
                 document.getElementById('content-mp').classList.add('hidden');
             } else {
-                document.getElementById('tab-btn-mp').className = 'py-2.5 px-3 rounded-lg font-black text-[11px] uppercase bg-blue-600 text-white shadow';
-                document.getElementById('tab-btn-transf').className = 'py-2.5 px-3 rounded-lg font-black text-[11px] uppercase text-slate-400 hover:text-white transition';
+                document.getElementById('tab-btn-mp').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase bg-blue-600 text-white shadow';
+                document.getElementById('tab-btn-transf').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition';
                 document.getElementById('content-mp').classList.remove('hidden');
                 document.getElementById('content-transf').classList.add('hidden');
             }
         }
 
-        function copiarAlias(texto, btn) {
-            navigator.clipboard.writeText(texto);
+        function copiarAlias(txt, btn) {
+            navigator.clipboard.writeText(txt);
             const orig = btn.innerText;
             btn.innerText = "¡Copiado!";
             setTimeout(() => btn.innerText = orig, 2000);
         }
 
-        function calcular() {
-            let total = 0;
-            let htmlResumen = "";
-            let detalleWA = "";
-
-            const hoy = new Date();
-            const fechaInput = document.getElementById('ev_fecha').value;
-            let multiplicador = 1;
-
-            if (fechaInput) {
-                const fechaEv = new Date(fechaInput + 'T00:00:00');
-                let mesesDiff = (fechaEv.getFullYear() - hoy.getFullYear()) * 12 + (fechaEv.getMonth() - hoy.getMonth());
-                if (mesesDiff > 0) {
-                    multiplicador = Math.pow(1.02, mesesDiff);
-                }
+        async function pagarMercadoPagoCombo() {
+            let calc = calcular();
+            if (calc.total <= 0) {
+                alert("Por favor seleccioná al menos un producto para abonar.");
+                return;
             }
-
-            // 1. Tabla
-            let tablaPax = parseInt(document.getElementById('sp_tabla_pax').value) || 0;
-            if (tablaPax > 0) {
-                let sub = Math.round((tablaPax / 10) * 82500 * multiplicador);
-                htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-1"><span>Tabla Fiambres (${tablaPax} pers):</span> <strong>${formatArg(sub)}</strong></div>`;
-                detalleWA += `• Tabla Fiambres ${tablaPax} pers: ${formatArg(sub)}\n`;
-                total += sub;
-            }
-
-            // 2. Miga
-            let miga = parseInt(document.getElementById('sp_miga_unid').value) || 0;
-            if (miga > 0) {
-                let sub = Math.round(miga * 1850 * multiplicador);
-                htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-1"><span>Miga Triples (${miga} u):</span> <strong>${formatArg(sub)}</strong></div>`;
-                detalleWA += `• Miga Triples (${miga} u): ${formatArg(sub)}\n`;
-                total += sub;
-            }
-
-            // 3. Inputs Finger Food
-            document.querySelectorAll(".sp-input").forEach(inp => {
-                let val = parseInt(inp.value) || 0;
-                if (val > 0) {
-                    let p = parseInt(inp.dataset.precio);
-                    let sub = Math.round(val * p * multiplicador);
-                    htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-1"><span>${inp.dataset.nombre} (${val} u):</span> <strong>${formatArg(sub)}</strong></div>`;
-                    detalleWA += `• ${inp.dataset.nombre} (${val} u): ${formatArg(sub)}\n`;
-                    total += sub;
-                }
-            });
-
-            // 4. Pernil
-            let pTipo = document.getElementById('sp_pernil_tipo');
-            let pVal = parseInt(pTipo.value) || 0;
-            let pQty = parseInt(document.getElementById('sp_pernil_qty').value) || 1;
-            if (pVal > 0) {
-                let pNombre = pTipo.options[pTipo.selectedIndex].dataset.nombre;
-                let sub = Math.round(pVal * pQty * multiplicador);
-                htmlResumen += `<div class="flex justify-between border-b border-white/10 pb-1"><span>${pNombre} (x${pQty}):</span> <strong>${formatArg(sub)}</strong></div>`;
-                detalleWA += `• ${pNombre} (x${pQty}): ${formatArg(sub)}\n`;
-                total += sub;
-            }
-
-            totalCalculado = total;
-            senaTransfCalculada = Math.round(total / 2);
-            senaMPCalculada = Math.round(senaTransfCalculada * 1.08);
-            resumenTexto = detalleWA;
-
-            document.getElementById("txtTotal").innerText = formatArg(totalCalculado);
-            document.getElementById("resumenContenido").innerHTML = htmlResumen || "<p class='text-slate-400 text-center'>Selecciona productos para armar tu combo.</p>";
-
-            document.getElementById("txt-sena-transf").innerText = "Seña 50%: " + formatArg(senaTransfCalculada);
-            document.getElementById("txt-saldo-transf").innerText = formatArg(senaTransfCalculada);
-
-            document.getElementById("txt-sena-mp").innerText = "Seña 50%: " + formatArg(senaMPCalculada);
-            document.getElementById("txt-saldo-mp").innerText = formatArg(senaTransfCalculada);
-        }
-
-        function mostrarFormularioEntregaCombo() {
-            document.getElementById('seccion-datos-entrega').classList.remove('hidden');
-            window.scrollTo({ top: 100, behavior: 'smooth' });
-            enviarWhatsapp('transferencia');
-        }
-
-        async function pagarMercadoPagoCombo(tipoPago) {
-            const cliente = document.getElementById("ev_cliente_nombre").value || "Cliente Combo";
-            const telefono = document.getElementById("ev_cliente_telefono").value || "";
-            const monto = senaMPCalculada;
+            const senaTransf = Math.round(calc.total / 2);
+            const senaMP = Math.round(senaTransf * 1.08); // 8% recargo
 
             try {
                 const res = await fetch('https://huhigdlbztpqwtfyznya.supabase.co/functions/v1/crear-preferencia-mp', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        cliente_nombre: cliente,
-                        cliente_telefono: telefono,
-                        monto: monto,
-                        concepto: "Combo a Medida Eventos Tres.Cero",
-                        tipo_pago: tipoPago,
-                        reserva_id: `RES-${Date.now()}`,
-                        success_url: window.location.href.split('?')[0] + '?pago=exito'
+                        cliente_nombre: "Cliente Combo",
+                        cliente_telefono: "",
+                        monto: senaMP,
+                        concepto: "Armá tu Combo a Medida",
+                        tipo_pago: 'sena_50',
+                        reserva_id: `RES-${Date.now()}`
                     })
                 });
                 const data = await res.json();
                 if (data.init_point) {
                     window.location.href = data.init_point;
                 } else {
-                    alert('No se pudo generar el link de pago.');
+                    alert('No se pudo generar el link de pago: ' + (data.detail || 'Error'));
                 }
             } catch (e) {
-                alert('Error al conectar con Mercado Pago.');
+                alert('Error de conexión al procesar el pago.');
             }
         }
-
-        function enviarWhatsapp(modo) {
-            const cliente = document.getElementById("ev_cliente_nombre").value || "Cliente";
-            const telefono = document.getElementById("ev_cliente_telefono").value || "Sin especificar";
-            const fecha = document.getElementById("ev_fecha").value || "A confirmar";
-            const localidad = document.getElementById("ev_localidad").value || "Sin especificar";
-            const direccion = document.getElementById("ev_direccion").value || "Pendiente de definir";
-            const entreCalles = document.getElementById("ev_entre_calles").value || "Sin especificar";
-
-            const esConsultaSolo = modo === 'consulta';
-            const esMP = modo === 'mercadopago';
-            const montoSena = esMP ? senaMPCalculada : senaTransfCalculada;
-            const recargoTexto = esMP ? ' (Mercado Pago +8%)' : ' (Transferencia sin recargo)';
-
-            let msg = "";
-            if (esConsultaSolo) {
-                msg = "¡Hola *Eventos Tres.Cero*! 👋🏼\n" +
-                      "Armé mi combo en la web y quiero solicitar el *Presupuesto Detallado en PDF*:\n\n" +
-                      "📋 *DETALLE DEL PEDIDO*:\n" +
-                      (resumenTexto || "Combo personalizado\n") + "\n" +
-                      "📍 *DATOS DE ENTREGA*:\n" +
-                      "• *Cliente*: " + cliente + "\n" +
-                      "• *Teléfono*: " + telefono + "\n" +
-                      "• *Fecha*: " + fecha + "\n" +
-                      "• *Localidad*: " + localidad + "\n" +
-                      "• *Dirección*: " + direccion + " (e/ " + entreCalles + ")\n\n" +
-                      "💰 *TOTAL ESTIMADO*: " + formatArg(totalCalculado) + "\n\n" +
-                      "Por favor enviame el catálogo e información para reservar. ¡Muchas gracias!";
-            } else {
-                msg = "¡Hola *Eventos Tres.Cero*! 👋🏼\n" +
-                      "Quiero confirmar la reserva de mi *Combo a Medida*:\n\n" +
-                      "📋 *DETALLE DEL PEDIDO*:\n" +
-                      (resumenTexto || "Combo personalizado\n") + "\n" +
-                      "📍 *DATOS DE ENTREGA*:\n" +
-                      "• *Cliente*: " + cliente + "\n" +
-                      "• *Teléfono*: " + telefono + "\n" +
-                      "• *Fecha*: " + fecha + "\n" +
-                      "• *Localidad*: " + localidad + "\n" +
-                      "• *Dirección*: " + direccion + " (e/ " + entreCalles + ")\n\n" +
-                      "💰 *RESUMEN DE SEÑA*:\n" +
-                      "• *Total Combo*: " + formatArg(totalCalculado) + "\n" +
-                      "• *Seña 50%*: " + formatArg(montoSena) + recargoTexto + "\n" +
-                      "• *Saldo al recibir*: " + formatArg(senaTransfCalculada) + "\n\n" +
-                      "Quedo a la espera de la confirmación. ¡Muchas gracias!";
-            }
-
-            gtag_report_conversion("https://wa.me/" + WHATSAPP_NUM + "?text=" + encodeURIComponent(msg));
-        }
-
-        window.addEventListener('DOMContentLoaded', calcular);
     </script>
-</body>
-</html>
