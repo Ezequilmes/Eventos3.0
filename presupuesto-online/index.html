@@ -69,137 +69,14 @@
             animation: pulse-green 2s infinite;
         }
 
-        /* --- Paso 2 & 3: Navegación Móvil UI/UX --- */
-
         @media (max-width: 768px) {
-            /* Ocultamos los enlaces de texto superiores y el botón WhatsApp original en el header */
             nav .hidden.lg\:flex,
             nav a.bg-green-500 {
                 display: none !important;
             }
-
-            /* Padding inferior al body para que la barra no tape el contenido del footer */
             body {
                 padding-bottom: 75px;
             }
-        }
-
-        /* Estilos exclusivos de la Barra Inferior (App-Style) */
-        .app-bottom-bar {
-            display: flex;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.85); /* Glassmorphism */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            z-index: 9999;
-            justify-content: space-around;
-            align-items: center;
-            padding-bottom: env(safe-area-inset-bottom); /* Soporte para iPhone con Notch */
-        }
-
-        .app-bottom-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            text-decoration: none;
-            color: #64748b; /* slate-500 */
-            transition: all 0.2s ease;
-        }
-
-        .app-bottom-item:active {
-            transform: scale(0.9);
-            background: rgba(0,0,0,0.03);
-        }
-
-        .app-bottom-item span {
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-top: 4px;
-            letter-spacing: 0.05em;
-        }
-
-        .app-bottom-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Ocultar barra en computadoras */
-        @media (min-width: 769px) {
-            .app-bottom-bar {
-                display: none;
-            }
-        }
-
-        /* --- Paso 2: FAQ SEO & UI/UX --- */
-
-        .faq-master {
-            border-radius: 1.5rem;
-            overflow: hidden;
-        }
-
-        .faq-master-trigger {
-            list-style: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            background: #f8fafc; /* slate-50 */
-            border: 1px solid #e2e8f0; /* slate-200 */
-            border-radius: 1.25rem;
-            color: #22c55e; /* verde whatsapp */
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-        }
-
-        .faq-master-trigger::-webkit-details-marker { display: none; }
-
-        .faq-master-trigger:hover {
-            background: #ffffff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .faq-content-wrapper {
-            margin-top: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .faq-item {
-            background: white;
-            border: 1px solid #f1f5f9;
-            border-radius: 1rem;
-        }
-
-        .faq-item summary {
-            list-style: none;
-            cursor: pointer;
-            padding: 1rem;
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: #1e293b; /* slate-800 */
-            position: relative;
-        }
-
-        .faq-item summary::-webkit-details-marker { display: none; }
-
-        .faq-answer {
-            padding: 0 1rem 1rem 1rem;
-            font-size: 0.8125rem;
-            line-height: 1.5;
-            color: #64748b; /* slate-500 */
         }
     </style>
 </head>
@@ -466,9 +343,95 @@
             </div>
 
     <script>
+        const phone = "5491132664036";
+        let servicioActivo = { price: 7800, name: "Pizza Party", desc: "Bruschettas + Empanadas + 10 variedades de pizza libre" };
+        let zonaActiva = { envio: 15500, name: "Zona Sur (Bernal, Quilmes, Avellaneda, Lanús)" };
         let tabActualPago = 'transf';
-        let señaCalculadaPresupuesto = 0;
-        let señaMPPresupuesto = 0;
+
+        // Controladores Zonas
+        document.querySelectorAll(".btn-zona").forEach(btn => {
+            btn.addEventListener("click", e => {
+                e.preventDefault();
+                document.querySelectorAll(".btn-zona").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                zonaActiva.envio = parseInt(btn.dataset.envio);
+                zonaActiva.name = btn.dataset.name;
+                calcularPrecio();
+            });
+        });
+
+        // Controladores Servicios
+        document.querySelectorAll(".btn-servicio").forEach(btn => {
+            btn.addEventListener("click", e => {
+                e.preventDefault();
+                document.querySelectorAll(".btn-servicio").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                servicioActivo.price = parseInt(btn.dataset.price);
+                servicioActivo.name = btn.dataset.name;
+                servicioActivo.desc = btn.dataset.desc;
+                document.getElementById("menu-descripcion-caja").innerHTML = "<strong>Incluye de Base:</strong> " + servicioActivo.desc + ". Vajilla descartable premium incluida.";
+                calcularPrecio();
+            });
+        });
+
+        function calcularPrecio(){
+            const personas = parseInt(document.getElementById("cantidad-personas").value) || 0;
+
+            const hoy = new Date();
+            const fechaInput = document.getElementById('fecha-evento').value;
+            let multiplicador = 1;
+
+            if (fechaInput) {
+                const fechaEv = new Date(fechaInput + 'T00:00:00');
+                let mesesDiff = (fechaEv.getFullYear() - hoy.getFullYear()) * 12 + (fechaEv.getMonth() - hoy.getMonth());
+                if (mesesDiff > 0) {
+                    multiplicador = Math.pow(1.02, mesesDiff);
+                }
+            }
+
+            let subtotalPorPersona = (servicioActivo.price * multiplicador) * 1.1;
+            let adicionalesElegidos = [];
+            document.querySelectorAll(".check-adicional:checked").forEach(check => {
+                subtotalPorPersona += ((parseInt(check.dataset.price) * multiplicador) * 1.1);
+                adicionalesElegidos.push(check.dataset.name);
+            });
+
+            const costCocinero = (personas < 30) ? (25500 * multiplicador) : 0;
+            let mozos = 1;
+            if (personas > 30 && personas <= 55) { mozos = 2; }
+            else if (personas > 55 && personas <= 80) { mozos = 3; }
+            else if (personas > 80) { mozos = Math.ceil(personas / 25); }
+            const totalStaffCost = costCocinero + (mozos * 25500);
+
+            const totalFinal = (personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost;
+            const seña = Math.round(totalFinal / 2);
+            const saldo = totalFinal - seña;
+            const senaMP = Math.round(seña * 1.08);
+
+            document.getElementById("precio-estimado").innerText = "$" + Math.round(totalFinal).toLocaleString('es-AR');
+            document.getElementById("resumen-base").innerHTML = "<span>Menú Seleccionado:</span> <strong class='text-red-400 uppercase italic'>" + servicioActivo.name + " (" + personas + " pers.)</strong>";
+            document.getElementById("resumen-adicionales").innerHTML = "<span>Adicionales:</span> <strong class='text-red-400'>" + (adicionalesElegidos.length > 0 ? adicionalesElegidos.join(", ") : "Ninguno") + "</strong>";
+            document.getElementById("zona-mostrada").innerHTML = "<span>Cobertura en:</span> <strong>" + zonaActiva.name + "</strong>";
+            document.getElementById("staff-mostrado").innerHTML = "<span>Personal Staff:</span> <strong>1 Cocinero y " + mozos + " Mozo" + (mozos > 1 ? "s" : "") + " (Incluidos)</strong>";
+
+            document.getElementById("pago-mostrado").innerHTML = `
+                <div class="bg-white/10 p-4 rounded-2xl">
+                    <p class="text-[9px] text-slate-400 uppercase mb-1 italic">✨ El servicio dura 4 horas y llevamos todo lo necesario</p>
+                    <p class="text-[10px] text-slate-400 uppercase mb-1">💳 Seña para congelar valor hoy:</p>
+                    <p class="text-3xl font-black text-red-500 leading-none">$${seña.toLocaleString('es-AR')}</p>
+                </div>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest leading-none pt-2">Saldo el día del evento: $${saldo.toLocaleString('es-AR')}</p>
+            `;
+
+            if(document.getElementById("txt-sena-transf")) {
+                document.getElementById("txt-sena-transf").innerText = "Seña 50%: $" + seña.toLocaleString('es-AR');
+                document.getElementById("txt-sena-mp").innerText = "Seña 50% (+8%): $" + senaMP.toLocaleString('es-AR');
+            }
+        }
+
+        document.getElementById("cantidad-personas").addEventListener("input", calcularPrecio);
+        document.querySelectorAll(".check-adicional").forEach(check => check.addEventListener("change", calcularPrecio));
+        window.addEventListener('DOMContentLoaded', calcularPrecio);
 
         function cambiarTabPago(tab) {
             tabActualPago = tab;
@@ -510,7 +473,7 @@
                         cliente_nombre: "Cliente Presupuesto",
                         cliente_telefono: "",
                         monto: montoMP,
-                        concepto: "Presupuesto Online - " + (window.servicioActivoName || "Catering"),
+                        concepto: "Presupuesto Online - " + servicioActivo.name,
                         tipo_pago: 'sena_50',
                         reserva_id: `RES-${Date.now()}`,
                         success_url: "https://eventostrespuntocero.com.ar/gracias/"
@@ -527,29 +490,33 @@
             }
         }
 
-        function enviarWhatsAppPresupuesto(modo) {
+        document.getElementById("btn-whatsapp-principal").addEventListener("click", e => {
+            e.preventDefault();
             const personas = document.getElementById("cantidad-personas").value;
             const fecha = document.getElementById("fecha-evento").value || "A confirmar";
             const precio = document.getElementById("precio-estimado").innerText;
             const seña = Math.round(parseInt(precio.replace(/[^0-9.-]+/g,"")) / 2);
+
             const staffTexto = document.getElementById("staff-mostrado").innerText.replace("Personal Staff: ", "");
 
             let adicionalesStr = "";
             document.querySelectorAll(".check-adicional:checked").forEach(check => adicionalesStr += "\n- " + check.dataset.name);
 
-            const msg = "¡Hola *Eventos Tres Punto Cero*! 👋 Armé mi presupuesto web y quiero coordinar la seña:\n\n" +
-                      "🍔 *Menú:* Pizza Party / Catering (" + personas + " pers.)" +
+            const msg = "¡Hola Eventos Tres Punto Cero! 👋 Armé mi presupuesto web y quiero el PDF:\n\n" +
+                      "🍔 *Menú:* " + servicioActivo.name + " (" + personas + " pers.)" +
                       (adicionalesStr ? "\n➕ *Adicionales:*" + adicionalesStr : "") + "\n\n" +
                       "📍 *Detalles:* \n" +
                       "- Fecha: " + fecha + "\n" +
-                      "- Ubicación: " + (window.zonaActivaName || "A coordinar") + "\n" +
+                      "- Ubicación: " + zonaActiva.name + "\n" +
                       "- Staff: " + staffTexto + "\n\n" +
                       "💰 *Presupuesto:* " + precio + "\n" +
-                      "📌 *Seña 50%*: $" + seña.toLocaleString('es-AR') + " (Transferencia sin recargo)\n\n" +
-                      "Adjunto comprobante o quedo a la espera. ¡Gracias!";
+                      "📌 *Reserva Plan 50/50:* \n" +
+                      "   - Seña: $" + seña.toLocaleString('es-AR') + "\n" +
+                      "   - Saldo al evento.\n\n" +
+                      "Por favor enviame el catálogo con fotos. ¡Gracias!";
 
-            gtag_report_conversion("https://wa.me/5491132664036?text=" + encodeURIComponent(msg));
-        }
+            gtag_report_conversion("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg));
+        });
     </script>
 </body>
 </html>
