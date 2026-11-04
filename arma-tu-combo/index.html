@@ -478,34 +478,51 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Autocorrección de múltiplos al perder el foco (blur)
+            document.querySelectorAll("input[step]").forEach(input => {
+                input.addEventListener("blur", () => {
+                    autocorregirCampoStep(input);
+                });
+            });
+
             calcular();
         });
 
-        function validarMultiplos(mostrarAlertas = false) {
-            let valido = true;
-            const inputsStep = document.querySelectorAll("input[step]");
+        function autocorregirCampoStep(input) {
+            const step = parseInt(input.getAttribute("step")) || 1;
+            const val = parseInt(input.value) || 0;
 
+            if (val > 0 && val % step !== 0) {
+                // Redondear automáticamente al múltiplo superior más cercano
+                const corregido = Math.ceil(val / step) * step;
+                input.value = corregido;
+                input.classList.remove("error-field");
+                calcular();
+            } else if (input.id !== "ev_fecha" && input.id !== "ev_localidad") {
+                input.classList.remove("error-field");
+            }
+        }
+
+        function autocorregirMultiplos() {
+            const inputsStep = document.querySelectorAll("input[step]");
             inputsStep.forEach(input => {
                 const step = parseInt(input.getAttribute("step")) || 1;
                 const val = parseInt(input.value) || 0;
 
                 if (val > 0 && val % step !== 0) {
-                    valido = false;
-                    input.classList.add("error-field");
-                    if (mostrarAlertas) {
-                        const nombre = input.dataset.nombre || input.id;
-                        const proximoMultiplo = Math.ceil(val / step) * step;
-                        alert(`El producto "${nombre}" requiere una cantidad en múltiplos de ${step}. (Ingresaste ${val}. Te sugerimos cambiarlo a ${proximoMultiplo}).`);
-                    }
+                    const corregido = Math.ceil(val / step) * step;
+                    input.value = corregido;
+                    input.classList.remove("error-field");
                 } else if (input.id !== "ev_fecha" && input.id !== "ev_localidad") {
                     input.classList.remove("error-field");
                 }
             });
-
-            return valido;
         }
 
         function validarCampos() {
+            // Autocorregir cualquier múltiplo sin avisos invasivos (alert)
+            autocorregirMultiplos();
+
             const fecha = document.getElementById("ev_fecha");
             const localidad = document.getElementById("ev_localidad");
             let valido = true;
@@ -524,9 +541,12 @@
                 localidad.classList.remove("error-field");
             }
 
-            const multiplosOk = validarMultiplos(true);
-            if (!multiplosOk) {
-                valido = false;
+            if (!valido) {
+                const primerError = document.querySelector(".error-field");
+                if (primerError) {
+                    primerError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    primerError.focus();
+                }
             }
 
             return valido;
@@ -538,7 +558,7 @@
             let unidadesTotales = 0;
             let hayErrorMultiplo = false;
 
-            // Validar múltiplos en tiempo real sin alertas pop-up
+            // Verificar si hay campos temporales ingresados por teclado
             const inputsStep = document.querySelectorAll("input[step]");
             inputsStep.forEach(input => {
                 const step = parseInt(input.getAttribute("step")) || 1;
@@ -679,7 +699,7 @@
             }
 
             if (hayErrorMultiplo) {
-                resumenHTML += `<div class="text-red-400 text-center font-bold mt-2 border-t border-red-500/20 pt-2">⚠️ Hay productos resaltados en rojo cuyas cantidades no respetan los múltiplos requeridos.</div>`;
+                resumenHTML += `<div class="text-amber-400 text-center font-bold mt-2 border-t border-white/10 pt-2 text-[10px]">✨ Las cantidades imparte se ajustarán automáticamente al múltiplo exacto al enviar el pedido.</div>`;
             }
 
             const sena50 = Math.round(total / 2);
@@ -705,7 +725,11 @@
             const calc = calcular();
 
             if (calc.total <= 0) {
-                alert("Por favor seleccioná al menos un producto antes de enviar el presupuesto.");
+                const primerInput = document.getElementById("sp_miga_unid") || document.getElementById("sp_tabla_pax");
+                if (primerInput) {
+                    primerInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    primerInput.focus();
+                }
                 return;
             }
 
@@ -763,7 +787,11 @@
 
             let calc = calcular();
             if (calc.total <= 0) {
-                alert("Por favor seleccioná al menos un producto para abonar.");
+                const primerInput = document.getElementById("sp_miga_unid") || document.getElementById("sp_tabla_pax");
+                if (primerInput) {
+                    primerInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    primerInput.focus();
+                }
                 return;
             }
             const senaTransf = Math.round(calc.total / 2);
