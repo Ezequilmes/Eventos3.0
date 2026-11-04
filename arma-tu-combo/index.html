@@ -122,7 +122,7 @@
             <div class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
                 <div class="p-6 md:p-12">
 
-                    <!-- 1. DATOS BÁSICOS -->
+                    <!-- 1. DATOS BÁSICOS (Fecha y Localidad) -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 border-b border-slate-100 pb-10">
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">Fecha planeada *</label>
@@ -134,14 +134,14 @@
                         </div>
                     </div>
 
-                    <!-- 2. TABLAS Y MIGA -->
+                    <!-- 2. SECCIÓN 1: TABLAS GOURMET Y SÁNDWICHES DE MIGA -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">1. Tablas Gourmet y Sándwiches de Miga</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                         <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100">
                             <label class="font-black text-sm text-slate-800 mb-1 block uppercase italic">Tabla de Fiambres Clásica Premium</label>
                             <p class="text-[10px] text-slate-400 font-bold mb-4 uppercase italic">$82.500 cada 10 personas</p>
                             <div class="flex items-center gap-4">
-                                <input type="number" id="sp_tabla_pax" value="0" min="0" step="10" oninput="calcular()" class="flex-1 p-3 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none focus:border-red-200 shadow-sm">
+                                <input type="number" id="sp_tabla_pax" value="0" min="0" step="10" data-nombre="Tabla Fiambres" oninput="calcular()" class="flex-1 p-3 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none focus:border-red-200 shadow-sm">
                                 <span class="text-[10px] font-bold text-slate-400 uppercase italic">Pers.</span>
                             </div>
                             <p class="text-[9px] text-slate-400 mt-2 font-medium">* Descuentos automáticos por volumen (+20 y +30 pers.)</p>
@@ -150,7 +150,7 @@
                             <label class="font-black text-sm text-slate-800 mb-1 block uppercase italic">Sándwiches de Miga Triples</label>
                             <p class="text-[10px] text-slate-400 font-bold mb-4 uppercase italic">Surtidos Premium - $1.850 c/u</p>
                             <div class="flex items-center gap-4">
-                                <input type="number" id="sp_miga_unid" value="0" min="0" step="6" oninput="calcular()" class="flex-1 p-3 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none focus:border-red-200 shadow-sm">
+                                <input type="number" id="sp_miga_unid" value="0" min="0" step="6" data-nombre="Miga Triples" oninput="calcular()" class="flex-1 p-3 border-2 border-white rounded-xl font-black text-center text-red-600 outline-none focus:border-red-200 shadow-sm">
                                 <span class="text-[10px] font-bold text-slate-400 uppercase italic">Unid.</span>
                             </div>
                             <p class="text-[9px] text-slate-400 mt-2 font-medium">* Mínimo 6 unidades y múltiplos de 6.</p>
@@ -165,7 +165,7 @@
                         </div>
                     </div>
 
-                    <!-- 3. FINGER FOOD -->
+                    <!-- 3. SECCIÓN 2: FINGER FOOD -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">2. Finger Food (Listos para calentar)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                         <!-- Pizzetas -->
@@ -202,7 +202,7 @@
                         </div>
                     </div>
 
-                    <!-- 3. ESPECIALIDADES, CHIPS Y FIGAZITAS -->
+                    <!-- 4. SECCIÓN 3: ESPECIALIDADES, CHIPS Y FIGAZITAS -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">3. Especialidades, Chips y Figazitas</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                         <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
@@ -256,7 +256,7 @@
                         </div>
                     </div>
 
-                    <!-- 4. PINCHOS Y ARROLLADITOS PREMIUM -->
+                    <!-- 5. SECCIÓN 4: PINCHOS Y ARROLLADITOS PREMIUM -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">4. Pinchos y Arrolladitos Premium</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                         <div class="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100">
@@ -289,7 +289,7 @@
                         </div>
                     </div>
 
-                    <!-- 5. TACOS PARTY (OPCIONAL) -->
+                    <!-- 6. SECCIÓN 5: TACOS PARTY (OPCIONAL) -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">5. Tacos Party (Opcional)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
                         <div class="p-4 bg-red-50 rounded-2xl border border-red-100 text-center">
@@ -310,7 +310,7 @@
                         </p>
                     </div>
 
-                    <!-- 6. PERNILES -->
+                    <!-- 7. SECCIÓN 6: PERNILES HORNEADOS -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">6. Perniles Horneados (Con panes y 3 salsas artesanales)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 items-end">
                         <div class="md:col-span-2 space-y-2">
@@ -328,7 +328,7 @@
                         </div>
                     </div>
 
-                    <!-- 5. PLATOS CALIENTES -->
+                    <!-- 8. SECCIÓN 7: PLATOS CALIENTES -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">7. Sumale un Plato Principal Caliente (Opcional)</h3>
                     <div class="mb-12">
                         <select id="sp_menu_caliente" onchange="calcular()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none appearance-none cursor-pointer">
@@ -341,7 +341,7 @@
                         <p class="text-[9px] text-slate-400 mt-2 font-medium italic">* Ideales para eventos formales. Presupuestamos el valor final por WhatsApp.</p>
                     </div>
 
-                    <!-- 6. PERSONAL Y LOGISTICA -->
+                    <!-- 9. SECCIÓN 8: PERSONAL Y LOGÍSTICA -->
                     <h3 class="text-xs font-black uppercase text-red-600 mb-6 border-b border-red-100 pb-2 italic">8. Servicio con Personal y Logística</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                         <div class="space-y-4">
@@ -473,10 +473,37 @@
                 </div>
             </div>
 
+        </div>
+    </main>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             calcular();
         });
+
+        function validarMultiplos(mostrarAlertas = false) {
+            let valido = true;
+            const inputsStep = document.querySelectorAll("input[step]");
+
+            inputsStep.forEach(input => {
+                const step = parseInt(input.getAttribute("step")) || 1;
+                const val = parseInt(input.value) || 0;
+
+                if (val > 0 && val % step !== 0) {
+                    valido = false;
+                    input.classList.add("error-field");
+                    if (mostrarAlertas) {
+                        const nombre = input.dataset.nombre || input.id;
+                        const proximoMultiplo = Math.ceil(val / step) * step;
+                        alert(`El producto "${nombre}" requiere una cantidad en múltiplos de ${step}. (Ingresaste ${val}. Te sugerimos cambiarlo a ${proximoMultiplo}).`);
+                    }
+                } else if (input.id !== "ev_fecha" && input.id !== "ev_localidad") {
+                    input.classList.remove("error-field");
+                }
+            });
+
+            return valido;
+        }
 
         function validarCampos() {
             const fecha = document.getElementById("ev_fecha");
@@ -497,6 +524,11 @@
                 localidad.classList.remove("error-field");
             }
 
+            const multiplosOk = validarMultiplos(true);
+            if (!multiplosOk) {
+                valido = false;
+            }
+
             return valido;
         }
 
@@ -504,6 +536,20 @@
             let total = 0;
             let resumenHTML = "";
             let unidadesTotales = 0;
+            let hayErrorMultiplo = false;
+
+            // Validar múltiplos en tiempo real sin alertas pop-up
+            const inputsStep = document.querySelectorAll("input[step]");
+            inputsStep.forEach(input => {
+                const step = parseInt(input.getAttribute("step")) || 1;
+                const val = parseInt(input.value) || 0;
+                if (val > 0 && val % step !== 0) {
+                    hayErrorMultiplo = true;
+                    input.classList.add("error-field");
+                } else if (input.id !== "ev_fecha" && input.id !== "ev_localidad") {
+                    input.classList.remove("error-field");
+                }
+            });
 
             // 1. Tabla de Fiambres (cada 10 pax = $82.500)
             const tablaPax = parseInt(document.getElementById("sp_tabla_pax").value) || 0;
@@ -632,6 +678,10 @@
                 resumenHTML += `<div class="text-green-400 text-center font-bold mt-2 border-t border-white/10 pt-2">🎉 ¡10% OFF aplicado por superar 45 unidades totales!</div>`;
             }
 
+            if (hayErrorMultiplo) {
+                resumenHTML += `<div class="text-red-400 text-center font-bold mt-2 border-t border-red-500/20 pt-2">⚠️ Hay productos resaltados en rojo cuyas cantidades no respetan los múltiplos requeridos.</div>`;
+            }
+
             const sena50 = Math.round(total / 2);
             const senaMP = Math.round(sena50 * 1.08);
 
@@ -646,6 +696,10 @@
         }
 
         function enviarWhatsApp() {
+            if (!validarCampos()) {
+                return;
+            }
+
             const fecha = document.getElementById("ev_fecha").value || "A confirmar";
             const localidad = document.getElementById("ev_localidad").value || "A coordinar";
             const calc = calcular();
@@ -703,6 +757,10 @@
         }
 
         async function pagarMercadoPagoCombo() {
+            if (!validarCampos()) {
+                return;
+            }
+
             let calc = calcular();
             if (calc.total <= 0) {
                 alert("Por favor seleccioná al menos un producto para abonar.");
@@ -724,14 +782,29 @@
                         reserva_id: `RES-${Date.now()}`
                     })
                 });
+
+                if (!res.ok) {
+                    let detailMsg = "Error en el servidor de pagos.";
+                    try {
+                        const errData = await res.json();
+                        detailMsg = errData.detail || errData.message || detailMsg;
+                    } catch (_) {
+                        detailMsg = `Error HTTP ${res.status}: ${res.statusText}`;
+                    }
+                    alert('No se pudo generar el link de pago: ' + detailMsg);
+                    return;
+                }
+
                 const data = await res.json();
                 if (data.init_point) {
                     window.location.href = data.init_point;
                 } else {
-                    alert('No se pudo generar el link de pago: ' + (data.detail || 'Error'));
+                    alert('No se pudo generar el link de pago: ' + (data.detail || 'Respuesta de pago inválida'));
                 }
             } catch (e) {
                 alert('Error de conexión al procesar el pago.');
             }
         }
     </script>
+</body>
+</html>
