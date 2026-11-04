@@ -474,6 +474,210 @@
             </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            calcular();
+        });
+
+        function validarCampos() {
+            const fecha = document.getElementById("ev_fecha");
+            const localidad = document.getElementById("ev_localidad");
+            let valido = true;
+
+            if (!fecha.value) {
+                fecha.classList.add("error-field");
+                valido = false;
+            } else {
+                fecha.classList.remove("error-field");
+            }
+
+            if (!localidad.value.trim()) {
+                localidad.classList.add("error-field");
+                valido = false;
+            } else {
+                localidad.classList.remove("error-field");
+            }
+
+            return valido;
+        }
+
+        function calcular() {
+            let total = 0;
+            let resumenHTML = "";
+            let unidadesTotales = 0;
+
+            // 1. Tabla de Fiambres (cada 10 pax = $82.500)
+            const tablaPax = parseInt(document.getElementById("sp_tabla_pax").value) || 0;
+            if (tablaPax > 0) {
+                let packs = tablaPax / 10;
+                let subTabla = packs * 82500;
+                // Descuentos por volumen
+                if (tablaPax >= 30) subTabla *= 0.85; // 15% off
+                else if (tablaPax >= 20) subTabla *= 0.90; // 10% off
+
+                total += subTabla;
+                unidadesTotales += tablaPax;
+                resumenHTML += `<div class="flex justify-between"><span>Tabla Fiambres (${tablaPax} pers.):</span> <strong>$${subTabla.toLocaleString('es-AR')}</strong></div>`;
+            }
+
+            // 2. Sándwiches de Miga Triples ($1.850 c/u)
+            const migaUnid = parseInt(document.getElementById("sp_miga_unid").value) || 0;
+            if (migaUnid > 0) {
+                const subMiga = migaUnid * 1850;
+                total += subMiga;
+                unidadesTotales += migaUnid;
+                resumenHTML += `<div class="flex justify-between"><span>Miga Triples (${migaUnid}u):</span> <strong>$${subMiga.toLocaleString('es-AR')}</strong></div>`;
+            }
+
+            // Procesar todos los inputs con clase .sp-input
+            document.querySelectorAll(".sp-input").forEach(input => {
+                const qty = parseInt(input.value) || 0;
+                if (qty > 0) {
+                    const nombre = input.dataset.nombre;
+                    let precioUnit = parseInt(input.dataset.precio) || 0;
+
+                    // Reglas de precios por volumen / mayorista
+                    if (input.id === "sp_pizzetas" && qty >= 100 && input.dataset.precio100) {
+                        precioUnit = parseInt(input.dataset.precio100);
+                    } else if ((input.id === "sp_emp_carne" || input.id === "sp_emp_pollo") && qty >= 100 && input.dataset.precio100) {
+                        precioUnit = parseInt(input.dataset.precio100);
+                    } else if ((input.id === "sp_emp_carne" || input.id === "sp_emp_pollo") && qty >= 50 && input.dataset.precio50) {
+                        precioUnit = parseInt(input.dataset.precio50);
+                    } else if (input.id === "sp_canas_verdura") {
+                        if (qty >= 100) precioUnit = parseInt(input.dataset.precio100);
+                        else if (qty >= 50) precioUnit = parseInt(input.dataset.precio50);
+                    }
+
+                    const sub = qty * precioUnit;
+                    total += sub;
+                    unidadesTotales += qty;
+                    resumenHTML += `<div class="flex justify-between"><span>${nombre} (${qty}u):</span> <strong>$${sub.toLocaleString('es-AR')}</strong></div>`;
+                }
+            });
+
+            // 5. Tacos Party (Cerdo, Pollo, Verdura)
+            let totalTacos = 0;
+            let qtyTacosTotal = 0;
+            document.querySelectorAll(".sp-taco").forEach(tacoInput => {
+                const q = parseInt(tacoInput.value) || 0;
+                qtyTacosTotal += q;
+            });
+
+            if (qtyTacosTotal > 0) {
+                document.querySelectorAll(".sp-taco").forEach(tacoInput => {
+                    const q = parseInt(tacoInput.value) || 0;
+                    if (q > 0) {
+                        const nombre = tacoInput.dataset.nombre;
+                        // Promo $2.000 si supera las 24 unidades combinadas
+                        const precioTaco = qtyTacosTotal >= 24 ? 2000 : 2300;
+                        const subTaco = q * precioTaco;
+                        totalTacos += subTaco;
+                        resumenHTML += `<div class="flex justify-between"><span>${nombre} (${q}u):</span> <strong>$${subTaco.toLocaleString('es-AR')}</strong></div>`;
+                    }
+                });
+                total += totalTacos;
+                unidadesTotales += qtyTacosTotal;
+            }
+
+            // 6. Perniles
+            const pernilSelect = document.getElementById("sp_pernil_tipo");
+            const pernilQty = parseInt(document.getElementById("sp_pernil_qty").value) || 1;
+            const pernilPrecioUnit = parseInt(pernilSelect.value) || 0;
+            if (pernilPrecioUnit > 0) {
+                const subPernil = pernilPrecioUnit * pernilQty;
+                total += subPernil;
+                const selectedOption = pernilSelect.options[pernilSelect.selectedIndex];
+                const pernilNombre = selectedOption.dataset.nombre || "Pernil";
+                resumenHTML += `<div class="flex justify-between"><span>${pernilNombre} (x${pernilQty}):</span> <strong>$${subPernil.toLocaleString('es-AR')}</strong></div>`;
+            }
+
+            // 7. Plato Caliente y Personal
+            const menuCaliente = document.getElementById("sp_menu_caliente").value;
+            const rowCaliente = document.getElementById("rowMenuCalienteExtra");
+            if (menuCaliente !== "none") {
+                rowCaliente.classList.remove("hidden");
+            } else {
+                rowCaliente.classList.add("hidden");
+            }
+
+            const incluirPersonal = document.getElementById("incluir_personal").checked;
+            const rowPersonal = document.getElementById("rowPersonalExtra");
+            if (incluirPersonal) {
+                rowPersonal.classList.remove("hidden");
+            } else {
+                rowPersonal.classList.add("hidden");
+            }
+
+            // Logística
+            const traslado = document.getElementById("traslado").value;
+            const txtLogistica = document.getElementById("txtLogistica");
+            if (traslado === "retiro") {
+                txtLogistica.innerText = "Retiro por Local (Bernal Oeste) - Sin Cargo";
+            } else {
+                txtLogistica.innerText = "Envío a domicilio (A cotizar por WhatsApp)";
+            }
+
+            // Aplicar 10% OFF global si supera las 45 unidades totales
+            let descuentoAplicado = false;
+            if (unidadesTotales > 45) {
+                total *= 0.90;
+                descuentoAplicado = true;
+            }
+
+            if (resumenHTML === "") {
+                resumenHTML = `<div class="text-center text-slate-400 italic">Ningún producto seleccionado todavía.</div>`;
+                if (descuentoAplicado) {
+                    resumenHTML += `<div class="text-green-400 text-center font-bold mt-2">¡10% OFF aplicado por superar 45 unidades!</div>`;
+                }
+            } else if (descuentoAplicado) {
+                resumenHTML += `<div class="text-green-400 text-center font-bold mt-2 border-t border-white/10 pt-2">🎉 ¡10% OFF aplicado por superar 45 unidades totales!</div>`;
+            }
+
+            const sena50 = Math.round(total / 2);
+            const senaMP = Math.round(sena50 * 1.08);
+
+            // Actualizar elementos visuales del DOM
+            document.getElementById("txtTotal").innerText = "$" + Math.round(total).toLocaleString('es-AR');
+            document.getElementById("txtSeña").innerText = "$" + sena50.toLocaleString('es-AR');
+            document.getElementById("txt-sena-transf").innerText = `Seña 50%: $${sena50.toLocaleString('es-AR')}`;
+            document.getElementById("txt-sena-mp").innerText = `Seña 50% (+8% MP): $${senaMP.toLocaleString('es-AR')}`;
+            document.getElementById("resumenContenido").innerHTML = resumenHTML;
+
+            return { total, sena: sena50 };
+        }
+
+        function enviarWhatsApp() {
+            const fecha = document.getElementById("ev_fecha").value || "A confirmar";
+            const localidad = document.getElementById("ev_localidad").value || "A coordinar";
+            const calc = calcular();
+
+            if (calc.total <= 0) {
+                alert("Por favor seleccioná al menos un producto antes de enviar el presupuesto.");
+                return;
+            }
+
+            let detalleTexto = "";
+            document.querySelectorAll("#resumenContenido div").forEach(div => {
+                detalleTexto += "\n- " + div.innerText;
+            });
+
+            const menuCaliente = document.getElementById("sp_menu_caliente").value;
+            const personal = document.getElementById("incluir_personal").checked ? "Sí" : "No";
+            const entrega = document.getElementById("traslado").value === "retiro" ? "Retiro por local" : "Envío a domicilio";
+
+            const msg = "¡Hola *Eventos Tres Punto Cero*! 👋 Armé mi combo personalizado en la web:\n\n" +
+                      "📅 *Fecha:* " + fecha + "\n" +
+                      "📍 *Localidad:* " + localidad + "\n" +
+                      "🍽️ *Plato Caliente:* " + (menuCaliente !== "none" ? menuCaliente : "Ninguno") + "\n" +
+                      "👨‍🍳 *Personal:* " + personal + "\n" +
+                      "🚚 *Entrega:* " + entrega + "\n\n" +
+                      "🛒 *Detalle de Productos:*" + detalleTexto + "\n\n" +
+                      "💰 *Total Estimado:* $" + Math.round(calc.total).toLocaleString('es-AR') + "\n" +
+                      "📌 *Seña 50%*: $" + calc.sena.toLocaleString('es-AR') + " (Transferencia sin recargo)\n\n" +
+                      "Quedo a la espera de la confirmación. ¡Gracias!";
+
+            gtag_report_conversion("https://wa.me/5491132664036?text=" + encodeURIComponent(msg));
+        }
+
         let tabActualPago = 'transf';
 
         function cambiarTabPago(tab) {
