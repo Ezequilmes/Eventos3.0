@@ -7,7 +7,8 @@
         window.EVENTOS_CONFIG = {
             recargoMP: precios.recargo_mp !== undefined ? parseFloat(precios.recargo_mp) : 8,
             descuentoVolumen: precios.descuento_volumen !== undefined ? parseFloat(precios.descuento_volumen) : 10,
-            umbralVolumen: precios.umbral_volumen !== undefined ? parseInt(precios.umbral_volumen) : 45
+            umbralVolumen: precios.umbral_volumen !== undefined ? parseInt(precios.umbral_volumen) : 45,
+            costoStaff: precios.costo_staff !== undefined ? parseInt(precios.costo_staff) : 25500
         };
 
         if (!stored) return;
@@ -32,7 +33,61 @@
                 }
             }
 
-            // 2. Mapeo de IDs a data-precio y formato de etiquetas visibles
+            // 2. Presupuesto Online (Servicios Catering con Staff)
+            if (precios.srv_pizza) {
+                const b = document.querySelector('.btn-servicio[data-name="Pizza Party"]');
+                if (b) b.dataset.price = precios.srv_pizza;
+            }
+            if (precios.srv_tacos) {
+                const b = document.querySelector('.btn-servicio[data-name="Tacos Party"]');
+                if (b) b.dataset.price = precios.srv_tacos;
+            }
+            if (precios.srv_pernil) {
+                const b = document.querySelector('.btn-servicio[data-name="Pernil Party Full"]');
+                if (b) b.dataset.price = precios.srv_pernil;
+            }
+            if (precios.srv_disco) {
+                const b = document.querySelector('.btn-servicio[data-name="Disco Party"]');
+                if (b) b.dataset.price = precios.srv_disco;
+            }
+
+            // 3. Presupuesto Online (Adicionales)
+            if (precios.adic_tabla) {
+                const b = document.querySelector('.check-adicional[data-name="Tabla de Fiambres Completa"]');
+                if (b) b.dataset.price = precios.adic_tabla;
+            }
+            if (precios.adic_pernil) {
+                const b = document.querySelector('.check-adicional[data-name="Pernil Extra de Cerdo"]');
+                if (b) b.dataset.price = precios.adic_pernil;
+            }
+            if (precios.adic_miga) {
+                const b = document.querySelector('.check-adicional[data-name="Sándwiches de Miga"]');
+                if (b) b.dataset.price = precios.adic_miga;
+            }
+
+            // 4. Presupuesto Online (Zonas / Envíos)
+            if (precios.zona_sur) {
+                const b = document.querySelector('.btn-zona[data-name*="Zona Sur"]');
+                if (b) b.dataset.envio = precios.zona_sur;
+            }
+            if (precios.zona_caba) {
+                const b = document.querySelector('.btn-zona[data-name="CABA"]');
+                if (b) b.dataset.envio = precios.zona_caba;
+            }
+            if (precios.zona_norte) {
+                const b = document.querySelector('.btn-zona[data-name="Zona Norte"]');
+                if (b) b.dataset.envio = precios.zona_norte;
+            }
+            if (precios.zona_oeste) {
+                const b = document.querySelector('.btn-zona[data-name="Zona Oeste"]');
+                if (b) b.dataset.envio = precios.zona_oeste;
+            }
+            if (precios.zona_laplata) {
+                const b = document.querySelector('.btn-zona[data-name="La Plata"]');
+                if (b) b.dataset.envio = precios.zona_laplata;
+            }
+
+            // 5. Mapeo de IDs a data-precio e inputs en Armá tu Combo
             const mapIds = {
                 "sp_tabla_pax": { val: precios.tabla_pax, labelFn: v => `$${v.toLocaleString('es-AR')} cada 10 personas` },
                 "sp_miga_unid": { val: precios.miga_unid, labelFn: v => `Surtidos Premium - $${v.toLocaleString('es-AR')} c/u` },
@@ -68,7 +123,7 @@
                 }
             }
 
-            // 3. Tarjetas de Perniles (/perniles/)
+            // 6. Tarjetas de Perniles (/perniles/)
             if (precios.pernil) {
                 const factorMP = 1 + (recargoMP / 100);
                 if (precios.pernil.chico) {
@@ -100,7 +155,7 @@
                 }
             }
 
-            // 4. Recalcular la cotización dinámicamente
+            // 7. Recalcular la cotización dinámicamente
             if (typeof calcular === "function") {
                 calcular();
             }

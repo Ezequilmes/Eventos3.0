@@ -390,6 +390,16 @@
                 }
             }
 
+            // Sincronizar precio de servicio y zona activa con el DOM por si fue actualizado en vivo por el admin
+            const btnServActivo = document.querySelector(".btn-servicio.active");
+            if (btnServActivo) {
+                servicioActivo.price = parseInt(btnServActivo.dataset.price);
+            }
+            const btnZonaActiva = document.querySelector(".btn-zona.active");
+            if (btnZonaActiva) {
+                zonaActiva.envio = parseInt(btnZonaActiva.dataset.envio);
+            }
+
             let subtotalPorPersona = (servicioActivo.price * multiplicador) * 1.1;
             let adicionalesElegidos = [];
             document.querySelectorAll(".check-adicional:checked").forEach(check => {
@@ -397,15 +407,16 @@
                 adicionalesElegidos.push(check.dataset.name);
             });
 
-            const costCocinero = (personas < 30) ? (25500 * multiplicador) : 0;
+            const cfg = window.EVENTOS_CONFIG || { recargoMP: 8, costoStaff: 25500 };
+            const factorMP = 1 + (cfg.recargoMP / 100);
+            const costoStaffBase = cfg.costoStaff || 25500;
+
+            const costCocinero = (personas < 30) ? (costoStaffBase * multiplicador) : 0;
             let mozos = 1;
             if (personas > 30 && personas <= 55) { mozos = 2; }
             else if (personas > 55 && personas <= 80) { mozos = 3; }
             else if (personas > 80) { mozos = Math.ceil(personas / 25); }
-            const totalStaffCost = costCocinero + (mozos * 25500);
-
-            const cfg = window.EVENTOS_CONFIG || { recargoMP: 8 };
-            const factorMP = 1 + (cfg.recargoMP / 100);
+            const totalStaffCost = costCocinero + (mozos * costoStaffBase);
 
             const totalFinal = (personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost;
             const seña = Math.round(totalFinal / 2);

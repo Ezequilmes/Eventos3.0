@@ -54,7 +54,7 @@
                     <span class="text-xs text-green-400 font-bold flex items-center gap-1">● Sistema en Vivo</span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-black italic uppercase text-white mt-2">Modificador de Precios Web</h2>
-                <p class="text-xs text-slate-400">Ajustá los valores de Perniles, Catering y Adicionales. Los cambios impactan de inmediato.</p>
+                <p class="text-xs text-slate-400">Ajustá los valores de Perniles, Presupuesto Online, Combos y Zonas. Los cambios impactan de inmediato.</p>
             </div>
             <div class="flex items-center gap-3 w-full sm:w-auto">
                 <button onclick="guardarPrecios()" class="flex-1 sm:flex-none bg-green-600 hover:bg-green-700 text-white font-black px-6 py-4 rounded-2xl uppercase text-xs tracking-wider transition shadow-lg">
@@ -68,7 +68,7 @@
 
         <!-- Toast Alerta -->
         <div id="toast-success" class="hidden bg-green-500 text-white p-4 rounded-2xl font-black text-xs uppercase tracking-wider text-center shadow-lg transition">
-            ✅ ¡Precios guardados e impactados correctamente en el sitio web!
+            ✅ ¡Precios guardados e impactados correctamente en todo el sitio web!
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -94,10 +94,89 @@
                 </div>
             </div>
 
-            <!-- BLOQUE 2: TABLAS Y MIGA -->
+            <!-- BLOQUE 2: PRESUPUESTO ONLINE (SERVICIOS BASE POR PERSONA) -->
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
                 <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
-                    <span>🧀</span> <span>Tablas y Miga</span>
+                    <span>🍽️</span> <span>Presupuesto Online (x pax)</span>
+                </h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Pizza Party ($ / pax)</label>
+                        <input type="number" id="p_srv_pizza" value="7800" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Tacos Party ($ / pax)</label>
+                        <input type="number" id="p_srv_tacos" value="8500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Pernil Party Full ($ / pax)</label>
+                        <input type="number" id="p_srv_pernil" value="9200" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Disco Party ($ / pax)</label>
+                        <input type="number" id="p_srv_disco" value="12500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 3: ADICIONALES PRESUPUESTO & STAFF -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>👨‍🍳</span> <span>Adicionales & Personal Staff</span>
+                </h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Tabla Fiambres Completa ($ / pax)</label>
+                        <input type="number" id="p_adic_tabla" value="2200" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Pernil Extra Cerdo ($ / pax)</label>
+                        <input type="number" id="p_adic_pernil" value="2800" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Sándwiches Miga ($ / pax)</label>
+                        <input type="number" id="p_adic_miga" value="1900" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Costo Personal Staff ($ / mozo o cocinero)</label>
+                        <input type="number" id="p_costo_staff" value="25500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-amber-400 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 4: ZONAS Y ENVÍOS -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>🚚</span> <span>Logística & Fletes por Zona</span>
+                </h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Zona Sur ($)</label>
+                        <input type="number" id="p_zona_sur" value="15500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">CABA ($)</label>
+                        <input type="number" id="p_zona_caba" value="35500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Zona Norte ($)</label>
+                        <input type="number" id="p_zona_norte" value="45500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Zona Oeste ($)</label>
+                        <input type="number" id="p_zona_oeste" value="55500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">La Plata ($)</label>
+                        <input type="number" id="p_zona_laplata" value="65500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 5: TABLAS Y MIGA (ARMÁ TU COMBO) -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>🧀</span> <span>Tablas y Miga (Armá tu Combo)</span>
                 </h3>
                 <div class="space-y-3">
                     <div>
@@ -115,7 +194,7 @@
                 </div>
             </div>
 
-            <!-- BLOQUE 3: FINGER FOOD -->
+            <!-- BLOQUE 6: FINGER FOOD -->
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
                 <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
                     <span>🍕</span> <span>Finger Food</span>
@@ -140,7 +219,7 @@
                 </div>
             </div>
 
-            <!-- BLOQUE 4: ESPECIALIDADES & FIGAZITAS -->
+            <!-- BLOQUE 7: ESPECIALIDADES & FIGAZITAS -->
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
                 <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
                     <span>🥐</span> <span>Chips & Figazitas</span>
@@ -177,7 +256,7 @@
                 </div>
             </div>
 
-            <!-- BLOQUE 5: PINCHOS & ARROLLADITOS -->
+            <!-- BLOQUE 8: PINCHOS & ARROLLADITOS -->
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
                 <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
                     <span>🍡</span> <span>Pinchos & Arrolladitos</span>
@@ -202,7 +281,7 @@
                 </div>
             </div>
 
-            <!-- BLOQUE 6: RECARGOS Y DESCUENTOS -->
+            <!-- BLOQUE 9: RECARGOS Y DESCUENTOS -->
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
                 <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
                     <span>💳</span> <span>Comisiones y Descuentos</span>
@@ -223,7 +302,7 @@
                 </div>
             </div>
 
-            <!-- BLOQUE 7: OPCIONES RESTABLECER -->
+            <!-- BLOQUE 10: OPCIONES RESTABLECER -->
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 flex flex-col justify-between">
                 <div>
                     <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
@@ -295,7 +374,10 @@
                     "miga_especial", "pizzetas", "emp_carne", "emp_pollo", "canas_verdura",
                     "chips_jq", "chips_pollo", "medialunas_jq", "figa_pollo", "figa_rucula",
                     "figa_carne", "figa_pernil", "pinchos_caprese", "pinchos_carne",
-                    "arrolladito_jq", "arrolladito_roq"
+                    "arrolladito_jq", "arrolladito_roq", "tabla_pax", "miga_unid",
+                    "srv_pizza", "srv_tacos", "srv_pernil", "srv_disco",
+                    "adic_tabla", "adic_pernil", "adic_miga", "costo_staff",
+                    "zona_sur", "zona_caba", "zona_norte", "zona_oeste", "zona_laplata"
                 ];
                 fields.forEach(f => {
                     if (precios[f] !== undefined) {
@@ -316,6 +398,21 @@
                     mediano: parseInt(document.getElementById("p_pernil_mediano").value) || 105000,
                     grande: parseInt(document.getElementById("p_pernil_grande").value) || 145000
                 },
+                srv_pizza: parseInt(document.getElementById("p_srv_pizza").value) || 7800,
+                srv_tacos: parseInt(document.getElementById("p_srv_tacos").value) || 8500,
+                srv_pernil: parseInt(document.getElementById("p_srv_pernil").value) || 9200,
+                srv_disco: parseInt(document.getElementById("p_srv_disco").value) || 12500,
+                adic_tabla: parseInt(document.getElementById("p_adic_tabla").value) || 2200,
+                adic_pernil: parseInt(document.getElementById("p_adic_pernil").value) || 2800,
+                adic_miga: parseInt(document.getElementById("p_adic_miga").value) || 1900,
+                costo_staff: parseInt(document.getElementById("p_costo_staff").value) || 25500,
+                zona_sur: parseInt(document.getElementById("p_zona_sur").value) || 15500,
+                zona_caba: parseInt(document.getElementById("p_zona_caba").value) || 35500,
+                zona_norte: parseInt(document.getElementById("p_zona_norte").value) || 45500,
+                zona_oeste: parseInt(document.getElementById("p_zona_oeste").value) || 55500,
+                zona_laplata: parseInt(document.getElementById("p_zona_laplata").value) || 65500,
+                tabla_pax: parseInt(document.getElementById("p_tabla_pax").value) || 82500,
+                miga_unid: parseInt(document.getElementById("p_miga_unid").value) || 1850,
                 miga_especial: parseInt(document.getElementById("p_miga_especial").value) || 2300,
                 pizzetas: parseInt(document.getElementById("p_pizzetas").value) || 1600,
                 emp_carne: parseInt(document.getElementById("p_emp_carne").value) || 1450,
