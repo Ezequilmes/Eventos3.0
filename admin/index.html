@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control de Precios | Eventos Tres.Cero</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../img/logo.png">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased flex flex-col justify-between">
+
+    <!-- VISTA 1: LOGIN ADMIN -->
+    <div id="view-login" class="flex items-center justify-center flex-1 p-4">
+        <div class="bg-slate-900 border border-slate-800 p-8 sm:p-12 rounded-3xl shadow-2xl max-w-md w-full text-center space-y-6">
+            <div class="w-16 h-16 bg-red-600/20 text-red-500 rounded-2xl flex items-center justify-center mx-auto text-3xl font-black">
+                🔒
+            </div>
+            <div>
+                <h1 class="text-2xl font-black italic uppercase tracking-wider text-white">Acceso Administrativo</h1>
+                <p class="text-xs text-slate-400 mt-1 font-medium">Panel de Gestión de Precios - Eventos Tres.Cero</p>
+            </div>
+
+            <form id="form-login" onsubmit="procesarLogin(event)" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Usuario</label>
+                    <input type="text" id="login-user" required placeholder="Usuario Admin" class="w-full p-4 bg-slate-800 border border-slate-700 rounded-2xl font-bold text-white outline-none focus:border-red-500 transition">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Contraseña</label>
+                    <input type="password" id="login-pass" required placeholder="••••••••" class="w-full p-4 bg-slate-800 border border-slate-700 rounded-2xl font-bold text-white outline-none focus:border-red-500 transition">
+                </div>
+                <div id="login-error" class="hidden text-xs font-bold text-red-500 text-center bg-red-500/10 p-3 rounded-xl border border-red-500/20">
+                    ⚠️ Usuario o contraseña incorrectos.
+                </div>
+                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                    <span>🔑 Ingresar al Panel</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- VISTA 2: DASHBOARD DE PRECIOS -->
+    <div id="view-dashboard" class="hidden flex-1 p-4 sm:p-8 max-w-6xl mx-auto w-full space-y-8">
+        <!-- Header Panel -->
+        <header class="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-3xl flex flex-col sm:flex-row justify-between items-center gap-4 shadow-xl">
+            <div>
+                <div class="flex items-center gap-3">
+                    <span class="bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Admin Control</span>
+                    <span class="text-xs text-green-400 font-bold flex items-center gap-1">● Sistema en Vivo</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black italic uppercase text-white mt-2">Modificador de Precios Web</h2>
+                <p class="text-xs text-slate-400">Ajustá los valores de Perniles, Catering y Adicionales. Los cambios impactan de inmediato.</p>
+            </div>
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <button onclick="guardarPrecios()" class="flex-1 sm:flex-none bg-green-600 hover:bg-green-700 text-white font-black px-6 py-4 rounded-2xl uppercase text-xs tracking-wider transition shadow-lg">
+                    💾 Guardar Cambios
+                </button>
+                <button onclick="cerrarSesion()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-black px-4 py-4 rounded-2xl uppercase text-xs transition border border-slate-700">
+                    Salir
+                </button>
+            </div>
+        </header>
+
+        <!-- Toast Alerta -->
+        <div id="toast-success" class="hidden bg-green-500 text-white p-4 rounded-2xl font-black text-xs uppercase tracking-wider text-center shadow-lg transition">
+            ✅ ¡Precios guardados e impactados correctamente en el sitio web!
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- BLOQUE 1: PERNILES -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>🍖</span> <span>Perniles Horneados</span>
+                </h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Pernil Chico ($)</label>
+                        <input type="number" id="p_pernil_chico" value="85000" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Pernil Mediano ($)</label>
+                        <input type="number" id="p_pernil_mediano" value="105000" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Pernil Grande ($)</label>
+                        <input type="number" id="p_pernil_grande" value="145000" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 2: TABLAS Y MIGA -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>🧀</span> <span>Tablas y Miga</span>
+                </h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Tabla Fiambres x10 pax ($)</label>
+                        <input type="number" id="p_tabla_pax" value="82500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Miga Triples c/u ($)</label>
+                        <input type="number" id="p_miga_unid" value="1850" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Miga Especial c/u ($)</label>
+                        <input type="number" id="p_miga_especial" value="2300" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 3: FINGER FOOD -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>🍕</span> <span>Finger Food</span>
+                </h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Pizzetas c/u ($)</label>
+                        <input type="number" id="p_pizzetas" value="1600" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Empanadas Carne c/u ($)</label>
+                        <input type="number" id="p_emp_carne" value="1450" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Empanadas Pollo c/u ($)</label>
+                        <input type="number" id="p_emp_pollo" value="1450" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Canastitas Mix c/u ($)</label>
+                        <input type="number" id="p_canas_verdura" value="1550" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 4: ESPECIALIDADES & FIGAZITAS -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>🥐</span> <span>Chips & Figazitas</span>
+                </h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Chips J&Q c/u ($)</label>
+                        <input type="number" id="p_chips_jq" value="1500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Chips Pollo c/u ($)</label>
+                        <input type="number" id="p_chips_pollo" value="1500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Medialunas J&Q c/u ($)</label>
+                        <input type="number" id="p_medialunas_jq" value="1850" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Figazitas Pollo c/u ($)</label>
+                        <input type="number" id="p_figa_pollo" value="1500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Figazitas Rúcula c/u ($)</label>
+                        <input type="number" id="p_figa_rucula" value="1850" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Figazitas Carne c/u ($)</label>
+                        <input type="number" id="p_figa_carne" value="1850" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Figazitas Pernil c/u ($)</label>
+                        <input type="number" id="p_figa_pernil" value="1600" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 5: PINCHOS & ARROLLADITOS -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>🍡</span> <span>Pinchos & Arrolladitos</span>
+                </h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Pinchos Caprese (Pack x10) ($)</label>
+                        <input type="number" id="p_pinchos_caprese" value="7200" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Pinchos Carne (Pack x10) ($)</label>
+                        <input type="number" id="p_pinchos_carne" value="10500" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Arrolladito J&Q ($)</label>
+                        <input type="number" id="p_arrolladito_jq" value="14900" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Arrolladito Roquefort ($)</label>
+                        <input type="number" id="p_arrolladito_roq" value="21700" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 6: OPCIONES RESTABLECER -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                        <span>⚙️</span> <span>Opciones de Sistema</span>
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-3">Al guardar, los precios se actualizan de forma automática en todas las secciones del sitio web.</p>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="guardarPrecios()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-2xl uppercase text-xs tracking-wider transition shadow-lg">
+                        💾 Guardar Precios
+                    </button>
+                    <button onclick="restablecerPrecios()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-400 font-bold py-3 rounded-2xl uppercase text-xs transition border border-slate-700">
+                        🔄 Restablecer Valores Base
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center p-6 text-[10px] text-slate-600 font-bold uppercase tracking-widest border-t border-slate-900">
+        Eventos Tres.Cero • Sistema Interno de Gestión de Tarifas
+    </footer>
+
+    <script>
+        const ADMIN_USER = "Admin";
+        const ADMIN_PASS = "34339356";
+
+        function procesarLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById("login-user").value.trim();
+            const p = document.getElementById("login-pass").value.trim();
+
+            if (u === ADMIN_USER && p === ADMIN_PASS) {
+                sessionStorage.setItem("admin_auth", "true");
+                mostrarDashboard();
+            } else {
+                document.getElementById("login-error").classList.remove("hidden");
+            }
+        }
+
+        function mostrarDashboard() {
+            document.getElementById("view-login").classList.add("hidden");
+            document.getElementById("view-dashboard").classList.remove("hidden");
+            cargarValoresCampos();
+        }
+
+        function cerrarSesion() {
+            sessionStorage.removeItem("admin_auth");
+            window.location.reload();
+        }
+
+        function cargarValoresCampos() {
+            const stored = localStorage.getItem("eventos_precios_override");
+            if (!stored) return;
+            try {
+                const precios = JSON.parse(stored);
+                if (precios.pernil) {
+                    if (precios.pernil.chico) document.getElementById("p_pernil_chico").value = precios.pernil.chico;
+                    if (precios.pernil.mediano) document.getElementById("p_pernil_mediano").value = precios.pernil.mediano;
+                    if (precios.pernil.grande) document.getElementById("p_pernil_grande").value = precios.pernil.grande;
+                }
+                const fields = [
+                    "miga_especial", "pizzetas", "emp_carne", "emp_pollo", "canas_verdura",
+                    "chips_jq", "chips_pollo", "medialunas_jq", "figa_pollo", "figa_rucula",
+                    "figa_carne", "figa_pernil", "pinchos_caprese", "pinchos_carne",
+                    "arrolladito_jq", "arrolladito_roq"
+                ];
+                fields.forEach(f => {
+                    if (precios[f] !== undefined) {
+                        const input = document.getElementById(`p_${f}`);
+                        if (input) input.value = precios[f];
+                    }
+                });
+            } catch (e) {}
+        }
+
+        function guardarPrecios() {
+            const precios = {
+                pernil: {
+                    chico: parseInt(document.getElementById("p_pernil_chico").value) || 85000,
+                    mediano: parseInt(document.getElementById("p_pernil_mediano").value) || 105000,
+                    grande: parseInt(document.getElementById("p_pernil_grande").value) || 145000
+                },
+                miga_especial: parseInt(document.getElementById("p_miga_especial").value) || 2300,
+                pizzetas: parseInt(document.getElementById("p_pizzetas").value) || 1600,
+                emp_carne: parseInt(document.getElementById("p_emp_carne").value) || 1450,
+                emp_pollo: parseInt(document.getElementById("p_emp_pollo").value) || 1450,
+                canas_verdura: parseInt(document.getElementById("p_canas_verdura").value) || 1550,
+                chips_jq: parseInt(document.getElementById("p_chips_jq").value) || 1500,
+                chips_pollo: parseInt(document.getElementById("p_chips_pollo").value) || 1500,
+                medialunas_jq: parseInt(document.getElementById("p_medialunas_jq").value) || 1850,
+                figa_pollo: parseInt(document.getElementById("p_figa_pollo").value) || 1500,
+                figa_rucula: parseInt(document.getElementById("p_figa_rucula").value) || 1850,
+                figa_carne: parseInt(document.getElementById("p_figa_carne").value) || 1850,
+                figa_pernil: parseInt(document.getElementById("p_figa_pernil").value) || 1600,
+                pinchos_caprese: parseInt(document.getElementById("p_pinchos_caprese").value) || 7200,
+                pinchos_carne: parseInt(document.getElementById("p_pinchos_carne").value) || 10500,
+                arrolladito_jq: parseInt(document.getElementById("p_arrolladito_jq").value) || 14900,
+                arrolladito_roq: parseInt(document.getElementById("p_arrolladito_roq").value) || 21700
+            };
+
+            localStorage.setItem("eventos_precios_override", JSON.stringify(precios));
+
+            const toast = document.getElementById("toast-success");
+            toast.classList.remove("hidden");
+            setTimeout(() => toast.classList.add("hidden"), 3000);
+        }
+
+        function restablecerPrecios() {
+            localStorage.removeItem("eventos_precios_override");
+            window.location.reload();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (sessionStorage.getItem("admin_auth") === "true") {
+                mostrarDashboard();
+            }
+        });
+    </script>
+</body>
+</html>
