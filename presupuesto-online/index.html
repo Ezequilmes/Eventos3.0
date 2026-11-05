@@ -404,10 +404,13 @@
             else if (personas > 80) { mozos = Math.ceil(personas / 25); }
             const totalStaffCost = costCocinero + (mozos * 25500);
 
+            const cfg = window.EVENTOS_CONFIG || { recargoMP: 8 };
+            const factorMP = 1 + (cfg.recargoMP / 100);
+
             const totalFinal = (personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost;
             const seña = Math.round(totalFinal / 2);
             const saldo = totalFinal - seña;
-            const senaMP = Math.round(seña * 1.08);
+            const senaMP = Math.round(seña * factorMP);
 
             document.getElementById("precio-estimado").innerText = "$" + Math.round(totalFinal).toLocaleString('es-AR');
             document.getElementById("resumen-base").innerHTML = "<span>Menú Seleccionado:</span> <strong class='text-red-400 uppercase italic'>" + servicioActivo.name + " (" + personas + " pers.)</strong>";
@@ -426,7 +429,7 @@
 
             if(document.getElementById("txt-sena-transf")) {
                 document.getElementById("txt-sena-transf").innerText = "Seña 50%: $" + seña.toLocaleString('es-AR');
-                document.getElementById("txt-sena-mp").innerText = "Seña 50% (+8%): $" + senaMP.toLocaleString('es-AR');
+                document.getElementById("txt-sena-mp").innerText = `Seña 50% (+${cfg.recargoMP}%): $` + senaMP.toLocaleString('es-AR');
             }
         }
 
@@ -463,8 +466,10 @@
                 alert("Por favor seleccioná los datos del evento para continuar.");
                 return;
             }
+            const cfg = window.EVENTOS_CONFIG || { recargoMP: 8 };
+            const factorMP = 1 + (cfg.recargoMP / 100);
             const sena50 = Math.round(totalNum / 2);
-            const montoMP = Math.round(sena50 * 1.08); // 8% recargo
+            const montoMP = Math.round(sena50 * factorMP);
 
             try {
                 const res = await fetch('https://huhigdlbztpqwtfyznya.supabase.co/functions/v1/crear-preferencia-mp', {

@@ -202,13 +202,34 @@
                 </div>
             </div>
 
-            <!-- BLOQUE 6: OPCIONES RESTABLECER -->
+            <!-- BLOQUE 6: RECARGOS Y DESCUENTOS -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>💳</span> <span>Comisiones y Descuentos</span>
+                </h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Recargo Mercado Pago (%)</label>
+                        <input type="number" id="p_recargo_mp" value="8" min="0" max="50" step="1" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-blue-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Descuento por Volumen (%)</label>
+                        <input type="number" id="p_descuento_volumen" value="10" min="0" max="50" step="1" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-green-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400">Unidades para Descuento (Mínimo)</label>
+                        <input type="number" id="p_umbral_volumen" value="45" min="1" step="1" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-amber-400 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 7: OPCIONES RESTABLECER -->
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 flex flex-col justify-between">
                 <div>
                     <h3 class="text-sm font-black uppercase italic text-red-500 border-b border-slate-800 pb-2 flex items-center gap-2">
                         <span>⚙️</span> <span>Opciones de Sistema</span>
                     </h3>
-                    <p class="text-xs text-slate-400 mt-3">Al guardar, los precios se actualizan de forma automática en todas las secciones del sitio web.</p>
+                    <p class="text-xs text-slate-400 mt-3">Al guardar, los precios, recargos y descuentos se actualizan de forma automática en todas las secciones del sitio web.</p>
                 </div>
                 <div class="space-y-3">
                     <button onclick="guardarPrecios()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-2xl uppercase text-xs tracking-wider transition shadow-lg">
@@ -266,6 +287,10 @@
                     if (precios.pernil.mediano) document.getElementById("p_pernil_mediano").value = precios.pernil.mediano;
                     if (precios.pernil.grande) document.getElementById("p_pernil_grande").value = precios.pernil.grande;
                 }
+                if (precios.recargo_mp !== undefined) document.getElementById("p_recargo_mp").value = precios.recargo_mp;
+                if (precios.descuento_volumen !== undefined) document.getElementById("p_descuento_volumen").value = precios.descuento_volumen;
+                if (precios.umbral_volumen !== undefined) document.getElementById("p_umbral_volumen").value = precios.umbral_volumen;
+
                 const fields = [
                     "miga_especial", "pizzetas", "emp_carne", "emp_pollo", "canas_verdura",
                     "chips_jq", "chips_pollo", "medialunas_jq", "figa_pollo", "figa_rucula",
@@ -283,6 +308,9 @@
 
         function guardarPrecios() {
             const precios = {
+                recargo_mp: parseFloat(document.getElementById("p_recargo_mp").value) || 8,
+                descuento_volumen: parseFloat(document.getElementById("p_descuento_volumen").value) || 10,
+                umbral_volumen: parseInt(document.getElementById("p_umbral_volumen").value) || 45,
                 pernil: {
                     chico: parseInt(document.getElementById("p_pernil_chico").value) || 85000,
                     mediano: parseInt(document.getElementById("p_pernil_mediano").value) || 105000,

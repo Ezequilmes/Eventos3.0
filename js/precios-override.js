@@ -1,11 +1,20 @@
 (function() {
     try {
         const stored = localStorage.getItem("eventos_precios_override");
+        const precios = stored ? JSON.parse(stored) : {};
+
+        // Exponer configuración global accesible por calcular() y los botones
+        window.EVENTOS_CONFIG = {
+            recargoMP: precios.recargo_mp !== undefined ? parseFloat(precios.recargo_mp) : 8,
+            descuentoVolumen: precios.descuento_volumen !== undefined ? parseFloat(precios.descuento_volumen) : 10,
+            umbralVolumen: precios.umbral_volumen !== undefined ? parseInt(precios.umbral_volumen) : 45
+        };
+
         if (!stored) return;
 
-        const precios = JSON.parse(stored);
-
         document.addEventListener("DOMContentLoaded", () => {
+            const recargoMP = window.EVENTOS_CONFIG.recargoMP;
+
             // 1. Perniles en select (Armá tu combo)
             const spPernilSelect = document.getElementById("sp_pernil_tipo");
             if (spPernilSelect && precios.pernil) {
@@ -52,7 +61,6 @@
                     if (el) {
                         el.dataset.precio = numVal;
                     }
-                    // Actualizar el texto del label visible si existe
                     const lblEl = document.getElementById(`lbl_${id}`);
                     if (lblEl && cfg.labelFn) {
                         lblEl.innerText = cfg.labelFn(numVal);
@@ -60,8 +68,9 @@
                 }
             }
 
-            // 3. Tarjetas de Perniles (Página Perniles /perniles/)
+            // 3. Tarjetas de Perniles (/perniles/)
             if (precios.pernil) {
+                const factorMP = 1 + (recargoMP / 100);
                 if (precios.pernil.chico) {
                     const val = parseInt(precios.pernil.chico);
                     const lblP = document.getElementById("lbl_pernil_chico_precio");
@@ -69,7 +78,7 @@
                     const lblS = document.getElementById("lbl_pernil_chico_sena");
                     if (lblS) lblS.innerText = `Seña 50%: $${Math.round(val / 2).toLocaleString('es-AR')} (Sin Recargo)`;
                     const lblMP = document.getElementById("lbl_pernil_chico_sena_mp");
-                    if (lblMP) lblMP.innerText = `Seña Mercado Pago (+8%): $${Math.round((val / 2) * 1.08).toLocaleString('es-AR')}`;
+                    if (lblMP) lblMP.innerText = `Seña Mercado Pago (+${recargoMP}%): $${Math.round((val / 2) * factorMP).toLocaleString('es-AR')}`;
                 }
                 if (precios.pernil.mediano) {
                     const val = parseInt(precios.pernil.mediano);
@@ -78,7 +87,7 @@
                     const lblS = document.getElementById("lbl_pernil_mediano_sena");
                     if (lblS) lblS.innerText = `Seña 50%: $${Math.round(val / 2).toLocaleString('es-AR')} (Sin Recargo)`;
                     const lblMP = document.getElementById("lbl_pernil_mediano_sena_mp");
-                    if (lblMP) lblMP.innerText = `Seña Mercado Pago (+8%): $${Math.round((val / 2) * 1.08).toLocaleString('es-AR')}`;
+                    if (lblMP) lblMP.innerText = `Seña Mercado Pago (+${recargoMP}%): $${Math.round((val / 2) * factorMP).toLocaleString('es-AR')}`;
                 }
                 if (precios.pernil.grande) {
                     const val = parseInt(precios.pernil.grande);
@@ -87,7 +96,7 @@
                     const lblS = document.getElementById("lbl_pernil_grande_sena");
                     if (lblS) lblS.innerText = `Seña 50%: $${Math.round(val / 2).toLocaleString('es-AR')} (Sin Recargo)`;
                     const lblMP = document.getElementById("lbl_pernil_grande_sena_mp");
-                    if (lblMP) lblMP.innerText = `Seña Mercado Pago (+8%): $${Math.round((val / 2) * 1.08).toLocaleString('es-AR')}`;
+                    if (lblMP) lblMP.innerText = `Seña Mercado Pago (+${recargoMP}%): $${Math.round((val / 2) * factorMP).toLocaleString('es-AR')}`;
                 }
             }
 

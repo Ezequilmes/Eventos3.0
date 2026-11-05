@@ -687,34 +687,38 @@
                 txtLogistica.innerText = "Envío a domicilio (A cotizar por WhatsApp)";
             }
 
-            // Aplicar 10% OFF global si supera las 45 unidades totales
+            // Aplicar descuento por volumen si supera el umbral configurable
+            const cfg = window.EVENTOS_CONFIG || { recargoMP: 8, descuentoVolumen: 10, umbralVolumen: 45 };
+            const factorDesc = 1 - (cfg.descuentoVolumen / 100);
+            const factorMP = 1 + (cfg.recargoMP / 100);
+
             let descuentoAplicado = false;
-            if (unidadesTotales > 45) {
-                total *= 0.90;
+            if (unidadesTotales > cfg.umbralVolumen) {
+                total *= factorDesc;
                 descuentoAplicado = true;
             }
 
             if (resumenHTML === "") {
                 resumenHTML = `<div class="text-center text-slate-400 italic">Ningún producto seleccionado todavía.</div>`;
                 if (descuentoAplicado) {
-                    resumenHTML += `<div class="text-green-400 text-center font-bold mt-2">¡10% OFF aplicado por superar 45 unidades!</div>`;
+                    resumenHTML += `<div class="text-green-400 text-center font-bold mt-2">¡${cfg.descuentoVolumen}% OFF aplicado por superar ${cfg.umbralVolumen} unidades!</div>`;
                 }
             } else if (descuentoAplicado) {
-                resumenHTML += `<div class="text-green-400 text-center font-bold mt-2 border-t border-white/10 pt-2">🎉 ¡10% OFF aplicado por superar 45 unidades totales!</div>`;
+                resumenHTML += `<div class="text-green-400 text-center font-bold mt-2 border-t border-white/10 pt-2">🎉 ¡${cfg.descuentoVolumen}% OFF aplicado por superar ${cfg.umbralVolumen} unidades totales!</div>`;
             }
 
             if (hayErrorMultiplo) {
-                resumenHTML += `<div class="text-amber-400 text-center font-bold mt-2 border-t border-white/10 pt-2 text-[10px]">✨ Las cantidades imparte se ajustarán automáticamente al múltiplo exacto al enviar el pedido.</div>`;
+                resumenHTML += `<div class="text-amber-400 text-center font-bold mt-2 border-t border-white/10 pt-2 text-[10px]">✨ Las cantidades impares se ajustarán automáticamente al múltiplo exacto al enviar el pedido.</div>`;
             }
 
             const sena50 = Math.round(total / 2);
-            const senaMP = Math.round(sena50 * 1.08);
+            const senaMP = Math.round(sena50 * factorMP);
 
             // Actualizar elementos visuales del DOM
             document.getElementById("txtTotal").innerText = "$" + Math.round(total).toLocaleString('es-AR');
             document.getElementById("txtSeña").innerText = "$" + sena50.toLocaleString('es-AR');
             document.getElementById("txt-sena-transf").innerText = `Seña 50%: $${sena50.toLocaleString('es-AR')}`;
-            document.getElementById("txt-sena-mp").innerText = `Seña 50% (+8% MP): $${senaMP.toLocaleString('es-AR')}`;
+            document.getElementById("txt-sena-mp").innerText = `Seña 50% (+${cfg.recargoMP}% MP): $${senaMP.toLocaleString('es-AR')}`;
             document.getElementById("resumenContenido").innerHTML = resumenHTML;
 
             return { total, sena: sena50 };
@@ -799,8 +803,10 @@
                 }
                 return;
             }
+            const cfg = window.EVENTOS_CONFIG || { recargoMP: 8 };
+            const factorMP = 1 + (cfg.recargoMP / 100);
             const senaTransf = Math.round(calc.total / 2);
-            const senaMP = Math.round(senaTransf * 1.08); // 8% recargo
+            const senaMP = Math.round(senaTransf * factorMP);
 
             try {
                 const res = await fetch('https://huhigdlbztpqwtfyznya.supabase.co/functions/v1/crear-preferencia-mp', {
