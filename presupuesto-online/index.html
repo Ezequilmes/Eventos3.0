@@ -97,8 +97,9 @@
                 <a href="../arma-tu-combo/" class="hover:text-red-600 transition">Combos</a>
             </div>
 
-            <a href="https://wa.me/5491132664036" target="_blank" class="bg-green-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-black text-[10px] md:text-xs uppercase tracking-widest shadow-lg hover:bg-green-600 transition flex-shrink-0">
-                Consultar Disponibilidad por WhatsApp
+            <a href="https://wa.me/5491132664036" target="_blank" class="bg-green-500 text-white px-3.5 py-2 md:px-6 md:py-3 rounded-full font-black text-[10px] md:text-xs uppercase tracking-wider shadow-lg hover:bg-green-600 transition flex-shrink-0 flex items-center gap-1">
+                <span class="hidden sm:inline">Consultar Disponibilidad por WhatsApp</span>
+                <span class="inline sm:hidden">💬 WhatsApp</span>
             </a>
         </div>
     </nav>
@@ -163,11 +164,14 @@
                     <div class="mb-12">
                         <label class="text-[10px] font-black uppercase text-red-600 tracking-widest block mb-6 text-center italic">Paso 1: Seleccioná la Zona del Evento</label>
                         <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-                            <button type="button" class="btn-zona active p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight" data-envio="15500" data-name="Zona Sur (Bernal, Quilmes, Avellaneda, Lanús)">Zona Sur</button>
-                            <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight" data-envio="35500" data-name="CABA">CABA</button>
-                            <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight" data-envio="45500" data-name="Zona Norte">Zona Norte</button>
-                            <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight" data-envio="55500" data-name="Zona Oeste">Zona Oeste</button>
-                            <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight" data-envio="65500" data-name="La Plata">La Plata</button>
+                            <button type="button" class="btn-zona active p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight text-center" data-envio="15500" data-name="Zona Sur (Bernal, Quilmes, Avellaneda, Lanús)">
+                                <span class="block">Zona Sur</span>
+                                <span class="block text-[8px] font-medium text-slate-400 normal-case opacity-80">(Bernal, Quilmes...)</span>
+                            </button>
+                            <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight text-center" data-envio="35500" data-name="CABA">CABA</button>
+                            <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight text-center" data-envio="45500" data-name="Zona Norte">Zona Norte</button>
+                            <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight text-center" data-envio="55500" data-name="Zona Oeste">Zona Oeste</button>
+                            <button type="button" class="btn-zona p-3 rounded-xl border-2 border-slate-100 font-bold text-xs hover:bg-slate-50 transition leading-tight text-center" data-envio="65500" data-name="La Plata">La Plata</button>
                         </div>
                     </div>
 
@@ -269,11 +273,13 @@
 
                             <!-- Pestañas -->
                             <div class="grid grid-cols-2 gap-2 p-1 bg-slate-900 rounded-xl">
-                                <button type="button" id="tab-btn-transf" onclick="cambiarTabPago('transf')" class="py-3 px-3 rounded-lg font-black text-xs uppercase bg-green-600 text-white shadow">
-                                    Transferencia (Sin Recargo)
+                                <button type="button" id="tab-btn-transf" onclick="cambiarTabPago('transf')" class="py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase bg-green-600 text-white shadow leading-tight text-center">
+                                    <span>Transferencia</span>
+                                    <span class="block text-[8px] sm:text-[9px] font-bold opacity-80 normal-case">(Sin Recargo)</span>
                                 </button>
-                                <button type="button" id="tab-btn-mp" onclick="cambiarTabPago('mp')" class="py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition">
-                                    Mercado Pago (+8%)
+                                <button type="button" id="tab-btn-mp" onclick="cambiarTabPago('mp')" class="py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase text-slate-400 hover:text-white transition leading-tight text-center">
+                                    <span>Mercado Pago</span>
+                                    <span class="block text-[8px] sm:text-[9px] font-bold opacity-80 normal-case">(+8%)</span>
                                 </button>
                             </div>
 
@@ -451,13 +457,13 @@
         function cambiarTabPago(tab) {
             tabActualPago = tab;
             if (tab === 'transf') {
-                document.getElementById('tab-btn-transf').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase bg-green-600 text-white shadow';
-                document.getElementById('tab-btn-mp').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition';
+                document.getElementById('tab-btn-transf').className = 'py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase bg-green-600 text-white shadow leading-tight text-center';
+                document.getElementById('tab-btn-mp').className = 'py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase text-slate-400 hover:text-white transition leading-tight text-center';
                 document.getElementById('content-transf').classList.remove('hidden');
                 document.getElementById('content-mp').classList.add('hidden');
             } else {
-                document.getElementById('tab-btn-mp').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase bg-blue-600 text-white shadow';
-                document.getElementById('tab-btn-transf').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition';
+                document.getElementById('tab-btn-mp').className = 'py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase bg-blue-600 text-white shadow leading-tight text-center';
+                document.getElementById('tab-btn-transf').className = 'py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase text-slate-400 hover:text-white transition leading-tight text-center';
                 document.getElementById('content-mp').classList.remove('hidden');
                 document.getElementById('content-transf').classList.add('hidden');
             }

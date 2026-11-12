@@ -88,8 +88,9 @@
                 <a href="./" class="hover:text-red-600 transition text-red-600 border-b-2 border-red-600">Combos</a>
             </div>
 
-            <a href="https://wa.me/5491132664036" target="_blank" class="bg-green-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-black text-[10px] md:text-xs uppercase tracking-widest shadow-lg hover:bg-green-600 transition flex-shrink-0">
-                Consultar Disponibilidad por WhatsApp
+            <a href="https://wa.me/5491132664036" target="_blank" class="bg-green-500 text-white px-3.5 py-2 md:px-6 md:py-3 rounded-full font-black text-[10px] md:text-xs uppercase tracking-wider shadow-lg hover:bg-green-600 transition flex-shrink-0 flex items-center gap-1">
+                <span class="hidden sm:inline">Consultar Disponibilidad por WhatsApp</span>
+                <span class="inline sm:hidden">💬 WhatsApp</span>
             </a>
         </div>
     </nav>
@@ -403,11 +404,13 @@
 
                             <!-- Pestañas -->
                             <div class="grid grid-cols-2 gap-2 p-1 bg-slate-900 rounded-xl">
-                                <button type="button" id="tab-btn-transf" onclick="cambiarTabPago('transf')" class="py-3 px-3 rounded-lg font-black text-xs uppercase bg-green-600 text-white shadow">
-                                    Transferencia (Sin Recargo)
+                                <button type="button" id="tab-btn-transf" onclick="cambiarTabPago('transf')" class="py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase bg-green-600 text-white shadow leading-tight text-center">
+                                    <span>Transferencia</span>
+                                    <span class="block text-[8px] sm:text-[9px] font-bold opacity-80 normal-case">(Sin Recargo)</span>
                                 </button>
-                                <button type="button" id="tab-btn-mp" onclick="cambiarTabPago('mp')" class="py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition">
-                                    Mercado Pago (+8%)
+                                <button type="button" id="tab-btn-mp" onclick="cambiarTabPago('mp')" class="py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase text-slate-400 hover:text-white transition leading-tight text-center">
+                                    <span>Mercado Pago</span>
+                                    <span class="block text-[8px] sm:text-[9px] font-bold opacity-80 normal-case">(+8%)</span>
                                 </button>
                             </div>
 
@@ -441,7 +444,7 @@
                                     <p class="text-[10px] text-slate-300 font-bold">Titular: Fernando Ezequiel Mazzera</p>
                                 </div>
 
-                                <button type="button" onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                                <button type="button" onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 px-3 rounded-xl uppercase text-[11px] sm:text-xs leading-snug transition shadow-lg flex items-center justify-center gap-2 text-center">
                                     <span>💬 Confirmar Seña y Enviar Pedido por WhatsApp</span>
                                 </button>
                             </div>
@@ -770,13 +773,13 @@
         function cambiarTabPago(tab) {
             tabActualPago = tab;
             if (tab === 'transf') {
-                document.getElementById('tab-btn-transf').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase bg-green-600 text-white shadow';
-                document.getElementById('tab-btn-mp').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition';
+                document.getElementById('tab-btn-transf').className = 'py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase bg-green-600 text-white shadow leading-tight text-center';
+                document.getElementById('tab-btn-mp').className = 'py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase text-slate-400 hover:text-white transition leading-tight text-center';
                 document.getElementById('content-transf').classList.remove('hidden');
                 document.getElementById('content-mp').classList.add('hidden');
             } else {
-                document.getElementById('tab-btn-mp').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase bg-blue-600 text-white shadow';
-                document.getElementById('tab-btn-transf').className = 'py-3 px-3 rounded-lg font-black text-xs uppercase text-slate-400 hover:text-white transition';
+                document.getElementById('tab-btn-mp').className = 'py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase bg-blue-600 text-white shadow leading-tight text-center';
+                document.getElementById('tab-btn-transf').className = 'py-3 px-2 sm:px-3 rounded-lg font-black text-[10px] sm:text-xs uppercase text-slate-400 hover:text-white transition leading-tight text-center';
                 document.getElementById('content-mp').classList.remove('hidden');
                 document.getElementById('content-transf').classList.add('hidden');
             }
