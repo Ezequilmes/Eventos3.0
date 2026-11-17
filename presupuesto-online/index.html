@@ -286,8 +286,8 @@
                                     </span>
                                     <p class="text-[10px] text-amber-800 font-medium leading-tight mt-0.5">Elegí si deseas incluir personal en tu evento o recibir la comida lista sin mozos/cocinero.</p>
                                 </div>
-                                <span id="badge-descuento-pernil" class="hidden bg-green-600 text-white text-[9px] font-black uppercase px-2.5 py-1 rounded-full whitespace-nowrap shadow-sm">
-                                    -$20.000 OFF Aplicado
+                                <span id="badge-descuento-pernil" class="hidden bg-slate-800 text-white text-[9px] font-black uppercase px-2.5 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    Sin Personal Seleccionado
                                 </span>
                             </div>
                             <div class="grid grid-cols-2 gap-2">
@@ -295,7 +295,7 @@
                                     Con Personal (Incluido)
                                 </button>
                                 <button type="button" id="btn-pernil-sin-staff" onclick="setModalidadPernil('sin')" class="py-3 px-3 rounded-xl font-black text-xs uppercase bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition leading-tight text-center">
-                                    Sin Personal (-$20.000 OFF)
+                                    Sin Personal
                                 </button>
                             </div>
                         </div>
@@ -587,7 +587,7 @@
             document.getElementById("zona-mostrada").innerHTML = "<span>Cobertura en:</span> <strong>" + zonaActiva.name + "</strong>";
 
             if (esPernilSinStaff) {
-                document.getElementById("staff-mostrado").innerHTML = "<span>Modalidad Pernil:</span> <strong class='text-amber-400'>Sin Personal (-$20.000 OFF)</strong>";
+                document.getElementById("staff-mostrado").innerHTML = "<span>Modalidad Pernil:</span> <strong class='text-amber-400'>Sin Personal</strong>";
             } else {
                 document.getElementById("staff-mostrado").innerHTML = "<span>Personal Staff:</span> <strong>1 Cocinero y " + mozos + " Mozo" + (mozos > 1 ? "s" : "") + " (Incluidos)</strong>";
             }
