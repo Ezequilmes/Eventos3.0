@@ -276,6 +276,29 @@
                         <div id="menu-descripcion-caja" class="mt-6 p-4 bg-slate-50 rounded-2xl text-[11px] font-medium text-slate-600 border-l-4 border-red-600 italic">
                             <strong>Incluye de Base:</strong> Bruschettas + Empanadas + 10 variedades de pizza libre. Llevamos hornos, bandejas y vajilla descartable premium. 4 horas de servicio incluidas.
                         </div>
+
+                        <!-- Opciones Modalidad Pernil Party (Con o Sin Personal) -->
+                        <div id="opcion-pernil-staff" class="hidden mt-4 p-4 bg-amber-50 border-2 border-amber-200 rounded-2xl space-y-3">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                                <div>
+                                    <span class="text-xs font-black uppercase italic text-amber-900 flex items-center gap-1.5">
+                                        <span>🍖</span> Modalidad de Pernil Party
+                                    </span>
+                                    <p class="text-[10px] text-amber-800 font-medium leading-tight mt-0.5">Elegí si deseas incluir personal en tu evento o recibir la comida lista sin mozos/cocinero.</p>
+                                </div>
+                                <span id="badge-descuento-pernil" class="hidden bg-green-600 text-white text-[9px] font-black uppercase px-2.5 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    -$20.000 OFF Aplicado
+                                </span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button type="button" id="btn-pernil-con-staff" onclick="setModalidadPernil('con')" class="py-3 px-3 rounded-xl font-black text-xs uppercase bg-red-600 text-white shadow transition leading-tight text-center">
+                                    Con Personal (Incluido)
+                                </button>
+                                <button type="button" id="btn-pernil-sin-staff" onclick="setModalidadPernil('sin')" class="py-3 px-3 rounded-xl font-black text-xs uppercase bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition leading-tight text-center">
+                                    Sin Personal (-$20.000 OFF)
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- PASO 4: ADICIONALES -->
@@ -433,6 +456,25 @@
         let servicioActivo = { price: 7800, name: "Pizza Party", desc: "Bruschettas + Empanadas + 10 variedades de pizza libre" };
         let zonaActiva = { envio: 15500, name: "Zona Sur (Bernal, Quilmes, Avellaneda, Lanús)" };
         let tabActualPago = 'transf';
+        let modalidadPernil = 'con'; // 'con' o 'sin' personal para Pernil Party
+
+        function setModalidadPernil(tipo) {
+            modalidadPernil = tipo;
+            const btnCon = document.getElementById("btn-pernil-con-staff");
+            const btnSin = document.getElementById("btn-pernil-sin-staff");
+            const badge = document.getElementById("badge-descuento-pernil");
+
+            if (tipo === 'sin') {
+                if (btnCon) btnCon.className = "py-3 px-3 rounded-xl font-black text-xs uppercase bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition leading-tight text-center";
+                if (btnSin) btnSin.className = "py-3 px-3 rounded-xl font-black text-xs uppercase bg-red-600 text-white shadow leading-tight text-center";
+                if (badge) badge.classList.remove("hidden");
+            } else {
+                if (btnCon) btnCon.className = "py-3 px-3 rounded-xl font-black text-xs uppercase bg-red-600 text-white shadow leading-tight text-center";
+                if (btnSin) btnSin.className = "py-3 px-3 rounded-xl font-black text-xs uppercase bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition leading-tight text-center";
+                if (badge) badge.classList.add("hidden");
+            }
+            calcularPrecio();
+        }
 
         // Controladores Zonas
         document.querySelectorAll(".btn-zona").forEach(btn => {
@@ -456,6 +498,24 @@
                 servicioActivo.name = btn.dataset.name;
                 servicioActivo.desc = btn.dataset.desc;
                 document.getElementById("menu-descripcion-caja").innerHTML = "<strong>Incluye de Base:</strong> " + servicioActivo.desc + ". Vajilla descartable premium incluida.";
+
+                // Mostrar u ocultar selector de modalidad Pernil Party (Con/Sin Personal)
+                const cajaPernil = document.getElementById("opcion-pernil-staff");
+                if (cajaPernil) {
+                    if (servicioActivo.name.toLowerCase().includes("pernil")) {
+                        cajaPernil.classList.remove("hidden");
+                    } else {
+                        cajaPernil.classList.add("hidden");
+                        modalidadPernil = 'con';
+                        const btnCon = document.getElementById("btn-pernil-con-staff");
+                        const btnSin = document.getElementById("btn-pernil-sin-staff");
+                        const badge = document.getElementById("badge-descuento-pernil");
+                        if (btnCon) btnCon.className = "py-3 px-3 rounded-xl font-black text-xs uppercase bg-red-600 text-white shadow leading-tight text-center";
+                        if (btnSin) btnSin.className = "py-3 px-3 rounded-xl font-black text-xs uppercase bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition leading-tight text-center";
+                        if (badge) badge.classList.add("hidden");
+                    }
+                }
+
                 calcularPrecio();
             });
         });
@@ -496,14 +556,27 @@
             const factorMP = 1 + (cfg.recargoMP / 100);
             const costoStaffBase = cfg.costoStaff || 25500;
 
-            const costCocinero = (personas < 30) ? (costoStaffBase * multiplicador) : 0;
+            const esPernilSinStaff = servicioActivo.name.toLowerCase().includes("pernil") && modalidadPernil === 'sin';
+
+            let totalStaffCost = 0;
+            let descuentoPernilSinStaff = 0;
+
             let mozos = 1;
             if (personas > 30 && personas <= 55) { mozos = 2; }
             else if (personas > 55 && personas <= 80) { mozos = 3; }
             else if (personas > 80) { mozos = Math.ceil(personas / 25); }
-            const totalStaffCost = costCocinero + (mozos * costoStaffBase);
 
-            const totalFinal = (personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost;
+            if (esPernilSinStaff) {
+                totalStaffCost = 0; // Sin costo de personal mozos/cocinero
+                descuentoPernilSinStaff = 20000; // Descuento directo de $20.000
+            } else {
+                const costCocinero = (personas < 30) ? (costoStaffBase * multiplicador) : 0;
+                totalStaffCost = costCocinero + (mozos * costoStaffBase);
+            }
+
+            let totalFinal = (personas * subtotalPorPersona) + (zonaActiva.envio * multiplicador) + totalStaffCost - descuentoPernilSinStaff;
+            if (totalFinal < 0) totalFinal = 0;
+
             const seña = Math.round(totalFinal / 2);
             const saldo = totalFinal - seña;
             const senaMP = Math.round(seña * factorMP);
@@ -512,7 +585,12 @@
             document.getElementById("resumen-base").innerHTML = "<span>Menú Seleccionado:</span> <strong class='text-red-400 uppercase italic'>" + servicioActivo.name + " (" + personas + " pers.)</strong>";
             document.getElementById("resumen-adicionales").innerHTML = "<span>Adicionales:</span> <strong class='text-red-400'>" + (adicionalesElegidos.length > 0 ? adicionalesElegidos.join(", ") : "Ninguno") + "</strong>";
             document.getElementById("zona-mostrada").innerHTML = "<span>Cobertura en:</span> <strong>" + zonaActiva.name + "</strong>";
-            document.getElementById("staff-mostrado").innerHTML = "<span>Personal Staff:</span> <strong>1 Cocinero y " + mozos + " Mozo" + (mozos > 1 ? "s" : "") + " (Incluidos)</strong>";
+
+            if (esPernilSinStaff) {
+                document.getElementById("staff-mostrado").innerHTML = "<span>Modalidad Pernil:</span> <strong class='text-amber-400'>Sin Personal (-$20.000 OFF)</strong>";
+            } else {
+                document.getElementById("staff-mostrado").innerHTML = "<span>Personal Staff:</span> <strong>1 Cocinero y " + mozos + " Mozo" + (mozos > 1 ? "s" : "") + " (Incluidos)</strong>";
+            }
 
             document.getElementById("pago-mostrado").innerHTML = `
                 <div class="bg-white/10 p-4 rounded-2xl">
@@ -614,32 +692,35 @@
             }
         }
 
-        document.getElementById("btn-whatsapp-principal").addEventListener("click", e => {
-            e.preventDefault();
+        function enviarWhatsAppPresupuesto(modo = 'general') {
             const personas = document.getElementById("cantidad-personas").value;
             const fecha = document.getElementById("fecha-evento").value || "A confirmar";
             const precio = document.getElementById("precio-estimado").innerText;
             const seña = Math.round(parseInt(precio.replace(/[^0-9.-]+/g,"")) / 2);
 
-            const staffTexto = document.getElementById("staff-mostrado").innerText.replace("Personal Staff: ", "");
+            const staffEl = document.getElementById("staff-mostrado");
+            const staffTexto = staffEl ? staffEl.innerText.replace("Personal Staff: ", "").replace("Modalidad Pernil: ", "") : "";
 
             let adicionalesStr = "";
             document.querySelectorAll(".check-adicional:checked").forEach(check => adicionalesStr += "\n- " + check.dataset.name);
 
-            const msg = "¡Hola Eventos Tres Punto Cero! 👋 Armé mi presupuesto web y quiero el PDF:\n\n" +
+            const msg = "¡Hola Eventos Tres Punto Cero! 👋 Armé mi presupuesto web y quiero solicitar mi pedido:\n\n" +
                       "🍔 *Menú:* " + servicioActivo.name + " (" + personas + " pers.)" +
                       (adicionalesStr ? "\n➕ *Adicionales:*" + adicionalesStr : "") + "\n\n" +
                       "📍 *Detalles:* \n" +
                       "- Fecha: " + fecha + "\n" +
                       "- Ubicación: " + zonaActiva.name + "\n" +
-                      "- Staff: " + staffTexto + "\n\n" +
-                      "💰 *Presupuesto:* " + precio + "\n" +
-                      "📌 *Reserva Plan 50/50:* \n" +
-                      "   - Seña: $" + seña.toLocaleString('es-AR') + "\n" +
-                      "   - Saldo al evento.\n\n" +
-                      "Por favor enviame el catálogo con fotos. ¡Gracias!";
+                      "- Servicio/Staff: " + staffTexto + "\n\n" +
+                      "💰 *Presupuesto Estimado:* " + precio + "\n" +
+                      "📌 *Seña 50%*: $" + seña.toLocaleString('es-AR') + " (Transferencia sin recargo)\n\n" +
+                      "Por favor enviame el catálogo con fotos y confirmación. ¡Muchas gracias!";
 
             gtag_report_conversion("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg));
+        }
+
+        document.getElementById("btn-whatsapp-principal").addEventListener("click", e => {
+            e.preventDefault();
+            enviarWhatsAppPresupuesto('pdf');
         });
     </script>
 
