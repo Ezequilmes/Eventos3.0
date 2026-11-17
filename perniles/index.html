@@ -223,10 +223,13 @@
                         </div>
 
                         <div class="space-y-2">
-                            <button onclick="seleccionarPernil('Pernil Chico (50 figazas)', 83700, 'mp')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow">
-                                💳 Pagar Seña con Mercado Pago
+                            <button onclick="seleccionarPernil('Pernil Chico (50 figazas)', 83700, 'mp')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-2.5 rounded-xl uppercase text-[11px] shadow">
+                                💳 Pagar Seña 50% Mercado Pago
                             </button>
-                            <button onclick="seleccionarPernil('Pernil Chico (50 figazas)', 83700, 'transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow flex items-center justify-center gap-1">
+                            <button onclick="seleccionarPernil('Pernil Chico (50 figazas)', 83700, 'mp_total')" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-black py-2.5 rounded-xl uppercase text-[11px] shadow">
+                                💳 Pagar Total 100% (Cuotas)
+                            </button>
+                            <button onclick="seleccionarPernil('Pernil Chico (50 figazas)', 83700, 'transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-2.5 rounded-xl uppercase text-[11px] shadow flex items-center justify-center gap-1">
                                 <span>💬 Reservar por Transferencia</span>
                             </button>
                         </div>
@@ -254,10 +257,13 @@
                         </div>
 
                         <div class="space-y-2">
-                            <button onclick="seleccionarPernil('Pernil Mediano (100 figazas)', 93500, 'mp')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow">
-                                💳 Pagar Seña con Mercado Pago
+                            <button onclick="seleccionarPernil('Pernil Mediano (100 figazas)', 93500, 'mp')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-2.5 rounded-xl uppercase text-[11px] shadow">
+                                💳 Pagar Seña 50% Mercado Pago
                             </button>
-                            <button onclick="seleccionarPernil('Pernil Mediano (100 figazas)', 93500, 'transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow flex items-center justify-center gap-1">
+                            <button onclick="seleccionarPernil('Pernil Mediano (100 figazas)', 93500, 'mp_total')" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-black py-2.5 rounded-xl uppercase text-[11px] shadow">
+                                💳 Pagar Total 100% (Cuotas)
+                            </button>
+                            <button onclick="seleccionarPernil('Pernil Mediano (100 figazas)', 93500, 'transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-2.5 rounded-xl uppercase text-[11px] shadow flex items-center justify-center gap-1">
                                 <span>💬 Reservar por Transferencia</span>
                             </button>
                         </div>
@@ -284,10 +290,13 @@
                         </div>
 
                         <div class="space-y-2">
-                            <button onclick="seleccionarPernil('Pernil Grande (150 figazas)', 145000, 'mp')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow">
-                                💳 Pagar Seña con Mercado Pago
+                            <button onclick="seleccionarPernil('Pernil Grande (150 figazas)', 145000, 'mp')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-2.5 rounded-xl uppercase text-[11px] shadow">
+                                💳 Pagar Seña 50% Mercado Pago
                             </button>
-                            <button onclick="seleccionarPernil('Pernil Grande (150 figazas)', 145000, 'transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl uppercase text-xs shadow flex items-center justify-center gap-1">
+                            <button onclick="seleccionarPernil('Pernil Grande (150 figazas)', 145000, 'mp_total')" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-black py-2.5 rounded-xl uppercase text-[11px] shadow">
+                                💳 Pagar Total 100% (Cuotas)
+                            </button>
+                            <button onclick="seleccionarPernil('Pernil Grande (150 figazas)', 145000, 'transf')" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-2.5 rounded-xl uppercase text-[11px] shadow flex items-center justify-center gap-1">
                                 <span>💬 Reservar por Transferencia</span>
                             </button>
                         </div>
@@ -387,7 +396,17 @@
                 document.getElementById('monto-sena-modal-txt').innerText = `Monto Seña 50% (Sin Recargo): $${senaTransf.toLocaleString('es-AR')}`;
                 document.getElementById('panel-transf-pernil').classList.remove('hidden');
             } else {
-                const senaMP = Math.round((precioTotal / 2) * 1.08);
+                const cfg = window.EVENTOS_CONFIG || { recargoMP: 8 };
+                const factorMP = 1 + (cfg.recargoMP / 100);
+
+                const esTotal = (modo === 'mp_total');
+                const tipoPago = esTotal ? 'pago_total' : 'sena_50';
+                const baseMonto = esTotal ? precioTotal : Math.round(precioTotal / 2);
+                const montoMP = Math.round(baseMonto * factorMP);
+
+                const conceptoTexto = esTotal
+                    ? `Pernil de Cerdo (Pago Total 100%) - ${nombre}`
+                    : `Pernil de Cerdo (Seña 50%) - ${nombre}`;
 
                 try {
                     const res = await fetch('https://huhigdlbztpqwtfyznya.supabase.co/functions/v1/crear-preferencia-mp', {
@@ -396,9 +415,9 @@
                         body: JSON.stringify({
                             cliente_nombre: "Cliente Pernil",
                             cliente_telefono: "",
-                            monto: senaMP,
-                            concepto: "Pernil de Cerdo - " + nombre,
-                            tipo_pago: 'sena_50',
+                            monto: montoMP,
+                            concepto: conceptoTexto,
+                            tipo_pago: tipoPago,
                             reserva_id: `RES-${Date.now()}`,
                             success_url: window.location.href.split('?')[0] + '?pago=exito'
                         })
@@ -407,7 +426,7 @@
                     if (data.init_point) {
                         window.location.href = data.init_point;
                     } else {
-                        alert('No se pudo generar el link de pago.');
+                        alert('No se pudo generar el link de pago: ' + (data.detail || 'Error'));
                     }
                 } catch (e) {
                     alert('Error conectando con Mercado Pago.');

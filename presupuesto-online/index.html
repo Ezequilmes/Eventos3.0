@@ -385,16 +385,30 @@
 
                             <!-- Pestaña Mercado Pago -->
                             <div id="content-mp" class="hidden space-y-3 pt-2">
-                                <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                                    <div>
-                                        <span class="text-[9px] font-black uppercase text-blue-400 bg-blue-500/20 px-2 py-0.5 rounded-full">Link de Pago (+8%)</span>
-                                        <p id="txt-sena-mp" class="text-lg font-black text-white italic mt-1">Seña 50%: $0</p>
+                                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700 space-y-3">
+                                    <div class="flex justify-between items-center border-b border-slate-700/60 pb-2">
+                                        <div>
+                                            <span class="text-[9px] font-black uppercase text-blue-400 bg-blue-500/20 px-2.5 py-0.5 rounded-full">Opción 1: Seña para Congelar</span>
+                                            <p id="txt-sena-mp" class="text-lg font-black text-white italic mt-1">Seña 50%: $0</p>
+                                        </div>
                                     </div>
+                                    <button type="button" onclick="pagarMercadoPagoPresupuesto('sena_50')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                                        <span>💳 Pagar Seña 50% con Mercado Pago</span>
+                                    </button>
                                 </div>
 
-                                <button type="button" onclick="pagarMercadoPagoPresupuesto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
-                                    <span>💳 Pagar Seña con Mercado Pago (+8%)</span>
-                                </button>
+                                <div class="bg-slate-900/60 p-4 rounded-2xl border border-amber-500/30 space-y-3">
+                                    <div class="flex justify-between items-center border-b border-slate-700/60 pb-2">
+                                        <div>
+                                            <span class="text-[9px] font-black uppercase text-amber-400 bg-amber-500/20 px-2.5 py-0.5 rounded-full">Opción 2: Pago Total / Cuotas</span>
+                                            <p id="txt-total-mp" class="text-lg font-black text-white italic mt-1">Total 100%: $0</p>
+                                            <p class="text-[9px] text-slate-400 font-medium">Aboná el 100% y financiá en cuotas con tu tarjeta.</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" onclick="pagarMercadoPagoPresupuesto('pago_total')" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition shadow-lg flex items-center justify-center gap-2">
+                                        <span>💳 Pagar Total 100% en Cuotas con Mercado Pago</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -511,7 +525,11 @@
 
             if(document.getElementById("txt-sena-transf")) {
                 document.getElementById("txt-sena-transf").innerText = "Seña 50%: $" + seña.toLocaleString('es-AR');
-                document.getElementById("txt-sena-mp").innerText = `Seña 50% (+${cfg.recargoMP}%): $` + senaMP.toLocaleString('es-AR');
+                document.getElementById("txt-sena-mp").innerText = `Seña 50% (+${cfg.recargoMP}% MP): $` + senaMP.toLocaleString('es-AR');
+            }
+            if(document.getElementById("txt-total-mp")) {
+                const totalMP = Math.round(totalFinal * factorMP);
+                document.getElementById("txt-total-mp").innerText = `Total 100% (+${cfg.recargoMP}% MP): $` + totalMP.toLocaleString('es-AR');
             }
         }
 
@@ -541,7 +559,7 @@
             setTimeout(() => btn.innerText = orig, 2000);
         }
 
-        async function pagarMercadoPagoPresupuesto() {
+        async function pagarMercadoPagoPresupuesto(tipoPago = 'sena_50') {
             const precioTexto = document.getElementById("precio-estimado").innerText;
             const totalNum = parseInt(precioTexto.replace(/[^0-9.-]+/g,"")) || 0;
             if (totalNum <= 0) {
@@ -550,8 +568,13 @@
             }
             const cfg = window.EVENTOS_CONFIG || { recargoMP: 8 };
             const factorMP = 1 + (cfg.recargoMP / 100);
-            const sena50 = Math.round(totalNum / 2);
-            const montoMP = Math.round(sena50 * factorMP);
+
+            const baseMonto = (tipoPago === 'pago_total') ? totalNum : Math.round(totalNum / 2);
+            const montoMP = Math.round(baseMonto * factorMP);
+
+            const conceptoTexto = (tipoPago === 'pago_total')
+                ? "Presupuesto Online (Pago Total 100%) - " + servicioActivo.name
+                : "Presupuesto Online (Seña 50%) - " + servicioActivo.name;
 
             try {
                 const res = await fetch('https://huhigdlbztpqwtfyznya.supabase.co/functions/v1/crear-preferencia-mp', {
@@ -559,6 +582,14 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         cliente_nombre: "Cliente Presupuesto",
+                        cliente_telefono: "",
+                        monto: montoMP,
+                        concepto: conceptoTexto,
+                        tipo_pago: tipoPago,
+                        reserva_id: `RES-${Date.now()}`,
+                        success_url: "https://eventostrespuntocero.com.ar/gracias/"
+                    })
+                });
                         cliente_telefono: "",
                         monto: montoMP,
                         concepto: "Presupuesto Online - " + servicioActivo.name,
