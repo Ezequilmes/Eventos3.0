@@ -208,79 +208,84 @@
                         </div>
                     </div>
 
-                    <!-- BANNER Y BOTÓN DESPLEGABLE DEL ASISTENTE DE CANTIDADES -->
+                    <!-- BANNER Y BOTÓN DESPLEGABLE DE GUÍA DE CANTIDADES -->
                     <div class="mb-10">
                         <button type="button" onclick="toggleSimulador()" class="w-full bg-slate-900 hover:bg-slate-800 text-white p-4 sm:p-5 rounded-2xl shadow-lg border border-red-500/30 flex items-center justify-between transition group cursor-pointer">
-                            <div class="flex items-center gap-3 text-left">
-                                <span class="text-2xl sm:text-3xl bg-red-600/20 p-2.5 rounded-xl border border-red-500/30">🧮</span>
+                            <div class="flex items-center gap-3.5 text-left">
+                                <span class="text-2xl sm:text-3xl bg-red-600/20 p-2.5 rounded-xl border border-red-500/30">🍕</span>
                                 <div>
-                                    <span class="text-[9px] font-black uppercase tracking-widest text-red-400 block leading-tight">Asistente Inteligente</span>
-                                    <h4 class="text-sm sm:text-base font-black italic tracking-tight uppercase group-hover:text-red-400 transition">¿No sabés cuánta comida pedir para tus invitados?</h4>
-                                    <p class="text-[10px] text-slate-400 font-medium">Hacé clic para desplegar la recomendación exacta según el tipo de evento.</p>
+                                    <span class="text-[9px] font-black uppercase tracking-widest text-red-400 block leading-tight">Guía rápida • Sin compromiso</span>
+                                    <h4 class="text-sm sm:text-base font-black italic tracking-tight uppercase group-hover:text-red-400 transition">¿Dudás con las cantidades? Calculá la medida justa</h4>
+                                    <p class="text-[11px] text-slate-300 font-medium mt-0.5">Decinos cuántos invitados son y te sugerimos qué pedir para que nadie se quede con hambre.</p>
                                 </div>
                             </div>
-                            <span id="sim_arrow_icon" class="text-xs font-black bg-white/10 px-3 py-1.5 rounded-xl text-slate-300 ml-2 group-hover:bg-red-600 group-hover:text-white transition whitespace-nowrap">
-                                Abrir ▼
+                            <span id="sim_arrow_icon" class="text-xs font-black bg-white/10 px-3.5 py-2 rounded-xl text-slate-200 ml-2 group-hover:bg-red-600 group-hover:text-white transition whitespace-nowrap">
+                                Calcular ▼
                             </span>
                         </button>
 
-                        <!-- PANEL DESPLEGABLE CON EL CALCULADOR (Inicialmente Oculto `hidden`) -->
+                        <!-- PANEL DESPLEGABLE -->
                         <div id="simulador_panel" class="hidden mt-4 bg-slate-900 text-white p-6 md:p-8 rounded-[2rem] shadow-xl border border-red-600/30 relative overflow-hidden transition-all duration-300">
                             <div class="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-2xl"></div>
 
                             <div class="relative z-10 space-y-6">
                                 <div class="text-center sm:text-left border-b border-white/10 pb-4">
-                                    <span class="text-[9px] font-black uppercase text-red-500 tracking-[0.3em] block mb-1">🧮 Asistente Interactivo de Cantidades</span>
-                                    <h3 class="text-2xl md:text-3xl font-black italic tracking-tight uppercase">Recomendador por Tipo de Evento</h3>
-                                    <p class="text-xs text-slate-400 font-medium mt-1">Ingresá los datos de tu fiesta para calcular la combinación recomendada de finger food, miga, pinchos y perniles.</p>
+                                    <span class="text-[9px] font-black uppercase text-red-500 tracking-[0.25em] block mb-1">Guía de Cantidades Eventos Tres.Cero</span>
+                                    <h3 class="text-2xl md:text-3xl font-black italic tracking-tight uppercase">¿Cuánta comida necesito para mi fiesta?</h3>
+                                    <p class="text-xs text-slate-300 font-medium mt-1">Completá estos 4 datos y te armamos una sugerencia equilibrada según el ritmo de tu evento (sin mostrar precios todavía).</p>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                                     <div>
-                                        <label class="text-[10px] font-black uppercase text-slate-300 block mb-1">Adultos</label>
+                                        <label class="text-[10px] font-black uppercase text-slate-300 block mb-1.5">Adultos</label>
                                         <input type="number" id="sim_adultos" value="20" min="1" max="300" oninput="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-center text-white outline-none focus:border-red-500">
                                     </div>
                                     <div>
-                                        <label class="text-[10px] font-black uppercase text-slate-300 block mb-1">Niños / Chicos</label>
+                                        <label class="text-[10px] font-black uppercase text-slate-300 block mb-1.5">Chicos</label>
                                         <input type="number" id="sim_ninos" value="5" min="0" max="100" oninput="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-center text-white outline-none focus:border-red-500">
                                     </div>
                                     <div>
-                                        <label class="text-[10px] font-black uppercase text-slate-300 block mb-1">Duración Evento</label>
-                                        <select id="sim_duracion" onchange="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-bold text-xs text-white outline-none focus:border-red-500 appearance-none cursor-pointer text-center">
-                                            <option value="2">2 Horas (Cóctel Rápido)</option>
-                                            <option value="4" selected>4 Horas (Fiesta Estándar)</option>
-                                            <option value="6">6+ Horas (Evento Largo)</option>
+                                        <label class="text-[10px] font-black uppercase text-slate-300 block mb-1.5">Duración aprox.</label>
+                                        <select id="sim_duracion" onchange="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-bold text-xs text-white outline-none focus:border-red-500 cursor-pointer text-center">
+                                            <option value="2">2 hs (Reunión corta / Brindis)</option>
+                                            <option value="4" selected>4 hs (Cumpleaños / Fiesta típica)</option>
+                                            <option value="6">6+ hs (Evento largo / Toda la noche)</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="text-[10px] font-black uppercase text-slate-300 block mb-1">Estilo de Evento</label>
-                                        <select id="sim_estilo" onchange="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-bold text-xs text-white outline-none focus:border-red-500 appearance-none cursor-pointer text-center">
-                                            <option value="informal">Informal / Finger Food</option>
-                                            <option value="cumple" selected>Cumpleaños / Fiesta (+ Miga & Pinchos)</option>
-                                            <option value="formal">Cena / Evento Formal (+ Tablas & Platos)</option>
+                                        <label class="text-[10px] font-black uppercase text-slate-300 block mb-1.5">Onda del evento</label>
+                                        <select id="sim_estilo" onchange="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-bold text-xs text-white outline-none focus:border-red-500 cursor-pointer text-center">
+                                            <option value="informal">Picada / Previa relajada</option>
+                                            <option value="cumple" selected>Cumpleaños / Juntada completa</option>
+                                            <option value="formal">Gran Festejo / Bien abundante</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <!-- RESULTADO DE LA RECOMENDACIÓN -->
-                                <div class="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-3">
-                                    <div class="flex justify-between items-center border-b border-white/10 pb-2">
-                                        <span class="text-xs font-black uppercase italic text-red-400">💡 Menú Sugerido Recomendado:</span>
-                                        <span id="sim_pax_total_txt" class="text-[10px] font-bold text-slate-400 uppercase">~23 Personas Equivalentes</span>
+                                <!-- RESULTADO EXPLICATIVO -->
+                                <div class="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-4">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 border-b border-white/10 pb-3">
+                                        <span class="text-xs font-black uppercase italic text-red-400">💡 Nuestra sugerencia para tus invitados:</span>
+                                        <span id="sim_pax_total_txt" class="text-[11px] font-bold text-slate-300">Calculado para ~23 invitados</span>
                                     </div>
 
-                                    <div id="sim_lista_recomendada" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold text-slate-200">
+                                    <!-- Explicación dinámica del criterio -->
+                                    <p id="sim_explicacion_txt" class="text-xs text-slate-300 leading-relaxed bg-slate-800/70 p-3.5 rounded-xl border border-white/5">
+                                        <!-- Se completa dinámicamente -->
+                                    </p>
+
+                                    <div id="sim_lista_recomendada" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-200">
                                         <!-- Se completa dinámicamente -->
                                     </div>
                                 </div>
 
                                 <!-- BOTONES DE ACCIÓN -->
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                                    <button type="button" onclick="aplicarSimulacionAlCombo()" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-3.5 px-4 rounded-xl uppercase text-xs shadow-lg transition flex items-center justify-center gap-2 text-center">
-                                        <span>✨ Cargar Recomendación en mi Combo</span>
+                                    <button type="button" onclick="aplicarSimulacionAlCombo()" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-3.5 px-4 rounded-xl uppercase text-xs shadow-lg transition flex items-center justify-center gap-2 text-center cursor-pointer">
+                                        <span>👇 Pasar estas cantidades a mi combo</span>
                                     </button>
-                                    <button type="button" onclick="enviarSimulacionWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 px-4 rounded-xl uppercase text-xs shadow-lg transition flex items-center justify-center gap-2 text-center">
-                                        <span>💬 Pedir Presupuesto por WhatsApp</span>
+                                    <button type="button" onclick="enviarSimulacionWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 px-4 rounded-xl uppercase text-xs shadow-lg transition flex items-center justify-center gap-2 text-center cursor-pointer">
+                                        <span>💬 Consultar disponibilidad por WhatsApp</span>
                                     </button>
                                 </div>
                             </div>
@@ -669,7 +674,7 @@
                 simularCantidades();
             } else {
                 panel.classList.add("hidden");
-                if (arrow) arrow.innerText = "Abrir ▼";
+                if (arrow) arrow.innerText = "Calcular ▼";
             }
         }
 
@@ -695,43 +700,45 @@
             let pernilTipo = 0;
             let pernilNombre = 'Sin Pernil';
             let platoCalienteRecomendado = 'none';
+            let explicacion = '';
 
             if (estilo === 'informal') {
-                // Solo Finger Food
                 fingerTotal = Math.ceil((paxEquiv * 5 * multDuracion) / 10) * 10;
+                explicacion = `Para una <strong>picada relajada de ${duracion} hs</strong>, calculamos entre <strong>6 y 8 bocados salados por invitado</strong> para que puedan picar cómodos de parado sin quedar pesados.`;
                 if (paxEquiv >= 20) {
                     pernilTipo = (paxEquiv > 25) ? 105000 : 85000;
-                    pernilNombre = (paxEquiv > 25) ? 'Pernil MEDIANO (100 figazas)' : 'Pernil CHICO (50 figazas)';
+                    pernilNombre = (paxEquiv > 25) ? 'Pernil MEDIANO (rinde 100 figazas)' : 'Pernil CHICO (rinde 50 figazas)';
+                    explicacion += ` Sumamos un pernil para que cada invitado arme 2 o 3 figazas calientes.`;
                 }
             } else if (estilo === 'cumple') {
-                // Finger Food + Sándwiches de Miga + Pinchos
                 migaTotal = Math.ceil((paxEquiv * 3 * multDuracion) / 6) * 6;
                 fingerTotal = Math.ceil((paxEquiv * 3.5 * multDuracion) / 10) * 10;
                 pinchosTotal = Math.ceil((paxEquiv * 1 * multDuracion) / 10) * 10;
+                explicacion = `Para un <strong>cumpleaños o juntada completa de ${duracion} hs</strong>, combinamos sándwiches de miga frescos para arrancar, finger food caliente en el medio y un plato fuerte para que nadie se quede con hambre.`;
                 if (paxEquiv >= 15) {
                     if (paxEquiv > 25) {
                         pernilTipo = 145000;
-                        pernilNombre = 'Pernil GRANDE (150 figazas)';
+                        pernilNombre = 'Pernil GRANDE (rinde 150 figazas)';
                     } else {
                         pernilTipo = 105000;
-                        pernilNombre = 'Pernil MEDIANO (100 figazas)';
+                        pernilNombre = 'Pernil MEDIANO (rinde 100 figazas)';
                     }
                 }
             } else if (estilo === 'formal') {
-                // Cena Formal: Mayor abundancia (+15%), Tablas + Miga + Finger Food + Pinchos + Pernil + Platos Calientes
                 const multFormal = multDuracion * 1.15;
                 tablaPaxTotal = Math.ceil(paxEquiv / 10) * 10;
                 migaTotal = Math.ceil((paxEquiv * 3.5 * multFormal) / 6) * 6;
                 fingerTotal = Math.ceil((paxEquiv * 4 * multFormal) / 10) * 10;
                 pinchosTotal = Math.ceil((paxEquiv * 1.5 * multFormal) / 10) * 10;
                 platoCalienteRecomendado = "Pollo a la crema con papas dore";
+                explicacion = `Para un <strong>gran festejo de ${duracion} hs</strong>, armamos una propuesta en etapas: recepción con tabla de fiambres y bocados fríos/calientes, refuerzo de pernil fileteado y plato principal para cerrar la noche bien arriba.`;
 
                 if (paxEquiv > 25) {
                     pernilTipo = 145000;
-                    pernilNombre = 'Pernil GRANDE (150 figazas)';
+                    pernilNombre = 'Pernil GRANDE (rinde 150 figazas)';
                 } else if (paxEquiv >= 10) {
                     pernilTipo = 105000;
-                    pernilNombre = 'Pernil MEDIANO (100 figazas)';
+                    pernilNombre = 'Pernil MEDIANO (rinde 100 figazas)';
                 }
             }
 
@@ -754,29 +761,60 @@
             };
 
             const paxTxtEl = document.getElementById("sim_pax_total_txt");
-            if (paxTxtEl) paxTxtEl.innerText = `~${Math.round(paxEquiv)} Personas Equivalentes`;
+            if (paxTxtEl) paxTxtEl.innerText = `Medida justa para ~${Math.round(paxEquiv)} invitados`;
+
+            const expEl = document.getElementById("sim_explicacion_txt");
+            if (expEl) expEl.innerHTML = explicacion;
 
             let html = '';
             if (tablaPaxTotal > 0) {
-                html += `<div class="flex items-center gap-2"><span>🧀 Tabla de Fiambres:</span> <strong class="text-white">Para ${tablaPaxTotal} personas</strong></div>`;
+                html += `
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+                    <div class="font-black text-white">🧀 Tabla de Fiambres: Para ${tablaPaxTotal} pers.</div>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Ideal para la recepción apenas llegan los invitados.</p>
+                </div>`;
             }
             if (migaTotal > 0) {
-                html += `<div class="flex items-center gap-2"><span>🥪 Sándwiches de Miga:</span> <strong class="text-white">${migaTotal} unidades</strong></div>`;
+                html += `
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+                    <div class="font-black text-white">🥪 Sándwiches de Miga: ${migaTotal} unidades</div>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Calculados a razón de ~3 triples por persona.</p>
+                </div>`;
             }
             if (pizzetasTotal > 0) {
-                html += `<div class="flex items-center gap-2"><span>🍕 Pizzetas Muzzarella:</span> <strong class="text-white">${pizzetasTotal} unidades</strong></div>`;
+                html += `
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+                    <div class="font-black text-white">🍕 Pizzetas Muzzarella: ${pizzetasTotal} unidades</div>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Se calientan en 5 min y rinden súper bien en bandejeo.</p>
+                </div>`;
             }
             if (empanadasTotal > 0) {
-                html += `<div class="flex items-center gap-2"><span>🥟 Empanadas de Carne/Pollo:</span> <strong class="text-white">${empanadasTotal} unidades</strong></div>`;
+                html += `
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+                    <div class="font-black text-white">🥟 Empanadas Carne/Pollo: ${empanadasTotal} unidades</div>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Mitad carne, mitad pollo (podés cambiar los gustos abajo).</p>
+                </div>`;
             }
             if (pinchosTotal > 0) {
-                html += `<div class="flex items-center gap-2"><span>🍡 Pinchos Caprese:</span> <strong class="text-white">${pinchosTotal} u. (${pinchosTotal/10} packs)</strong></div>`;
+                html += `
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+                    <div class="font-black text-white">🍡 Pinchos Caprese: ${pinchosTotal} u. (${pinchosTotal/10} packs)</div>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Aportan frescura y variedad entre los bocados calientes.</p>
+                </div>`;
             }
             if (platoCalienteRecomendado !== 'none') {
-                html += `<div class="flex items-center gap-2"><span>🍽️ Plato Caliente Sugerido:</span> <strong class="text-white">${platoCalienteRecomendado}</strong></div>`;
+                html += `
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-white/5">
+                    <div class="font-black text-white">🍽️ Plato Caliente: ${platoCalienteRecomendado}</div>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Refuerzo principal para eventos largos o formales.</p>
+                </div>`;
             }
             if (pernilTipo > 0) {
-                html += `<div class="flex items-center gap-2 sm:col-span-2 border-t border-white/10 pt-2 text-red-400"><span>🍖 Pernil Recomendado:</span> <strong>${pernilNombre}</strong></div>`;
+                html += `
+                <div class="bg-red-950/40 p-3 rounded-xl border border-red-500/30 sm:col-span-2">
+                    <div class="font-black text-red-400">🍖 Estrella de la Fiesta: ${pernilNombre}</div>
+                    <p class="text-[11px] text-slate-300 mt-0.5">Incluye panes figaza frescos y 3 salsas artesanales. Rinde entre 2 y 4 sándwiches por invitado según el tamaño.</p>
+                </div>`;
             }
 
             const listaEl = document.getElementById("sim_lista_recomendada");
