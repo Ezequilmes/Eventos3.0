@@ -196,7 +196,7 @@
             <div class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden">
                 <div class="p-6 md:p-12">
 
-                    <!-- 1. DATOS BÁSICOS (Fecha y Localidad) -->
+                                    <!-- 1. DATOS BÁSICOS (Fecha y Localidad) -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 border-b border-slate-100 pb-10">
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">Fecha planeada *</label>
@@ -205,6 +205,68 @@
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">Localidad / Barrio del evento *</label>
                             <input type="text" id="ev_localidad" placeholder="Ej: Bernal, Quilmes, CABA" oninput="validarCampos()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold focus:border-red-600 outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- SIMULADOR Y CALCULADORA INTELIGENTE DE CANTIDADES -->
+                    <div class="mb-12 bg-slate-900 text-white p-6 md:p-8 rounded-[2rem] shadow-xl border border-red-600/30 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10 space-y-6">
+                            <div class="text-center sm:text-left border-b border-white/10 pb-4">
+                                <span class="text-[9px] font-black uppercase text-red-500 tracking-[0.3em] block mb-1">🧮 Asistente Interactivo de Cantidades</span>
+                                <h3 class="text-2xl md:text-3xl font-black italic tracking-tight uppercase">¿No sabés cuánta comida pedir?</h3>
+                                <p class="text-xs text-slate-400 font-medium mt-1">Ingresá los datos de tu evento y calculamos la recomendación ideal exacta.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase text-slate-300 block mb-1">Adultos</label>
+                                    <input type="number" id="sim_adultos" value="20" min="1" max="300" oninput="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-center text-white outline-none focus:border-red-500">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-black uppercase text-slate-300 block mb-1">Niños / Chicos</label>
+                                    <input type="number" id="sim_ninos" value="5" min="0" max="100" oninput="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-black text-center text-white outline-none focus:border-red-500">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-black uppercase text-slate-300 block mb-1">Duración Evento</label>
+                                    <select id="sim_duracion" onchange="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-bold text-xs text-white outline-none focus:border-red-500 appearance-none cursor-pointer text-center">
+                                        <option value="2">2 Horas (Cóctel Rápido)</option>
+                                        <option value="4" selected>4 Horas (Fiesta Estándar)</option>
+                                        <option value="6">6+ Horas (Evento Largo)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-black uppercase text-slate-300 block mb-1">Estilo de Evento</label>
+                                    <select id="sim_estilo" onchange="simularCantidades()" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl font-bold text-xs text-white outline-none focus:border-red-500 appearance-none cursor-pointer text-center">
+                                        <option value="informal" selected>Informal / Finger Food</option>
+                                        <option value="cumple">Cumpleaños / Fiesta</option>
+                                        <option value="formal">Cena / Evento Formal</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- RESULTADO DE LA RECOMENDACIÓN -->
+                            <div class="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                                    <span class="text-xs font-black uppercase italic text-red-400">💡 Menú Sugerido Recomendado:</span>
+                                    <span id="sim_pax_total_txt" class="text-[10px] font-bold text-slate-400 uppercase">~23 Personas Equivalentes</span>
+                                </div>
+
+                                <div id="sim_lista_recomendada" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold text-slate-200">
+                                    <!-- Se completa dinámicamente -->
+                                </div>
+                            </div>
+
+                            <!-- BOTONES DE ACCIÓN -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                                <button type="button" onclick="aplicarSimulacionAlCombo()" class="w-full bg-red-600 hover:bg-red-700 text-white font-black py-3.5 px-4 rounded-xl uppercase text-xs shadow-lg transition flex items-center justify-center gap-2 text-center">
+                                    <span>✨ Cargar Recomendación en mi Combo</span>
+                                </button>
+                                <button type="button" onclick="enviarSimulacionWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3.5 px-4 rounded-xl uppercase text-xs shadow-lg transition flex items-center justify-center gap-2 text-center">
+                                    <span>💬 Pedir Presupuesto por WhatsApp</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -568,6 +630,140 @@
 
     <script src="../js/precios-override.js?v=2"></script>
     <script>
+        let recomendacionActual = {
+            miga: 0,
+            pizzetas: 0,
+            empanadas: 0,
+            pernilTipo: 0,
+            pernilNombre: 'Ninguno',
+            pinchos: 0,
+            tablaPax: 0
+        };
+
+        function simularCantidades() {
+            const adultosEl = document.getElementById("sim_adultos");
+            if (!adultosEl) return;
+            const adultos = parseInt(adultosEl.value) || 0;
+            const ninos = parseInt(document.getElementById("sim_ninos").value) || 0;
+            const duracion = parseInt(document.getElementById("sim_duracion").value) || 4;
+            const estilo = document.getElementById("sim_estilo").value;
+
+            const paxEquiv = adultos + (ninos * 0.6);
+            if (paxEquiv <= 0) return;
+
+            let multDuracion = 1;
+            if (duracion === 2) multDuracion = 0.85;
+            if (duracion === 6) multDuracion = 1.25;
+
+            let multEstilo = 1;
+            if (estilo === 'formal') multEstilo = 1.15;
+
+            const factorFinal = multDuracion * multEstilo;
+
+            const migaRaw = Math.ceil(paxEquiv * 3 * factorFinal);
+            const migaTotal = Math.ceil(migaRaw / 6) * 6;
+
+            const fingerTotal = Math.ceil(paxEquiv * 4 * factorFinal);
+            const pizzetasTotal = Math.ceil((fingerTotal / 2) / 10) * 10;
+            const empanadasTotal = Math.ceil((fingerTotal / 2) / 10) * 10;
+
+            const pinchosTotal = Math.ceil((paxEquiv * 1 * factorFinal) / 10) * 10;
+
+            let pernilTipo = 0;
+            let pernilNombre = 'Sin Pernil';
+            if (paxEquiv > 25) {
+                pernilTipo = 145000;
+                pernilNombre = 'Pernil GRANDE (150 figazas)';
+            } else if (paxEquiv > 15) {
+                pernilTipo = 105000;
+                pernilNombre = 'Pernil MEDIANO (100 figazas)';
+            } else if (paxEquiv >= 10) {
+                pernilTipo = 85000;
+                pernilNombre = 'Pernil CHICO (50 figazas)';
+            }
+
+            const tablaPax = Math.ceil(paxEquiv / 10) * 10;
+
+            recomendacionActual = {
+                miga: migaTotal,
+                pizzetas: pizzetasTotal,
+                empanadas: empanadasTotal,
+                pernilTipo: pernilTipo,
+                pernilNombre: pernilNombre,
+                pinchos: pinchosTotal,
+                tablaPax: tablaPax,
+                adultos: adultos,
+                ninos: ninos,
+                duracion: duracion
+            };
+
+            const paxTxtEl = document.getElementById("sim_pax_total_txt");
+            if (paxTxtEl) paxTxtEl.innerText = `~${Math.round(paxEquiv)} Personas Equivalentes`;
+
+            let html = `
+                <div class="flex items-center gap-2"><span>🥪 Sándwiches de Miga:</span> <strong class="text-white">${migaTotal} unidades</strong></div>
+                <div class="flex items-center gap-2"><span>🍕 Pizzetas Muzzarella:</span> <strong class="text-white">${pizzetasTotal} unidades</strong></div>
+                <div class="flex items-center gap-2"><span>🥟 Empanadas de Carne/Pollo:</span> <strong class="text-white">${empanadasTotal} unidades</strong></div>
+                <div class="flex items-center gap-2"><span>🍡 Pinchos Caprese (x10):</span> <strong class="text-white">${pinchosTotal} unidades (${pinchosTotal/10} packs)</strong></div>
+                <div class="flex items-center gap-2 sm:col-span-2 border-t border-white/10 pt-2 text-red-400"><span>🍖 Pernil Recomendado:</span> <strong>${pernilNombre}</strong></div>
+            `;
+
+            const listaEl = document.getElementById("sim_lista_recomendada");
+            if (listaEl) listaEl.innerHTML = html;
+        }
+
+        function aplicarSimulacionAlCombo() {
+            if (recomendacionActual.miga <= 0) simularCantidades();
+
+            const elMiga = document.getElementById("sp_miga_unid");
+            if (elMiga) elMiga.value = recomendacionActual.miga;
+
+            const elPiz = document.getElementById("sp_pizzetas");
+            if (elPiz) elPiz.value = recomendacionActual.pizzetas;
+
+            const elCarne = document.getElementById("sp_emp_carne");
+            if (elCarne) elCarne.value = Math.round(recomendacionActual.empanadas / 2);
+
+            const elPollo = document.getElementById("sp_emp_pollo");
+            if (elPollo) elPollo.value = Math.round(recomendacionActual.empanadas / 2);
+
+            const elPinchos = document.getElementById("sp_pinchos_caprese");
+            if (elPinchos) elPinchos.value = recomendacionActual.pinchos;
+
+            const selectPernil = document.getElementById("sp_pernil_tipo");
+            if (selectPernil && recomendacionActual.pernilTipo > 0) {
+                selectPernil.value = recomendacionActual.pernilTipo;
+            }
+
+            calcular();
+
+            const ticket = document.getElementById("txtTotal");
+            if (ticket) {
+                ticket.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function enviarSimulacionWhatsApp() {
+            if (recomendacionActual.miga <= 0) simularCantidades();
+
+            const adultos = document.getElementById("sim_adultos").value;
+            const ninos = document.getElementById("sim_ninos").value;
+            const duracion = document.getElementById("sim_duracion").value;
+
+            const msg = "¡Hola *Eventos Tres.Cero*! 👋 Realicé el cálculo en el *Simulador Inteligente* de la web:\n\n" +
+                      "👥 *Invitados:* " + adultos + " Adultos, " + ninos + " Niños\n" +
+                      "⏱️ *Duración:* " + duracion + " horas\n\n" +
+                      "📋 *Recomendación de Comida:*\n" +
+                      "- Sándwiches de Miga: " + recomendacionActual.miga + " u.\n" +
+                      "- Pizzetas con Muzzarella: " + recomendacionActual.pizzetas + " u.\n" +
+                      "- Empanadas: " + recomendacionActual.empanadas + " u.\n" +
+                      "- Pinchos Caprese: " + recomendacionActual.pinchos + " u.\n" +
+                      "- Pernil Sugerido: " + recomendacionActual.pernilNombre + "\n\n" +
+                      "Por favor enviame la cotización formal en PDF para esta cantidad. ¡Muchas gracias!";
+
+            gtag_report_conversion("https://wa.me/5491132664036?text=" + encodeURIComponent(msg));
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             // Autocorrección de múltiplos al perder el foco (blur)
             document.querySelectorAll("input[step]").forEach(input => {
@@ -576,6 +772,7 @@
                 });
             });
 
+            simularCantidades();
             calcular();
         });
 
